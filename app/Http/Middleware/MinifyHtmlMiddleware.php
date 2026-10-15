@@ -174,3 +174,4 @@ class MinifyHtmlMiddleware
         return trim($html);
     }
 }
+

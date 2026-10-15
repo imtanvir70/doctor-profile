@@ -65,6 +65,11 @@ class FrontendTest extends TestCase
         $response = $this->get('/chambers');
         $response->assertStatus(200);
         $response->assertSee('Dhanmondi');
+        $response->assertSee('Fee: BDT 1,200');
+
+        $bnResponse = $this->withSession(['locale' => 'bn'])->get('/chambers');
+        $bnResponse->assertStatus(200);
+        $bnResponse->assertSee('ভিজিট ফি: BDT 1,200');
     }
 
     public function test_expertise_page_loads_successfully()

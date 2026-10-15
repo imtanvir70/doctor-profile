@@ -39,7 +39,7 @@
               </div>
               <div>
                 <h2 class="fs-6 fw-bold text-dark mb-1">{{ ($locale ?? app()->getLocale()) === 'bn' ? 'কোনো অগ্রিম ফি নেই' : 'Zero Upfront Payment Required' }}</h2>
-                <p class="text-muted small mb-0">{{ ($locale ?? app()->getLocale()) === 'bn' ? 'পরামর্শ ফি চেম্বারে উপস্থিত হয়ে রিসেপশনে জমা দেবেন।' : 'Consultation fee (BDT 1,200) is paid on-site at the chamber reception counter upon arrival.' }}</p>
+                <p class="text-muted small mb-0">{{ ($locale ?? app()->getLocale()) === 'bn' ? 'পরামর্শ ফি (' . ($profile->consultation_fee ?? 'BDT 1,200') . ') চেম্বারে উপস্থিত হয়ে রিসেপশনে জমা দেবেন।' : 'Consultation fee (' . ($profile->consultation_fee ?? 'BDT 1,200') . ') is paid on-site at the chamber reception counter upon arrival.' }}</p>
               </div>
             </div>
 
@@ -111,7 +111,7 @@
                   <select class="form-select" id="selectedChamber" name="chamber" required>
                     @foreach($chambers as $ch)
                       <option value="{{ $ch->slug }}" {{ old('chamber') == $ch->slug ? 'selected' : '' }}>
-                        {{ ($locale ?? app()->getLocale()) === 'bn' ? $ch->name_bn : $ch->name_en }} ({{ ($locale ?? app()->getLocale()) === 'bn' ? $ch->visiting_days_bn : $ch->visiting_days_en }})
+                        {{ ($locale ?? app()->getLocale()) === 'bn' ? $ch->name_bn : $ch->name_en }} ({{ ($locale ?? app()->getLocale()) === 'bn' ? $ch->visiting_days_bn : $ch->visiting_days_en }} — {{ ($locale ?? app()->getLocale()) === 'bn' ? 'ফি: ' . ($ch->fee ?? $profile->consultation_fee) : 'Fee: ' . ($ch->fee ?? $profile->consultation_fee) }})
                       </option>
                     @endforeach
                   </select>

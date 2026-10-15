@@ -15,5 +15,10 @@ class Chamber extends Model
     {
         return $this->hasMany(Serial::class);
     }
+
+    public function getConsultationFeeAttribute()
+    {
+        return $this->fee;
+    }
 }
 

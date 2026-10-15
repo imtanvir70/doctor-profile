@@ -33,11 +33,14 @@
                   <span class="badge {{ $index === 0 ? 'bg-primary text-white' : 'bg-secondary-subtle text-dark' }} px-3 py-2 rounded-pill fw-semibold">
                     {{ ($locale ?? app()->getLocale()) === 'bn' ? ($index === 0 ? 'প্রধান চেম্বার' : 'সান্ধ্যকালীন চেম্বার') : ($index === 0 ? 'Primary Center' : 'Evening Center') }}
                   </span>
-                  <div class="fs-5 fw-bold text-primary">{{ ($locale ?? app()->getLocale()) === 'bn' ? 'ভিজিট ফি: ' . $ch->consultation_fee : 'Fee: ' . $ch->consultation_fee }}</div>
+                  <div class="fs-5 fw-bold text-primary">
+                    <i class="bi bi-cash-stack me-1"></i>
+                    <span>{{ ($locale ?? app()->getLocale()) === 'bn' ? 'ভিজিট ফি: ' . ($ch->fee ?: ($ch->consultation_fee ?: ($profile->consultation_fee ?: 'BDT 1,200'))) : 'Fee: ' . ($ch->fee ?: ($ch->consultation_fee ?: ($profile->consultation_fee ?: 'BDT 1,200'))) }}</span>
+                  </div>
                 </div>
 
                 <h2 class="fs-4 fw-bold mb-1 brand-font">{{ ($locale ?? app()->getLocale()) === 'bn' ? $ch->name_bn : $ch->name_en }}</h2>
-                <p class="text-muted small mb-3"><i class="bi bi-geo-alt-fill text-danger me-1"></i> <span>{{ ($locale ?? app()->getLocale()) === 'bn' ? $ch->address_bn : $ch->address_en }} ({{ ($locale ?? app()->getLocale()) === 'bn' ? 'রুম: ' . $ch->room_number : 'Room: ' . $ch->room_number }})</span></p>
+                <p class="text-muted small mb-3"><i class="bi bi-geo-alt-fill text-danger me-1"></i> <span>{{ ($locale ?? app()->getLocale()) === 'bn' ? $ch->address_bn : $ch->address_en }}</span></p>
 
                 <div class="chamber-schedule-grid">
                   <div class="row g-2">
