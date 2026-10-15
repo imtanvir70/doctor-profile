@@ -76,12 +76,31 @@
                               </div>
 
                               <div class="mb-3">
-                                <label class="form-label small fw-semibold">YouTube Video ID <span class="text-danger">*</span></label>
+                                <label class="form-label small fw-semibold d-flex align-items-center justify-content-between">
+                                  <span>YouTube Video Link or ID <span class="text-danger">*</span></span>
+                                  <span class="badge bg-light text-primary border" style="font-size: 0.68rem;">Full Link or ID Supported</span>
+                                </label>
                                 <div class="input-group input-group-sm">
-                                  <span class="input-group-text bg-light text-muted">youtube.com/watch?v=</span>
-                                  <input type="text" name="youtube_id" class="form-control" value="{{ $vid->youtube_id }}" required>
+                                  <span class="input-group-text bg-danger text-white"><i class="bi bi-youtube"></i></span>
+                                  <input type="text" name="youtube_id" class="form-control js-yt-input" data-preview-id="edit_preview_{{ $vid->id }}" value="{{ $vid->youtube_id }}" placeholder="Paste YouTube link or 11-char ID" required>
                                 </div>
-                                <div class="form-text small" style="font-size: 0.72rem;">11-character YouTube video code (e.g. ScMzIvxBSi4).</div>
+                                <div class="form-text small" style="font-size: 0.72rem;">Paste either the full link (watch?v=..., youtu.be/..., shorts/...) or the 11-char ID.</div>
+
+                                {{-- Live Preview Box --}}
+                                <div class="mt-2 p-2 rounded-3 border bg-light d-flex align-items-center gap-3" id="edit_preview_{{ $vid->id }}_box">
+                                  <div class="position-relative" style="width: 110px; height: 68px; border-radius: 8px; overflow: hidden; background: #0f172a; flex-shrink: 0; border: 1px solid #cbd5e1;">
+                                    <img id="edit_preview_{{ $vid->id }}_img" src="{{ $vid->thumbnail ?? 'https://img.youtube.com/vi/' . $vid->youtube_id . '/hqdefault.jpg' }}" alt="Preview" class="w-100 h-100 object-fit-cover">
+                                    <span class="position-absolute top-50 start-50 translate-middle text-danger fs-5"><i class="bi bi-play-circle-fill"></i></span>
+                                  </div>
+                                  <div class="min-w-0">
+                                    <div class="d-flex align-items-center gap-1 mb-1">
+                                      <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                        <i class="bi bi-check2-circle me-1"></i><span id="edit_preview_{{ $vid->id }}_badge">ID: {{ $vid->youtube_id }}</span>
+                                      </span>
+                                    </div>
+                                    <div class="text-muted text-truncate" style="font-size: 0.75rem;">Live thumbnail preview active</div>
+                                  </div>
+                                </div>
                               </div>
 
                               <div class="row g-2 mb-3">
@@ -168,12 +187,31 @@
             </div>
 
             <div class="mb-3">
-              <label class="form-label small fw-semibold">YouTube Video ID <span class="text-danger">*</span></label>
+              <label class="form-label small fw-semibold d-flex align-items-center justify-content-between">
+                <span>YouTube Video Link or ID <span class="text-danger">*</span></span>
+                <span class="badge bg-light text-primary border" style="font-size: 0.68rem;">Full Link or ID Supported</span>
+              </label>
               <div class="input-group input-group-sm">
-                <span class="input-group-text bg-light text-muted">youtube.com/watch?v=</span>
-                <input type="text" name="youtube_id" class="form-control" placeholder="ScMzIvxBSi4" required>
+                <span class="input-group-text bg-danger text-white"><i class="bi bi-youtube"></i></span>
+                <input type="text" name="youtube_id" id="add_youtube_id" class="form-control js-yt-input" data-preview-id="add_preview" placeholder="Paste link (https://www.youtube.com/watch?v=...) or ID" required>
               </div>
-              <div class="form-text small" style="font-size: 0.72rem;">Enter the 11-character YouTube video ID.</div>
+              <div class="form-text small" style="font-size: 0.72rem;">Paste either the full link (watch?v=..., youtu.be/..., shorts/...) or the 11-char ID.</div>
+
+              {{-- Instant Live Preview Box --}}
+              <div class="mt-2 p-2 rounded-3 border bg-light align-items-center gap-3 d-none" id="add_preview_box">
+                <div class="position-relative" style="width: 110px; height: 68px; border-radius: 8px; overflow: hidden; background: #0f172a; flex-shrink: 0; border: 1px solid #cbd5e1;">
+                  <img id="add_preview_img" src="" alt="Preview" class="w-100 h-100 object-fit-cover">
+                  <span class="position-absolute top-50 start-50 translate-middle text-danger fs-5"><i class="bi bi-play-circle-fill"></i></span>
+                </div>
+                <div class="min-w-0">
+                  <div class="d-flex align-items-center gap-1 mb-1">
+                    <span class="badge bg-success-subtle text-success border border-success-subtle">
+                      <i class="bi bi-check2-circle me-1"></i><span id="add_preview_badge"></span>
+                    </span>
+                  </div>
+                  <div class="text-muted text-truncate" style="font-size: 0.75rem;">Live thumbnail preview ready</div>
+                </div>
+              </div>
             </div>
 
             <div class="row g-2 mb-3">
@@ -225,5 +263,53 @@
       </div>
     </div>
   </div>
+@endsection
+
+@section('scripts')
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    function extractYouTubeId(url) {
+      if (!url) return '';
+      url = url.trim();
+      var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|shorts\/)([^#&?]*).*/;
+      var match = url.match(regExp);
+      if (match && match[2].length === 11) {
+        return match[2];
+      }
+      var clean = url.replace(/[^a-zA-Z0-9_-]/g, '');
+      return clean.length >= 11 ? clean.substring(0, 11) : clean;
+    }
+
+    function updatePreview(input) {
+      var target = input.getAttribute('data-preview-id');
+      if (!target) return;
+      var box = document.getElementById(target + '_box');
+      var img = document.getElementById(target + '_img');
+      var badge = document.getElementById(target + '_badge');
+      if (!box || !img) return;
+
+      var ytId = extractYouTubeId(input.value);
+      if (ytId && ytId.length === 11) {
+        img.src = 'https://img.youtube.com/vi/' + ytId + '/hqdefault.jpg';
+        if (badge) badge.textContent = 'Valid ID: ' + ytId;
+        box.classList.remove('d-none');
+        box.classList.add('d-flex');
+      } else {
+        if (target === 'add_preview') {
+          box.classList.add('d-none');
+          box.classList.remove('d-flex');
+        }
+      }
+    }
+
+    document.querySelectorAll('.js-yt-input').forEach(function(inp) {
+      inp.addEventListener('input', function() { updatePreview(inp); });
+      inp.addEventListener('paste', function() { setTimeout(function() { updatePreview(inp); }, 50); });
+      if (inp.value) {
+        updatePreview(inp);
+      }
+    });
+  });
+</script>
 @endsection
 

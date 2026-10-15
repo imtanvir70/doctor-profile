@@ -326,7 +326,7 @@ class AdminTest extends TestCase
         $response = $this->actingAs($this->adminUser)->put("/admin/videos/{$video->id}", [
             'title_en' => 'Updated Video Title EN',
             'title_bn' => 'আপডেট করা ভিডিও শিরোনাম',
-            'youtube_id' => 'ScMzIvxBSi4',
+            'youtube_id' => 'https://www.youtube.com/watch?v=ScMzIvxBSi4',
             'category' => 'diabetes',
             'duration' => '10:00',
             'description_en' => 'Updated English description.',
@@ -338,6 +338,8 @@ class AdminTest extends TestCase
         $response->assertSessionHas('success');
         $video->refresh();
         $this->assertEquals('Updated Video Title EN', $video->title_en);
+        $this->assertEquals('ScMzIvxBSi4', $video->youtube_id);
+        $this->assertStringContainsString('ScMzIvxBSi4', $video->thumbnail);
     }
 
     public function test_faq_update_operation()

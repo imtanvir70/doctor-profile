@@ -399,12 +399,15 @@
       <div class="col-lg-4">
         {{-- Profile Avatar Card --}}
         <div class="card border-0 shadow-sm rounded-4 mb-4 text-center p-4">
-          <div class="mb-3 mx-auto" style="width: 140px; height: 140px; border-radius: 20px; overflow: hidden; border: 3px solid #e2e8f0;">
-            <img src="{{ $profile->avatar ?? 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&crop=top&w=900&q=85' }}" alt="Doctor Avatar" class="w-100 h-100 object-fit-cover">
+          <div class="position-relative mb-3 mx-auto" style="width: 150px; height: 150px; border-radius: 20px; overflow: hidden; border: 3px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+            <img id="doctor_avatar_preview" src="{{ $profile->avatar ?? 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&crop=top&w=900&q=85' }}" alt="Doctor Avatar" class="w-100 h-100 object-fit-cover">
+            <span id="avatar_new_badge" class="badge bg-success position-absolute bottom-0 start-50 translate-middle-x mb-1 shadow-sm d-none" style="font-size: 0.7rem;">
+              <i class="bi bi-check-circle me-1"></i>New Selected
+            </span>
           </div>
           <label for="avatar_file" class="form-label small fw-semibold">Upload New Profile Photo</label>
           <input type="file" class="form-control form-control-sm mb-2" id="avatar_file" name="avatar_file" accept="image/*">
-          <div class="small text-muted" style="font-size: 0.75rem;">Square aspect ratio recommended (Max 4MB).</div>
+          <div id="avatar_file_info" class="small text-muted" style="font-size: 0.75rem;">Square aspect ratio recommended (Max 4MB).</div>
         </div>
 
         {{-- Hotlines & Contacts --}}
@@ -532,6 +535,37 @@
         btn.classList.add('btn-success');
       });
     });
+
+    // Live Doctor Avatar Photo Preview
+    var avatarInput = document.getElementById('avatar_file');
+    var avatarPreview = document.getElementById('doctor_avatar_preview');
+    var avatarBadge = document.getElementById('avatar_new_badge');
+    var avatarInfo = document.getElementById('avatar_file_info');
+
+    if (avatarInput && avatarPreview) {
+      avatarInput.addEventListener('change', function(e) {
+        var file = e.target.files && e.target.files[0];
+        if (file) {
+          if (!file.type.startsWith('image/')) {
+            alert('Please select an image file (JPG, PNG, WebP).');
+            return;
+          }
+          if (file.size > 4 * 1024 * 1024) {
+            alert('Image size exceeds 4MB. Please select a smaller photo.');
+            return;
+          }
+          var reader = new FileReader();
+          reader.onload = function(evt) {
+            avatarPreview.src = evt.target.result;
+            if (avatarBadge) avatarBadge.classList.remove('d-none');
+            if (avatarInfo) {
+              avatarInfo.innerHTML = '<span class="text-success fw-semibold"><i class="bi bi-check2-circle me-1"></i>' + file.name + ' (' + (file.size / 1024).toFixed(1) + ' KB)</span>';
+            }
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
   });
 </script>
 @endsection
