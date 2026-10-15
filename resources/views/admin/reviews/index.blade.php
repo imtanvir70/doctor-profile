@@ -41,23 +41,105 @@
                 <form action="{{ route('admin.reviews.toggle', $rev->id) }}" method="POST">
                   @csrf
                   @if($rev->is_approved)
-                    <button type="submit" class="btn btn-sm btn-outline-success py-0 px-2 fw-semibold" title="Click to unapprove">
+                    <button type="submit" class="btn btn-sm btn-outline-success py-1 px-2 fw-semibold" title="Click to unapprove">
                       <i class="bi bi-check-circle-fill me-1"></i> Approved (Live)
                     </button>
                   @else
-                    <button type="submit" class="btn btn-sm btn-outline-warning py-0 px-2 fw-semibold" title="Click to approve">
+                    <button type="submit" class="btn btn-sm btn-outline-warning py-1 px-2 fw-semibold" title="Click to approve">
                       <i class="bi bi-hourglass-split me-1"></i> Pending Approval
                     </button>
                   @endif
                 </form>
 
-                <form action="{{ route('admin.reviews.destroy', $rev->id) }}" method="POST" onsubmit="return confirm('Delete this review?');">
-                  @csrf
-                  @method('DELETE')
-                  <button type="submit" class="btn btn-sm btn-outline-danger py-0 px-2">
-                    <i class="bi bi-trash"></i>
+                <div class="d-flex align-items-center gap-1">
+                  <button type="button" class="btn btn-sm btn-outline-primary py-1 px-2" data-bs-toggle="modal" data-bs-target="#editReviewModal{{ $rev->id }}" title="Edit Testimonial">
+                    <i class="bi bi-pencil-square me-1"></i> Edit
                   </button>
-                </form>
+                  <form action="{{ route('admin.reviews.destroy', $rev->id) }}" method="POST" onsubmit="return confirm('Delete this review?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-outline-danger py-1 px-2" title="Delete">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </form>
+                </div>
+              </div>
+
+              {{-- Edit Review Modal --}}
+              <div class="modal fade text-start" id="editReviewModal{{ $rev->id }}" tabindex="-1" aria-labelledby="editReviewLabel{{ $rev->id }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                  <div class="modal-content rounded-4 border-0 shadow">
+                    <form action="{{ route('admin.reviews.update', $rev->id) }}" method="POST">
+                      @csrf
+                      @method('PUT')
+                      <div class="modal-header bg-light py-3 px-4 border-bottom">
+                        <h5 class="modal-title fs-6 fw-bold text-dark" id="editReviewLabel{{ $rev->id }}">
+                          <i class="bi bi-pencil-square text-primary me-2"></i>Edit Patient Testimonial
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body p-4">
+                        <div class="mb-3">
+                          <label class="form-label small fw-semibold">Patient Name <span class="text-danger">*</span></label>
+                          <input type="text" name="patient_name" class="form-control form-control-sm" value="{{ $rev->patient_name }}" required>
+                        </div>
+
+                        <div class="row g-2 mb-3">
+                          <div class="col-6">
+                            <label class="form-label small fw-semibold">Disease & Area (EN) <span class="text-danger">*</span></label>
+                            <input type="text" name="location_tag_en" class="form-control form-control-sm" value="{{ $rev->location_tag_en }}" required>
+                          </div>
+                          <div class="col-6">
+                            <label class="form-label small fw-semibold">Disease & Area (বাংলা) <span class="text-danger">*</span></label>
+                            <input type="text" name="location_tag_bn" class="form-control form-control-sm" value="{{ $rev->location_tag_bn }}" required>
+                          </div>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label small fw-semibold">Star Rating (1-5) <span class="text-danger">*</span></label>
+                          <select name="rating" class="form-select form-select-sm" required>
+                            <option value="5" {{ ($rev->rating ?? 5) == 5 ? 'selected' : '' }}>5 Stars (★★★★★)</option>
+                            <option value="4" {{ ($rev->rating ?? 5) == 4 ? 'selected' : '' }}>4 Stars (★★★★)</option>
+                            <option value="3" {{ ($rev->rating ?? 5) == 3 ? 'selected' : '' }}>3 Stars (★★★)</option>
+                            <option value="2" {{ ($rev->rating ?? 5) == 2 ? 'selected' : '' }}>2 Stars (★★)</option>
+                            <option value="1" {{ ($rev->rating ?? 5) == 1 ? 'selected' : '' }}>1 Star (★)</option>
+                          </select>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label small fw-semibold">Testimonial Review (English) <span class="text-danger">*</span></label>
+                          <textarea name="review_text_en" class="form-control form-control-sm" rows="3" required>{{ $rev->review_text_en }}</textarea>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label small fw-semibold">Testimonial Review (বাংলা) <span class="text-danger">*</span></label>
+                          <textarea name="review_text_bn" class="form-control form-control-sm" rows="3" required>{{ $rev->review_text_bn }}</textarea>
+                        </div>
+
+                        <div class="row g-3">
+                          <div class="col-6">
+                            <div class="form-check form-switch">
+                              <input class="form-check-input" type="checkbox" id="rev_featured_{{ $rev->id }}" name="is_featured" value="1" {{ $rev->is_featured ? 'checked' : '' }}>
+                              <label class="form-check-label small fw-semibold" for="rev_featured_{{ $rev->id }}">Featured Story</label>
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <div class="form-check form-switch">
+                              <input class="form-check-input" type="checkbox" id="rev_approved_{{ $rev->id }}" name="is_approved" value="1" {{ $rev->is_approved ? 'checked' : '' }}>
+                              <label class="form-check-label small fw-semibold" for="rev_approved_{{ $rev->id }}">Approved & Live on Website</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer bg-light py-2 px-4 border-top">
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-sm btn-primary fw-bold">
+                          <i class="bi bi-check2-circle me-1"></i> Save Changes
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
               </div>
             </div>
           @empty

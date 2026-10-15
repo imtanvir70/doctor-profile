@@ -37,6 +37,30 @@ class AdminReviewController extends Controller
         return back()->with('success', 'Testimonial added successfully!');
     }
 
+    public function update(Request $request, $id)
+    {
+        $review = Review::findOrFail($id);
+        $validated = $request->validate([
+            'patient_name' => 'required|string|max:150',
+            'location_tag_en' => 'required|string|max:150',
+            'location_tag_bn' => 'required|string|max:150',
+            'rating' => 'required|integer|min:1|max:5',
+            'review_text_en' => 'required|string',
+            'review_text_bn' => 'required|string',
+        ]);
+
+        $initials = collect(explode(' ', $validated['patient_name']))
+            ->map(fn($w) => strtoupper(substr($w, 0, 1)))
+            ->take(2)
+            ->join('');
+        $validated['patient_initials'] = $initials ?: 'PT';
+        $validated['is_approved'] = $request->has('is_approved');
+        $validated['is_featured'] = $request->has('is_featured');
+
+        $review->update($validated);
+        return back()->with('success', 'Testimonial updated successfully!');
+    }
+
     public function toggleApproval($id)
     {
         $review = Review::findOrFail($id);

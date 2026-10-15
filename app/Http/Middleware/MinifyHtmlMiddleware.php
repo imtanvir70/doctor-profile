@@ -116,6 +116,17 @@ class MinifyHtmlMiddleware
                         continue;
                     }
 
+                    // Remove single-line comments
+                    if (str_starts_with($trimmed, '//')) {
+                        continue;
+                    }
+
+                    // Remove trailing inline comments if not part of a URL
+                    if (!str_contains($trimmed, '://') && str_contains($trimmed, '//')) {
+                        $trimmed = preg_replace('/\/\/.*$/', '', $trimmed);
+                        $trimmed = trim($trimmed);
+                    }
+
                     // Remove inline block comments
                     $trimmed = preg_replace('/\/\*.*?\*\//s', '', $trimmed);
                     $trimmed = trim($trimmed);

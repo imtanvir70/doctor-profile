@@ -27,7 +27,10 @@
                     <div class="fw-semibold text-dark mb-1">বাংলা প্রশ্ন: {{ $fq->question_bn }}</div>
                     <div class="mb-2"><strong>Answer (EN):</strong> {{ $fq->answer_en }}</div>
                     <div class="mb-3"><strong>উত্তর (BN):</strong> {{ $fq->answer_bn }}</div>
-                    <div class="d-flex justify-content-end">
+                    <div class="d-flex justify-content-end gap-2">
+                      <button type="button" class="btn btn-sm btn-outline-primary py-1 px-2" data-bs-toggle="modal" data-bs-target="#editFaqModal{{ $fq->id }}">
+                        <i class="bi bi-pencil-square me-1"></i> Edit
+                      </button>
                       <form action="{{ route('admin.faqs.destroy', $fq->id) }}" method="POST" onsubmit="return confirm('Delete this FAQ?');">
                         @csrf
                         @method('DELETE')
@@ -35,6 +38,64 @@
                           <i class="bi bi-trash me-1"></i> Delete
                         </button>
                       </form>
+                    </div>
+
+                    {{-- Edit FAQ Modal --}}
+                    <div class="modal fade text-start" id="editFaqModal{{ $fq->id }}" tabindex="-1" aria-labelledby="editFaqLabel{{ $fq->id }}" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content rounded-4 border-0 shadow">
+                          <form action="{{ route('admin.faqs.update', $fq->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <div class="modal-header bg-light py-3 px-4 border-bottom">
+                              <h5 class="modal-title fs-6 fw-bold text-dark" id="editFaqLabel{{ $fq->id }}">
+                                <i class="bi bi-pencil-square text-primary me-2"></i>Edit FAQ Item
+                              </h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body p-4">
+                              <div class="mb-3">
+                                <label class="form-label small fw-semibold">Question (English) <span class="text-danger">*</span></label>
+                                <input type="text" name="question_en" class="form-control form-control-sm" value="{{ $fq->question_en }}" required>
+                              </div>
+
+                              <div class="mb-3">
+                                <label class="form-label small fw-semibold">Question (বাংলা) <span class="text-danger">*</span></label>
+                                <input type="text" name="question_bn" class="form-control form-control-sm" value="{{ $fq->question_bn }}" required>
+                              </div>
+
+                              <div class="mb-3">
+                                <label class="form-label small fw-semibold">Answer (English) <span class="text-danger">*</span></label>
+                                <textarea name="answer_en" class="form-control form-control-sm" rows="3" required>{{ $fq->answer_en }}</textarea>
+                              </div>
+
+                              <div class="mb-3">
+                                <label class="form-label small fw-semibold">Answer (বাংলা) <span class="text-danger">*</span></label>
+                                <textarea name="answer_bn" class="form-control form-control-sm" rows="3" required>{{ $fq->answer_bn }}</textarea>
+                              </div>
+
+                              <div class="row g-2 align-items-center">
+                                <div class="col-6">
+                                  <label class="form-label small fw-semibold">Display Order</label>
+                                  <input type="number" name="display_order" class="form-control form-control-sm" value="{{ $fq->display_order }}" min="1">
+                                </div>
+                                <div class="col-6 pt-3">
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="faq_active_{{ $fq->id }}" name="is_active" value="1" {{ $fq->is_active ? 'checked' : '' }}>
+                                    <label class="form-check-label small fw-semibold" for="faq_active_{{ $fq->id }}">Active / Visible</label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="modal-footer bg-light py-2 px-4 border-top">
+                              <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                              <button type="submit" class="btn btn-sm btn-primary fw-bold">
+                                <i class="bi bi-check2-circle me-1"></i> Save Changes
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

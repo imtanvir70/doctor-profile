@@ -317,5 +317,68 @@ class AdminTest extends TestCase
         $deleteResponse->assertRedirect(route('admin.specialties.index'));
         $this->assertNull(\App\Models\Specialty::find($specialty->id));
     }
+
+    public function test_video_guide_update_operation()
+    {
+        $video = \App\Models\Video::first();
+        $this->assertNotNull($video);
+
+        $response = $this->actingAs($this->adminUser)->put("/admin/videos/{$video->id}", [
+            'title_en' => 'Updated Video Title EN',
+            'title_bn' => 'আপডেট করা ভিডিও শিরোনাম',
+            'youtube_id' => 'ScMzIvxBSi4',
+            'category' => 'diabetes',
+            'duration' => '10:00',
+            'description_en' => 'Updated English description.',
+            'description_bn' => 'আপডেট করা বাংলা বর্ণনা।',
+            'display_order' => 2,
+            'is_active' => '1',
+        ]);
+
+        $response->assertSessionHas('success');
+        $video->refresh();
+        $this->assertEquals('Updated Video Title EN', $video->title_en);
+    }
+
+    public function test_faq_update_operation()
+    {
+        $faq = \App\Models\Faq::first();
+        $this->assertNotNull($faq);
+
+        $response = $this->actingAs($this->adminUser)->put("/admin/faqs/{$faq->id}", [
+            'question_en' => 'Updated FAQ Question EN',
+            'question_bn' => 'আপডেট করা এফএকিউ প্রশ্ন',
+            'answer_en' => 'Updated answer EN text.',
+            'answer_bn' => 'আপডেট করা বাংলা উত্তর।',
+            'display_order' => 3,
+            'is_active' => '1',
+        ]);
+
+        $response->assertSessionHas('success');
+        $faq->refresh();
+        $this->assertEquals('Updated FAQ Question EN', $faq->question_en);
+    }
+
+    public function test_review_update_operation()
+    {
+        $review = \App\Models\Review::first();
+        $this->assertNotNull($review);
+
+        $response = $this->actingAs($this->adminUser)->put("/admin/reviews/{$review->id}", [
+            'patient_name' => 'Dr. Farhana Updated',
+            'location_tag_en' => 'Endocrinology Care • Gulshan',
+            'location_tag_bn' => 'এন্ডোক্রিনোলজি সেবা • গুলশান',
+            'rating' => 5,
+            'review_text_en' => 'Outstanding medical expertise.',
+            'review_text_bn' => 'অসাধারণ চিকিৎসা সেবা।',
+            'is_approved' => '1',
+            'is_featured' => '1',
+        ]);
+
+        $response->assertSessionHas('success');
+        $review->refresh();
+        $this->assertEquals('Dr. Farhana Updated', $review->patient_name);
+        $this->assertEquals('Endocrinology Care • Gulshan', $review->location_tag_en);
+    }
 }
 

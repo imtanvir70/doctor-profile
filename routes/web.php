@@ -133,6 +133,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // 9. Reviews / Testimonials
         Route::get('/reviews', [AdminReviewController::class, 'index'])->name('reviews.index');
         Route::post('/reviews', [AdminReviewController::class, 'store'])->name('reviews.store');
+        Route::put('/reviews/{id}', [AdminReviewController::class, 'update'])->name('reviews.update');
         Route::post('/reviews/{id}/toggle', [AdminReviewController::class, 'toggleApproval'])->name('reviews.toggle');
         Route::delete('/reviews/{id}', [AdminReviewController::class, 'destroy'])->name('reviews.destroy');
 
