@@ -323,10 +323,11 @@ class AdminTest extends TestCase
         $video = \App\Models\Video::first();
         $this->assertNotNull($video);
 
+        // Test full URL with playlist query parameter
         $response = $this->actingAs($this->adminUser)->put("/admin/videos/{$video->id}", [
             'title_en' => 'Updated Video Title EN',
             'title_bn' => 'আপডেট করা ভিডিও শিরোনাম',
-            'youtube_id' => 'https://www.youtube.com/watch?v=ScMzIvxBSi4',
+            'youtube_id' => 'https://www.youtube.com/watch?v=nFgsBxw-zWQ&list=RDGMEMCMFH2exzjBeE_zAHHJOdxgVMnFgsBxw-zWQ',
             'category' => 'diabetes',
             'duration' => '10:00',
             'description_en' => 'Updated English description.',
@@ -338,8 +339,24 @@ class AdminTest extends TestCase
         $response->assertSessionHas('success');
         $video->refresh();
         $this->assertEquals('Updated Video Title EN', $video->title_en);
-        $this->assertEquals('ScMzIvxBSi4', $video->youtube_id);
-        $this->assertStringContainsString('ScMzIvxBSi4', $video->thumbnail);
+        $this->assertEquals('nFgsBxw-zWQ', $video->youtube_id);
+        $this->assertEquals('https://img.youtube.com/vi/nFgsBxw-zWQ/hqdefault.jpg', $video->thumbnail);
+
+        // Test short URL (https://youtu.be/nFgsBxw-zWQ)
+        $shortResponse = $this->actingAs($this->adminUser)->put("/admin/videos/{$video->id}", [
+            'title_en' => 'Updated Video Short URL',
+            'title_bn' => 'শর্ট লিংক ভিডিও',
+            'youtube_id' => 'https://youtu.be/nFgsBxw-zWQ',
+            'category' => 'diabetes',
+            'duration' => '8:30',
+            'description_en' => 'Short link description.',
+            'description_bn' => 'শর্ট লিংক বর্ণনা।',
+            'display_order' => 2,
+            'is_active' => '1',
+        ]);
+        $shortResponse->assertSessionHas('success');
+        $video->refresh();
+        $this->assertEquals('nFgsBxw-zWQ', $video->youtube_id);
     }
 
     public function test_faq_update_operation()

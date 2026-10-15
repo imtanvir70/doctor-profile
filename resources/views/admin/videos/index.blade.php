@@ -77,14 +77,14 @@
 
                               <div class="mb-3">
                                 <label class="form-label small fw-semibold d-flex align-items-center justify-content-between">
-                                  <span>YouTube Video Link or ID <span class="text-danger">*</span></span>
-                                  <span class="badge bg-light text-primary border" style="font-size: 0.68rem;">Full Link or ID Supported</span>
+                                  <span>YouTube Video Link (ভিডিওর লিংক) <span class="text-danger">*</span></span>
+                                  <span class="badge bg-light text-primary border" style="font-size: 0.68rem;">Full Link Support</span>
                                 </label>
                                 <div class="input-group input-group-sm">
                                   <span class="input-group-text bg-danger text-white"><i class="bi bi-youtube"></i></span>
-                                  <input type="text" name="youtube_id" class="form-control js-yt-input" data-preview-id="edit_preview_{{ $vid->id }}" value="{{ $vid->youtube_id }}" placeholder="Paste YouTube link or 11-char ID" required>
+                                  <input type="text" name="youtube_id" class="form-control js-yt-input" data-preview-id="edit_preview_{{ $vid->id }}" value="{{ str_starts_with($vid->youtube_id, 'http') ? $vid->youtube_id : 'https://www.youtube.com/watch?v=' . $vid->youtube_id }}" placeholder="https://www.youtube.com/watch?v=... অথবা https://youtu.be/..." required>
                                 </div>
-                                <div class="form-text small" style="font-size: 0.72rem;">Paste either the full link (watch?v=..., youtu.be/..., shorts/...) or the 11-char ID.</div>
+                                <div class="form-text small" style="font-size: 0.72rem;">ইউটিউবের ফুল লিংক (watch?v=... বা প্লেলিস্ট লিংক) অথবা শর্ট লিংক (youtu.be/...) দিন।</div>
 
                                 {{-- Live Preview Box --}}
                                 <div class="mt-2 p-2 rounded-3 border bg-light d-flex align-items-center gap-3" id="edit_preview_{{ $vid->id }}_box">
@@ -98,7 +98,9 @@
                                         <i class="bi bi-check2-circle me-1"></i><span id="edit_preview_{{ $vid->id }}_badge">ID: {{ $vid->youtube_id }}</span>
                                       </span>
                                     </div>
-                                    <div class="text-muted text-truncate" style="font-size: 0.75rem;">Live thumbnail preview active</div>
+                                    <a id="edit_preview_{{ $vid->id }}_link" href="https://www.youtube.com/watch?v={{ $vid->youtube_id }}" target="_blank" class="btn btn-sm btn-outline-danger py-0 px-2 d-inline-flex align-items-center gap-1" style="font-size: 0.72rem;">
+                                      <i class="bi bi-box-arrow-up-right"></i>ইউটিউবে দেখুন
+                                    </a>
                                   </div>
                                 </div>
                               </div>
@@ -188,14 +190,14 @@
 
             <div class="mb-3">
               <label class="form-label small fw-semibold d-flex align-items-center justify-content-between">
-                <span>YouTube Video Link or ID <span class="text-danger">*</span></span>
-                <span class="badge bg-light text-primary border" style="font-size: 0.68rem;">Full Link or ID Supported</span>
+                <span>YouTube Video Link (ভিডিওর লিংক) <span class="text-danger">*</span></span>
+                <span class="badge bg-light text-primary border" style="font-size: 0.68rem;">Full Link Support</span>
               </label>
               <div class="input-group input-group-sm">
                 <span class="input-group-text bg-danger text-white"><i class="bi bi-youtube"></i></span>
-                <input type="text" name="youtube_id" id="add_youtube_id" class="form-control js-yt-input" data-preview-id="add_preview" placeholder="Paste link (https://www.youtube.com/watch?v=...) or ID" required>
+                <input type="text" name="youtube_id" id="add_youtube_id" class="form-control js-yt-input" data-preview-id="add_preview" placeholder="https://www.youtube.com/watch?v=... অথবা https://youtu.be/..." required>
               </div>
-              <div class="form-text small" style="font-size: 0.72rem;">Paste either the full link (watch?v=..., youtu.be/..., shorts/...) or the 11-char ID.</div>
+              <div class="form-text small" style="font-size: 0.72rem;">ইউটিউবের ফুল লিংক (watch?v=... বা প্লেলিস্ট লিংক) অথবা শর্ট লিংক (youtu.be/...) দিন।</div>
 
               {{-- Instant Live Preview Box --}}
               <div class="mt-2 p-2 rounded-3 border bg-light align-items-center gap-3 d-none" id="add_preview_box">
@@ -209,7 +211,9 @@
                       <i class="bi bi-check2-circle me-1"></i><span id="add_preview_badge"></span>
                     </span>
                   </div>
-                  <div class="text-muted text-truncate" style="font-size: 0.75rem;">Live thumbnail preview ready</div>
+                  <a id="add_preview_link" href="#" target="_blank" class="btn btn-sm btn-outline-danger py-0 px-2 d-inline-flex align-items-center gap-1" style="font-size: 0.72rem;">
+                    <i class="bi bi-box-arrow-up-right"></i>ইউটিউবে দেখুন
+                  </a>
                 </div>
               </div>
             </div>
@@ -271,13 +275,38 @@
     function extractYouTubeId(url) {
       if (!url) return '';
       url = url.trim();
-      var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|shorts\/)([^#&?]*).*/;
+
+      try {
+        if (url.indexOf('http://') === 0 || url.indexOf('https://') === 0 || url.indexOf('youtube.com') !== -1 || url.indexOf('youtu.be') !== -1) {
+          var dummy = url.indexOf('http') === 0 ? url : ('https://' + url);
+          var parsed = new URL(dummy);
+          if (parsed.searchParams && parsed.searchParams.has('v')) {
+            var v = parsed.searchParams.get('v');
+            if (v && v.length === 11) return v;
+          }
+          if (parsed.hostname && parsed.hostname.indexOf('youtu.be') !== -1) {
+            var shortPath = parsed.pathname.replace(/^\/+/, '').split('/')[0].split('?')[0];
+            if (shortPath && shortPath.length === 11) return shortPath;
+          }
+          if (parsed.pathname && parsed.pathname.indexOf('/shorts/') !== -1) {
+            var shortsPath = parsed.pathname.split('/shorts/')[1].split('/')[0].split('?')[0];
+            if (shortsPath && shortsPath.length === 11) return shortsPath;
+          }
+          if (parsed.pathname && parsed.pathname.indexOf('/embed/') !== -1) {
+            var embedPath = parsed.pathname.split('/embed/')[1].split('/')[0].split('?')[0];
+            if (embedPath && embedPath.length === 11) return embedPath;
+          }
+        }
+      } catch (e) {}
+
+      var regExp = /(?:youtu\.be\/|youtube\.com\/(?:watch\?.*v=|embed\/|shorts\/|v\/))([a-zA-Z0-9_-]{11})/i;
       var match = url.match(regExp);
-      if (match && match[2].length === 11) {
-        return match[2];
+      if (match && match[1]) {
+        return match[1];
       }
+
       var clean = url.replace(/[^a-zA-Z0-9_-]/g, '');
-      return clean.length >= 11 ? clean.substring(0, 11) : clean;
+      return clean.length === 11 ? clean : '';
     }
 
     function updatePreview(input) {
@@ -286,12 +315,16 @@
       var box = document.getElementById(target + '_box');
       var img = document.getElementById(target + '_img');
       var badge = document.getElementById(target + '_badge');
+      var link = document.getElementById(target + '_link');
       if (!box || !img) return;
 
       var ytId = extractYouTubeId(input.value);
       if (ytId && ytId.length === 11) {
         img.src = 'https://img.youtube.com/vi/' + ytId + '/hqdefault.jpg';
-        if (badge) badge.textContent = 'Valid ID: ' + ytId;
+        if (badge) badge.textContent = 'ID: ' + ytId;
+        if (link) {
+          link.href = 'https://www.youtube.com/watch?v=' + ytId;
+        }
         box.classList.remove('d-none');
         box.classList.add('d-flex');
       } else {

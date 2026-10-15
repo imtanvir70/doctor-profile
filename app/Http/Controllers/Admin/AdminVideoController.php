@@ -18,18 +18,41 @@ class AdminVideoController extends Controller
     {
         $input = trim($input);
 
-        // Match all standard YouTube URL patterns:
-        // - https://www.youtube.com/watch?v=ScMzIvxBSi4
-        // - https://m.youtube.com/watch?v=ScMzIvxBSi4&t=10s
-        // - https://youtu.be/ScMzIvxBSi4?si=xyz
-        // - https://www.youtube.com/shorts/ScMzIvxBSi4
-        // - https://www.youtube.com/embed/ScMzIvxBSi4
-        // - youtube.com/watch?v=ScMzIvxBSi4
+        // 1. Check standard URL query parameter ?v=VIDEO_ID (e.g. watch?v=nFgsBxw-zWQ&list=...)
+        $parsed = parse_url($input);
+        if (isset($parsed['query'])) {
+            parse_str($parsed['query'], $query);
+            if (!empty($query['v']) && is_string($query['v'])) {
+                $v = preg_replace('/[^a-zA-Z0-9_-]/', '', $query['v']);
+                if (strlen($v) >= 11) {
+                    return substr($v, 0, 11);
+                }
+            }
+        }
+
+        // 2. Check youtu.be/VIDEO_ID (e.g. https://youtu.be/nFgsBxw-zWQ)
+        if (isset($parsed['host']) && str_contains($parsed['host'], 'youtu.be')) {
+            $path = trim($parsed['path'] ?? '', '/');
+            $segments = explode('/', $path);
+            if (!empty($segments[0])) {
+                $v = preg_replace('/[^a-zA-Z0-9_-]/', '', $segments[0]);
+                if (strlen($v) >= 11) {
+                    return substr($v, 0, 11);
+                }
+            }
+        }
+
+        // 3. Check /shorts/VIDEO_ID or /embed/VIDEO_ID
+        if (isset($parsed['path']) && preg_match('#/(?:shorts|embed|v)/([a-zA-Z0-9_-]{11})#i', $parsed['path'], $match)) {
+            return $match[1];
+        }
+
+        // 4. Regex fallback
         if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=|shorts/)|youtu\.be/)([^"&?/\s]{11})%i', $input, $match)) {
             return $match[1];
         }
 
-        // If it's already an 11-char ID (alphanumeric, dashes, underscores)
+        // 5. If user still just typed the 11-char ID
         $cleaned = preg_replace('/[^a-zA-Z0-9_-]/', '', $input);
         if (strlen($cleaned) >= 11) {
             return substr($cleaned, 0, 11);
