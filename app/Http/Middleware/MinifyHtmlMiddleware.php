@@ -93,49 +93,7 @@ class MinifyHtmlMiddleware
                     $minifiedScript = trim($scriptContent);
                 }
             } else {
-                // For JavaScript: remove block comments, trim lines, remove blank lines
-                // We keep linebreaks between lines to ensure single-line (//) comments NEVER break following code!
-                $lines = explode("\n", $scriptContent);
-                $cleanedLines = [];
-                $inBlockComment = false;
-
-                foreach ($lines as $line) {
-                    $trimmed = trim($line);
-
-                    if ($inBlockComment) {
-                        if (str_contains($trimmed, '*/')) {
-                            $inBlockComment = false;
-                            $trimmed = trim(substr($trimmed, strpos($trimmed, '*/') + 2));
-                        } else {
-                            continue;
-                        }
-                    }
-
-                    if (str_starts_with($trimmed, '/*') && !str_contains($trimmed, '*/')) {
-                        $inBlockComment = true;
-                        continue;
-                    }
-
-                    // Remove single-line comments
-                    if (str_starts_with($trimmed, '//')) {
-                        continue;
-                    }
-
-                    // Remove trailing inline comments if not part of a URL
-                    if (!str_contains($trimmed, '://') && str_contains($trimmed, '//')) {
-                        $trimmed = preg_replace('/\/\/.*$/', '', $trimmed);
-                        $trimmed = trim($trimmed);
-                    }
-
-                    // Remove inline block comments
-                    $trimmed = preg_replace('/\/\*.*?\*\//s', '', $trimmed);
-                    $trimmed = trim($trimmed);
-
-                    if ($trimmed !== '') {
-                        $cleanedLines[] = $trimmed;
-                    }
-                }
-                $minifiedScript = implode("\n", $cleanedLines);
+                $minifiedScript = $this->minifyJs($scriptContent);
             }
 
             $key = "###PRESERVE_SCRIPT_{$counter}###";
@@ -186,5 +144,257 @@ class MinifyHtmlMiddleware
 
         return trim($html);
     }
+
+    /**
+     * Safely minify inline JavaScript by isolating string literals and regexes,
+     * stripping comments, normalizing whitespace, and joining statements compactly.
+     */
+    protected function minifyJs(string $js): string
+    {
+        $js = trim($js);
+        if ($js === '') {
+            return '';
+        }
+
+        $length = strlen($js);
+        $i = 0;
+
+        $inSingleQuote = false;
+        $inDoubleQuote = false;
+        $inTemplateLiteral = false;
+        $inBlockComment = false;
+        $inLineComment = false;
+
+        $tokens = [];
+        $currentToken = '';
+
+        while ($i < $length) {
+            $char = $js[$i];
+            $next = ($i + 1 < $length) ? $js[$i + 1] : '';
+
+            // Handle block comments
+            if ($inBlockComment) {
+                if ($char === '*' && $next === '/') {
+                    $inBlockComment = false;
+                    $i += 2;
+                } else {
+                    $i++;
+                }
+                continue;
+            }
+
+            // Handle line comments
+            if ($inLineComment) {
+                if ($char === "\n" || $char === "\r") {
+                    $inLineComment = false;
+                    $currentToken .= "\n";
+                }
+                $i++;
+                continue;
+            }
+
+            // Handle single-quoted strings
+            if ($inSingleQuote) {
+                $currentToken .= $char;
+                if ($char === '\\') {
+                    if ($next !== '') {
+                        $currentToken .= $next;
+                        $i += 2;
+                        continue;
+                    }
+                } elseif ($char === "'") {
+                    $inSingleQuote = false;
+                    $tokens[] = ['type' => 'string', 'value' => $currentToken];
+                    $currentToken = '';
+                }
+                $i++;
+                continue;
+            }
+
+            // Handle double-quoted strings
+            if ($inDoubleQuote) {
+                $currentToken .= $char;
+                if ($char === '\\') {
+                    if ($next !== '') {
+                        $currentToken .= $next;
+                        $i += 2;
+                        continue;
+                    }
+                } elseif ($char === '"') {
+                    $inDoubleQuote = false;
+                    $tokens[] = ['type' => 'string', 'value' => $currentToken];
+                    $currentToken = '';
+                }
+                $i++;
+                continue;
+            }
+
+            // Handle template literals (backticks)
+            if ($inTemplateLiteral) {
+                $currentToken .= $char;
+                if ($char === '\\') {
+                    if ($next !== '') {
+                        $currentToken .= $next;
+                        $i += 2;
+                        continue;
+                    }
+                } elseif ($char === '`') {
+                    $inTemplateLiteral = false;
+                    $tokens[] = ['type' => 'string', 'value' => $currentToken];
+                    $currentToken = '';
+                }
+                $i++;
+                continue;
+            }
+
+            // Check if comment starts
+            if ($char === '/' && $next === '*') {
+                $inBlockComment = true;
+                $i += 2;
+                continue;
+            }
+            if ($char === '/' && $next === '/') {
+                $inLineComment = true;
+                $i += 2;
+                continue;
+            }
+
+            // Check if string starts
+            if ($char === "'") {
+                if ($currentToken !== '') {
+                    $tokens[] = ['type' => 'code', 'value' => $currentToken];
+                    $currentToken = '';
+                }
+                $inSingleQuote = true;
+                $currentToken = "'";
+                $i++;
+                continue;
+            }
+            if ($char === '"') {
+                if ($currentToken !== '') {
+                    $tokens[] = ['type' => 'code', 'value' => $currentToken];
+                    $currentToken = '';
+                }
+                $inDoubleQuote = true;
+                $currentToken = '"';
+                $i++;
+                continue;
+            }
+            if ($char === '`') {
+                if ($currentToken !== '') {
+                    $tokens[] = ['type' => 'code', 'value' => $currentToken];
+                    $currentToken = '';
+                }
+                $inTemplateLiteral = true;
+                $currentToken = '`';
+                $i++;
+                continue;
+            }
+
+            // Check if regex literal starts
+            if ($char === '/') {
+                $prevCode = trim($currentToken);
+                $isRegex = false;
+                if ($prevCode === '') {
+                    $lastToken = end($tokens);
+                    if (!$lastToken || $lastToken['type'] === 'code') {
+                        $lastChar = $lastToken ? substr(trim($lastToken['value']), -1) : '(';
+                        if (in_array($lastChar, ['(', '[', '{', ',', ';', ':', '=', '!', '&', '|', '?', '+', '-', '*', '%', '<', '>'], true)) {
+                            $isRegex = true;
+                        }
+                    }
+                } else {
+                    $lastChar = substr($prevCode, -1);
+                    if (in_array($lastChar, ['(', '[', '{', ',', ';', ':', '=', '!', '&', '|', '?', '+', '-', '*', '%', '<', '>'], true)) {
+                        $isRegex = true;
+                    }
+                }
+
+                if ($isRegex) {
+                    if ($currentToken !== '') {
+                        $tokens[] = ['type' => 'code', 'value' => $currentToken];
+                        $currentToken = '';
+                    }
+                    $regexStr = '/';
+                    $i++;
+                    $escaped = false;
+                    while ($i < $length) {
+                        $rChar = $js[$i];
+                        $regexStr .= $rChar;
+                        if ($escaped) {
+                            $escaped = false;
+                        } elseif ($rChar === '\\') {
+                            $escaped = true;
+                        } elseif ($rChar === '/' && !$escaped) {
+                            $i++;
+                            while ($i < $length && ctype_alpha($js[$i])) {
+                                $regexStr .= $js[$i];
+                                $i++;
+                            }
+                            break;
+                        }
+                        $i++;
+                    }
+                    $tokens[] = ['type' => 'regex', 'value' => $regexStr];
+                    continue;
+                }
+            }
+
+            $currentToken .= $char;
+            $i++;
+        }
+
+        if ($currentToken !== '') {
+            $tokens[] = ['type' => 'code', 'value' => $currentToken];
+        }
+
+        // Minify code tokens ONLY, keeping strings and regexes 100% verbatim
+        $result = '';
+        foreach ($tokens as $token) {
+            if ($token['type'] === 'string' || $token['type'] === 'regex') {
+                $result .= $token['value'];
+            } else {
+                $code = $token['value'];
+
+                $lines = explode("\n", str_replace(["\r\n", "\r"], "\n", $code));
+                $cleanLines = [];
+                foreach ($lines as $line) {
+                    $t = trim($line);
+                    if ($t === '') {
+                        continue;
+                    }
+                    $cleanLines[] = $t;
+                }
+
+                $joined = '';
+                $count = count($cleanLines);
+                for ($k = 0; $k < $count; $k++) {
+                    $curr = $cleanLines[$k];
+                    $lastChar = substr($curr, -1);
+                    $nextFirst = ($k + 1 < $count) ? $cleanLines[$k + 1][0] : '';
+
+                    $needsSemicolon = false;
+                    if ($k + 1 < $count) {
+                        if (!in_array($lastChar, [';', '{', '}', '(', '[', ',', ':', '?', '=', '+', '-', '*', '/', '%', '&', '|', '!', '<', '>'], true)) {
+                            if (!in_array($nextFirst, ['{', '}', ')', ']', ',', ';', ':', '?', '.', '+', '-', '*', '/', '%', '&', '|'], true)) {
+                                $needsSemicolon = true;
+                            }
+                        }
+                    }
+
+                    $joined .= $curr . ($needsSemicolon ? ';' : '');
+                }
+
+                $joined = preg_replace('/\s*([{}();,:?=&|<>!*\/%^~])\s*/', '$1', $joined);
+                $joined = preg_replace('/(?<![+-])\s*([+-])\s*(?![+-])/', '$1', $joined);
+                $joined = preg_replace('/\s+/', ' ', $joined);
+
+                $result .= $joined;
+            }
+        }
+
+        return trim($result);
+    }
 }
+
 

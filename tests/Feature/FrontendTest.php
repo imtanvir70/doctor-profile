@@ -132,9 +132,17 @@ class FrontendTest extends TestCase
         $this->assertStringNotContainsString('<!-- Dynamic SEO Meta Tags -->', $html);
         $this->assertStringNotContainsString('<!-- Site Header -->', $html);
 
-        // 3. Script tags and Schema.org JSON-LD are intact
+        // 3. Script tags and Schema.org JSON-LD are intact and minified without multi-line indentation
         $this->assertStringContainsString('application/ld+json', $html);
         $this->assertStringContainsString('turbo.js', $html);
+
+        // 4. Verify all inline <script> blocks are minified into compact single lines
+        preg_match_all('/<script\b([^>]*)>(.*?)<\/script>/is', $html, $scriptMatches, PREG_SET_ORDER);
+        foreach ($scriptMatches as $m) {
+            if (!str_contains($m[1], 'src=')) {
+                $this->assertEquals(0, substr_count($m[2], "\n"), 'Inline script tag must be minified into a single line');
+            }
+        }
     }
 
     public function test_sitemap_and_robots_are_not_corrupted_by_minification()
