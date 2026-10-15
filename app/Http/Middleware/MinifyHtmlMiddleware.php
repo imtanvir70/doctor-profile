@@ -140,8 +140,10 @@ class MinifyHtmlMiddleware
 
             // Remove CSS comments
             $cleaned = preg_replace('/\/\*.*?\*\//s', '', $styleContent);
-            // Collapse whitespace around symbols
-            $cleaned = preg_replace('/\s*([{}:;,>+~])\s*/', '$1', $cleaned);
+            // Collapse whitespace around symbols (excluding + and - which are required in calc())
+            $cleaned = preg_replace('/\s*([{}:;,>~])\s*/', '$1', $cleaned);
+            // Ensure spaces around + and - for valid calc() syntax
+            $cleaned = preg_replace('/\s*([+])\s*/', ' $1 ', $cleaned);
             // Collapse multiple spaces
             $cleaned = preg_replace('/\s+/', ' ', $cleaned);
             $cleaned = trim($cleaned);
