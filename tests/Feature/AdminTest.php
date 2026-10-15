@@ -260,4 +260,62 @@ class AdminTest extends TestCase
         $deleteResponse->assertRedirect('/admin/projects');
         $this->assertNull(\App\Models\InternationalProject::find($project->id));
     }
+
+    public function test_drprofile_route_redirects_to_profile_edit()
+    {
+        $response = $this->actingAs($this->adminUser)->get('/drprofile');
+        $response->assertRedirect(route('admin.profile.edit'));
+    }
+
+    public function test_specialties_crud_operations()
+    {
+        // 1. Index & Create view
+        $indexResponse = $this->actingAs($this->adminUser)->get('/admin/specialties');
+        $indexResponse->assertStatus(200);
+
+        $createResponse = $this->actingAs($this->adminUser)->get('/admin/specialties/create');
+        $createResponse->assertStatus(200);
+
+        // 2. Store
+        $storeResponse = $this->actingAs($this->adminUser)->post('/admin/specialties', [
+            'title_en' => 'Hypertension & Heart Health',
+            'title_bn' => 'উচ্চ রক্তচাপ ও হৃদরোগ চিকিৎসা',
+            'badge_en' => 'Cardiovascular',
+            'badge_bn' => 'কার্ডিওভাসকুলার',
+            'description_en' => 'Precision blood pressure monitoring and cardiovascular protection.',
+            'description_bn' => 'রক্তচাপ নিয়ন্ত্রণ ও হার্ট অ্যাটাক প্রতিরোধে আধুনিক চিকিৎসা।',
+            'approach_en' => 'Lifestyle optimization with safe pharmacotherapy.',
+            'approach_bn' => 'জীবনযাত্রা নিয়ন্ত্রণ ও নিরাপদ ওষুধের সমন্বয়।',
+            'icon_class' => 'bi-heart-pulse-fill',
+            'display_order' => 1,
+            'is_active' => '1',
+        ]);
+        $storeResponse->assertRedirect(route('admin.specialties.index'));
+
+        $specialty = \App\Models\Specialty::where('title_en', 'Hypertension & Heart Health')->first();
+        $this->assertNotNull($specialty);
+        $this->assertEquals('উচ্চ রক্তচাপ ও হৃদরোগ চিকিৎসা', $specialty->title_bn);
+
+        // 3. Edit & Update
+        $editResponse = $this->actingAs($this->adminUser)->get("/admin/specialties/{$specialty->id}/edit");
+        $editResponse->assertStatus(200);
+
+        $updateResponse = $this->actingAs($this->adminUser)->put("/admin/specialties/{$specialty->id}", [
+            'title_en' => 'Hypertension Care Updated',
+            'title_bn' => 'উচ্চ রক্তচাপ চিকিৎসা আপডেট',
+            'description_en' => 'Updated description content.',
+            'description_bn' => 'আপডেট করা বিবরণী।',
+            'display_order' => 5,
+            'is_active' => '1',
+        ]);
+        $updateResponse->assertRedirect(route('admin.specialties.index'));
+        $specialty->refresh();
+        $this->assertEquals('Hypertension Care Updated', $specialty->title_en);
+
+        // 4. Delete
+        $deleteResponse = $this->actingAs($this->adminUser)->delete("/admin/specialties/{$specialty->id}");
+        $deleteResponse->assertRedirect(route('admin.specialties.index'));
+        $this->assertNull(\App\Models\Specialty::find($specialty->id));
+    }
 }
+

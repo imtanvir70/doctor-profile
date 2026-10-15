@@ -43,20 +43,32 @@
           <div class="row g-3 text-start">
             <div class="col-6 col-md-4">
               <div class="metric-box">
-                <div class="metric-number">{{ $profile->experience_years ?? '12' }}+</div>
-                <div class="text-muted small fw-semibold mt-1">{{ ($locale ?? app()->getLocale()) === 'bn' ? 'বছরের ক্লিনিক্যাল অভিজ্ঞতা' : 'Years of Hospital Experience' }}</div>
+                <div class="metric-number">{{ $profile->experience_years ?? '12+' }}</div>
+                <div class="text-muted small fw-semibold mt-1">
+                  {{ ($locale ?? app()->getLocale()) === 'bn' 
+                    ? ($profile->experience_stat_label_bn ?: 'বছরের ক্লিনিক্যাল অভিজ্ঞতা') 
+                    : ($profile->experience_stat_label_en ?: 'Years of Hospital Experience') }}
+                </div>
               </div>
             </div>
             <div class="col-6 col-md-4">
               <div class="metric-box">
-                <div class="metric-number text-success">{{ $profile->patients_treated ?? '25,000+' }}</div>
-                <div class="text-muted small fw-semibold mt-1">{{ ($locale ?? app()->getLocale()) === 'bn' ? 'সফলভাবে সুস্থ হওয়া রোগী' : 'Patients Successfully Treated' }}</div>
+                <div class="metric-number text-success">{{ $profile->patients_count ?? $profile->patients_treated ?? '25,000+' }}</div>
+                <div class="text-muted small fw-semibold mt-1">
+                  {{ ($locale ?? app()->getLocale()) === 'bn' 
+                    ? ($profile->patients_stat_label_bn ?: 'সফলভাবে সুস্থ হওয়া রোগী') 
+                    : ($profile->patients_stat_label_en ?: 'Patients Successfully Treated') }}
+                </div>
               </div>
             </div>
             <div class="col-12 col-md-4">
               <div class="metric-box">
                 <div class="metric-number" style="color: var(--accent);">{{ $profile->satisfaction_rate ?? '99.2%' }}</div>
-                <div class="text-muted small fw-semibold mt-1">{{ ($locale ?? app()->getLocale()) === 'bn' ? 'রোগীদের সন্তুষ্টি ও আস্থা' : 'Patient Trust & Satisfaction' }}</div>
+                <div class="text-muted small fw-semibold mt-1">
+                  {{ ($locale ?? app()->getLocale()) === 'bn' 
+                    ? ($profile->satisfaction_stat_label_bn ?: 'রোগীদের সন্তুষ্টি ও আস্থা') 
+                    : ($profile->satisfaction_stat_label_en ?: 'Patient Trust & Satisfaction') }}
+                </div>
               </div>
             </div>
           </div>

@@ -205,6 +205,11 @@
         <span>Chambers & Schedules</span>
       </a>
 
+      <a href="{{ route('admin.specialties.index') }}" class="sidebar-link {{ request()->routeIs('admin.specialties.*') ? 'active' : '' }}">
+        <i class="bi bi-heart-pulse-fill"></i>
+        <span>Clinical Specialties</span>
+      </a>
+
       <a href="{{ route('admin.articles.index') }}" class="sidebar-link {{ request()->routeIs('admin.articles.*') ? 'active' : '' }}">
         <i class="bi bi-journal-richtext"></i>
         <span>Health Articles</span>

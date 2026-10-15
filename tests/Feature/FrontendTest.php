@@ -111,5 +111,38 @@ class FrontendTest extends TestCase
         $response->assertSee('Solve IT');
         $response->assertSee('https://solveitbd.com/', false);
     }
+
+    public function test_html_minification_produces_compact_unreadable_source_without_errors()
+    {
+        $response = $this->get('/');
+        $response->assertStatus(200);
+
+        $html = $response->getContent();
+
+        // 1. Tags are compacted with no unnecessary spaces between closing and opening tags
+        $this->assertStringNotContainsString(">\n<", $html);
+        $this->assertStringNotContainsString(">    <", $html);
+
+        // 2. Standard HTML comments are stripped
+        $this->assertStringNotContainsString('<!-- Dynamic SEO Meta Tags -->', $html);
+        $this->assertStringNotContainsString('<!-- Site Header -->', $html);
+
+        // 3. Script tags and Schema.org JSON-LD are intact
+        $this->assertStringContainsString('application/ld+json', $html);
+        $this->assertStringContainsString('turbo.js', $html);
+    }
+
+    public function test_sitemap_and_robots_are_not_corrupted_by_minification()
+    {
+        $sitemapResponse = $this->get('/sitemap.xml');
+        $sitemapResponse->assertStatus(200);
+        $this->assertEquals('application/xml', $sitemapResponse->headers->get('Content-Type'));
+        $this->assertStringContainsString('<?xml version="1.0" encoding="UTF-8"?>', $sitemapResponse->getContent());
+
+        $robotsResponse = $this->get('/robots.txt');
+        $robotsResponse->assertStatus(200);
+        $this->assertStringContainsString('text/plain', $robotsResponse->headers->get('Content-Type'));
+        $this->assertStringContainsString("User-agent: *\nAllow: /\n", $robotsResponse->getContent());
+    }
 }
 

@@ -173,6 +173,36 @@
                 <label for="satisfaction_rate" class="form-label small fw-semibold">Satisfaction Rate Stat <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="satisfaction_rate" name="satisfaction_rate" value="{{ old('satisfaction_rate', $profile->satisfaction_rate) }}" required>
               </div>
+
+              <div class="col-md-6">
+                <label for="experience_stat_label_en" class="form-label small fw-semibold">Experience Label (English)</label>
+                <input type="text" class="form-control" id="experience_stat_label_en" name="experience_stat_label_en" value="{{ old('experience_stat_label_en', $profile->experience_stat_label_en) }}" placeholder="e.g. Years of Hospital Experience">
+              </div>
+
+              <div class="col-md-6">
+                <label for="experience_stat_label_bn" class="form-label small fw-semibold">Experience Label (বাংলা)</label>
+                <input type="text" class="form-control" id="experience_stat_label_bn" name="experience_stat_label_bn" value="{{ old('experience_stat_label_bn', $profile->experience_stat_label_bn) }}" placeholder="যেমন: বছরের ক্লিনিক্যাল অভিজ্ঞতা">
+              </div>
+
+              <div class="col-md-6">
+                <label for="patients_stat_label_en" class="form-label small fw-semibold">Patients Stat Label (English)</label>
+                <input type="text" class="form-control" id="patients_stat_label_en" name="patients_stat_label_en" value="{{ old('patients_stat_label_en', $profile->patients_stat_label_en) }}" placeholder="e.g. Patients Successfully Treated">
+              </div>
+
+              <div class="col-md-6">
+                <label for="patients_stat_label_bn" class="form-label small fw-semibold">Patients Stat Label (বাংলা)</label>
+                <input type="text" class="form-control" id="patients_stat_label_bn" name="patients_stat_label_bn" value="{{ old('patients_stat_label_bn', $profile->patients_stat_label_bn) }}" placeholder="যেমন: সফলভাবে সুস্থ হওয়া রোগী">
+              </div>
+
+              <div class="col-md-6">
+                <label for="satisfaction_stat_label_en" class="form-label small fw-semibold">Satisfaction Stat Label (English)</label>
+                <input type="text" class="form-control" id="satisfaction_stat_label_en" name="satisfaction_stat_label_en" value="{{ old('satisfaction_stat_label_en', $profile->satisfaction_stat_label_en) }}" placeholder="e.g. Patient Trust & Satisfaction">
+              </div>
+
+              <div class="col-md-6">
+                <label for="satisfaction_stat_label_bn" class="form-label small fw-semibold">Satisfaction Stat Label (বাংলা)</label>
+                <input type="text" class="form-control" id="satisfaction_stat_label_bn" name="satisfaction_stat_label_bn" value="{{ old('satisfaction_stat_label_bn', $profile->satisfaction_stat_label_bn) }}" placeholder="যেমন: রোগীদের সন্তুষ্টি ও আস্থা">
+              </div>
             </div>
           </div>
         </div>
@@ -256,6 +286,113 @@
             </div>
           </div>
         </div>
+
+        {{-- Clinical Philosophy & Care Values (About Page - ৩টি চিকিৎসা দর্শন) --}}
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+          <div class="card-header bg-white py-3 border-bottom d-flex align-items-center justify-content-between">
+            <h2 class="fs-6 fw-bold mb-0 text-dark brand-font"><i class="bi bi-shield-check text-success me-2"></i>Clinical Philosophy & Care Ethics (চিকিৎসা দর্শন ও নীতিসমূহ)</h2>
+            <span class="badge bg-primary-subtle text-primary px-3 py-1 rounded-pill fw-semibold">About Page Cards</span>
+          </div>
+          <div class="card-body p-4">
+            <p class="small text-muted mb-3">ডাক্তারের ব্যক্তিগত চিকিৎসা পদ্ধতি ও নীতিসমূহের ৩টি হাইলাইট কার্ড পরিবর্তন করুন:</p>
+            
+            {{-- Philosophy 1 --}}
+            <div class="p-3 bg-light rounded-3 mb-3 border">
+              <div class="fw-bold small text-primary mb-2"><i class="bi bi-1-circle-fill me-1"></i> Philosophy Point 1:</div>
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <label class="form-label small fw-semibold">Title (English)</label>
+                  <input type="text" class="form-control form-control-sm" name="philosophy_title1_en" value="{{ old('philosophy_title1_en', $profile->philosophy_title1_en) }}" placeholder="e.g. Rational Antibiotic Stewardship">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-semibold">Title (বাংলা)</label>
+                  <input type="text" class="form-control form-control-sm" name="philosophy_title1_bn" value="{{ old('philosophy_title1_bn', $profile->philosophy_title1_bn) }}" placeholder="যেমন: যথাযথ অ্যান্টিবায়োটিক প্রয়োগ">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-semibold">Description (English)</label>
+                  <textarea class="form-control form-control-sm" name="philosophy_desc1_en" rows="2" placeholder="Strictly avoids unwarranted antibiotic prescriptions...">{{ old('philosophy_desc1_en', $profile->philosophy_desc1_en) }}</textarea>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-semibold">Description (বাংলা)</label>
+                  <textarea class="form-control form-control-sm" name="philosophy_desc1_bn" rows="2" placeholder="সাধারণ ভাইরাল জ্বরে অপ্রয়োজনীয় অ্যান্টিবায়োটিক পরিহার...">{{ old('philosophy_desc1_bn', $profile->philosophy_desc1_bn) }}</textarea>
+                </div>
+              </div>
+            </div>
+
+            {{-- Philosophy 2 --}}
+            <div class="p-3 bg-light rounded-3 mb-3 border">
+              <div class="fw-bold small text-primary mb-2"><i class="bi bi-2-circle-fill me-1"></i> Philosophy Point 2:</div>
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <label class="form-label small fw-semibold">Title (English)</label>
+                  <input type="text" class="form-control form-control-sm" name="philosophy_title2_en" value="{{ old('philosophy_title2_en', $profile->philosophy_title2_en) }}" placeholder="e.g. Holistic Metabolic Stabilization">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-semibold">Title (বাংলা)</label>
+                  <input type="text" class="form-control form-control-sm" name="philosophy_title2_bn" value="{{ old('philosophy_title2_bn', $profile->philosophy_title2_bn) }}" placeholder="যেমন: সমন্বিত মেটাবলিক চিকিৎসা">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-semibold">Description (English)</label>
+                  <textarea class="form-control form-control-sm" name="philosophy_desc2_en" rows="2" placeholder="Combines dietary chronobiology and therapy...">{{ old('philosophy_desc2_en', $profile->philosophy_desc2_en) }}</textarea>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-semibold">Description (বাংলা)</label>
+                  <textarea class="form-control form-control-sm" name="philosophy_desc2_bn" rows="2" placeholder="ডায়াবেটিস ও উচ্চ রক্তচাপের দীর্ঘমেয়াদী নিয়ন্ত্রণ...">{{ old('philosophy_desc2_bn', $profile->philosophy_desc2_bn) }}</textarea>
+                </div>
+              </div>
+            </div>
+
+            {{-- Philosophy 3 --}}
+            <div class="p-3 bg-light rounded-3 mb-1 border">
+              <div class="fw-bold small text-primary mb-2"><i class="bi bi-3-circle-fill me-1"></i> Philosophy Point 3:</div>
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <label class="form-label small fw-semibold">Title (English)</label>
+                  <input type="text" class="form-control form-control-sm" name="philosophy_title3_en" value="{{ old('philosophy_title3_en', $profile->philosophy_title3_en) }}" placeholder="e.g. Unrushed Patient Consultations">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-semibold">Title (বাংলা)</label>
+                  <input type="text" class="form-control form-control-sm" name="philosophy_title3_bn" value="{{ old('philosophy_title3_bn', $profile->philosophy_title3_bn) }}" placeholder="যেমন: সময় নিয়ে রোগীর কথা শোনা">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-semibold">Description (English)</label>
+                  <textarea class="form-control form-control-sm" name="philosophy_desc3_en" rows="2" placeholder="Dedicates comprehensive time to listen...">{{ old('philosophy_desc3_en', $profile->philosophy_desc3_en) }}</textarea>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-semibold">Description (বাংলা)</label>
+                  <textarea class="form-control form-control-sm" name="philosophy_desc3_bn" rows="2" placeholder="পুঙ্খানুপুঙ্খ ইতিহাস পর্যালোচনা ও রোগীকে বুঝিয়ে দেওয়া...">{{ old('philosophy_desc3_bn', $profile->philosophy_desc3_bn) }}</textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {{-- Expertise Banner Headings (Expertise Page) --}}
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+          <div class="card-header bg-white py-3 border-bottom">
+            <h2 class="fs-6 fw-bold mb-0 text-dark brand-font"><i class="bi bi-diagram-3-fill text-primary me-2"></i>Expertise Page Banner & Hero Text</h2>
+          </div>
+          <div class="card-body p-4">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="expertise_banner_title_en" class="form-label small fw-semibold">Banner Heading (English)</label>
+                <input type="text" class="form-control" id="expertise_banner_title_en" name="expertise_banner_title_en" value="{{ old('expertise_banner_title_en', $profile->expertise_banner_title_en) }}" placeholder="e.g. Specialized Clinical Solutions">
+              </div>
+              <div class="col-md-6">
+                <label for="expertise_banner_title_bn" class="form-label small fw-semibold">Banner Heading (বাংলা)</label>
+                <input type="text" class="form-control" id="expertise_banner_title_bn" name="expertise_banner_title_bn" value="{{ old('expertise_banner_title_bn', $profile->expertise_banner_title_bn) }}" placeholder="যেমন: বিশেষজ্ঞ চিকিৎসা সেবা ও প্রোটোকল">
+              </div>
+              <div class="col-md-6">
+                <label for="expertise_banner_desc_en" class="form-label small fw-semibold">Banner Description (English)</label>
+                <textarea class="form-control" id="expertise_banner_desc_en" name="expertise_banner_desc_en" rows="2" placeholder="Systematic medical protocols developed through...">{{ old('expertise_banner_desc_en', $profile->expertise_banner_desc_en) }}</textarea>
+              </div>
+              <div class="col-md-6">
+                <label for="expertise_banner_desc_bn" class="form-label small fw-semibold">Banner Description (বাংলা)</label>
+                <textarea class="form-control" id="expertise_banner_desc_bn" name="expertise_banner_desc_bn" rows="2" placeholder="ক্লিনিক্যাল অভিজ্ঞতার ভিত্তিতে তৈরি সুনির্দিষ্ট চিকিৎসা প্রোটোকল...">{{ old('expertise_banner_desc_bn', $profile->expertise_banner_desc_bn) }}</textarea>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {{-- Sidebar Controls (Avatar, Contacts, Social) --}}
@@ -312,6 +449,24 @@
             <div class="mb-3">
               <label for="linkedin_url" class="form-label small fw-semibold">LinkedIn Profile URL</label>
               <input type="url" class="form-control" id="linkedin_url" name="linkedin_url" value="{{ old('linkedin_url', $profile->linkedin_url) }}">
+            </div>
+          </div>
+        </div>
+
+        {{-- Footer & Copyright Settings --}}
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+          <div class="card-header bg-white py-3 border-bottom">
+            <h3 class="fs-6 fw-bold mb-0 text-dark brand-font"><i class="bi bi-c-circle text-primary me-2"></i>Footer Custom Text</h3>
+          </div>
+          <div class="card-body p-3">
+            <div class="mb-3">
+              <label for="footer_copyright_en" class="form-label small fw-semibold">Custom Copyright (English)</label>
+              <input type="text" class="form-control" id="footer_copyright_en" name="footer_copyright_en" value="{{ old('footer_copyright_en', $profile->footer_copyright_en) }}" placeholder="e.g. All Rights Reserved.">
+            </div>
+
+            <div class="mb-3">
+              <label for="footer_copyright_bn" class="form-label small fw-semibold">Custom Copyright (বাংলা)</label>
+              <input type="text" class="form-control" id="footer_copyright_bn" name="footer_copyright_bn" value="{{ old('footer_copyright_bn', $profile->footer_copyright_bn) }}" placeholder="যেমন: সর্বস্বত্ব সংরক্ষিত।">
             </div>
           </div>
         </div>

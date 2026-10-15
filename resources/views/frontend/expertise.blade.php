@@ -9,10 +9,14 @@
           <span>{{ ($locale ?? app()->getLocale()) === 'bn' ? 'মেডিসিন বিশেষায়িত সেবা' : 'Internal Medicine Disciplines' }}</span>
         </div>
         <h1 class="display-5 fw-extrabold mb-3">
-          {{ ($locale ?? app()->getLocale()) === 'bn' ? 'বিশেষজ্ঞ চিকিৎসা সেবা ও প্রোটোকল' : 'Specialized Clinical Solutions' }}
+          {{ ($locale ?? app()->getLocale()) === 'bn' 
+            ? ($profile->expertise_banner_title_bn ?: 'বিশেষজ্ঞ চিকিৎসা সেবা ও প্রোটোকল') 
+            : ($profile->expertise_banner_title_en ?: 'Specialized Clinical Solutions') }}
         </h1>
         <p class="fs-5 text-muted mb-4 mx-auto" style="max-width: 760px;">
-          {{ ($locale ?? app()->getLocale()) === 'bn' ? '১৫+ বছরের ক্লিনিক্যাল অভিজ্ঞতার ভিত্তিতে তৈরি সুনির্দিষ্ট চিকিৎসা প্রোটোকল, অঙ্গ-প্রত্যঙ্গের সুরক্ষা এবং ওষুধের অপব্যবহার রোধে অঙ্গীকারবদ্ধ সেবা।' : 'Systematic medical protocols developed through 15+ years of clinical practice, dedicated to organ preservation, rational antibiotic therapy, and sustainable metabolic stabilization.' }}
+          {{ ($locale ?? app()->getLocale()) === 'bn' 
+            ? ($profile->expertise_banner_desc_bn ?: '১৫+ বছরের ক্লিনিক্যাল অভিজ্ঞতার ভিত্তিতে তৈরি সুনির্দিষ্ট চিকিৎসা প্রোটোকল, অঙ্গ-প্রত্যঙ্গের সুরক্ষা এবং ওষুধের অপব্যবহার রোধে অঙ্গীকারবদ্ধ সেবা।') 
+            : ($profile->expertise_banner_desc_en ?: 'Systematic medical protocols developed through 15+ years of clinical practice, dedicated to organ preservation, rational antibiotic therapy, and sustainable metabolic stabilization.') }}
         </p>
         <a href="{{ route('booking') }}" class="btn btn-brand-primary px-4 py-3">
           <i class="bi bi-calendar2-check-fill me-2"></i>

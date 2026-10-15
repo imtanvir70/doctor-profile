@@ -14,8 +14,13 @@ use App\Http\Controllers\Admin\AdminVideoController;
 use App\Http\Controllers\Admin\AdminFaqController;
 use App\Http\Controllers\Admin\AdminReviewController;
 use App\Http\Controllers\Admin\AdminInternationalProjectController;
+use App\Http\Controllers\Admin\AdminSpecialtyController;
 use App\Models\Article;
 use App\Models\SeoSetting;
+
+// Direct shortcut route for /drprofile requested by user
+Route::get('/drprofile', fn () => redirect()->route('admin.profile.edit'))->name('drprofile');
+Route::get('/admin/drprofile', fn () => redirect()->route('admin.profile.edit'));
 
 /*
 |--------------------------------------------------------------------------
@@ -133,5 +138,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // 10. International Projects & Global Collaborations
         Route::resource('projects', AdminInternationalProjectController::class);
+
+        // 11. Clinical Specialties & Services Management
+        Route::resource('specialties', AdminSpecialtyController::class);
     });
 });

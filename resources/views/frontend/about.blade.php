@@ -169,8 +169,16 @@
                   <i class="bi bi-shield-check"></i>
                 </div>
                 <div>
-                  <h4 class="fs-6 fw-bold mb-1">{{ ($locale ?? app()->getLocale()) === 'bn' ? 'যথাযথ অ্যান্টিবায়োটিক প্রয়োগ' : 'Rational Antibiotic Stewardship' }}</h4>
-                  <p class="small text-muted mb-0">{{ ($locale ?? app()->getLocale()) === 'bn' ? 'সাধারণ ভাইরাল জ্বরে অপ্রয়োজনীয় অ্যান্টিবায়োটিক প্রেসক্রিপশন সম্পূর্ণ পরিহার করে ওষুধের কার্যকারিতা সংরক্ষণ।' : 'Strictly avoids unwarranted antibiotic prescriptions for self-limiting viral fevers, guarding patients against toxic side-effects and drug resistance.' }}</p>
+                  <h4 class="fs-6 fw-bold mb-1">
+                    {{ ($locale ?? app()->getLocale()) === 'bn' 
+                      ? ($profile->philosophy_title1_bn ?: 'যথাযথ অ্যান্টিবায়োটিক প্রয়োগ') 
+                      : ($profile->philosophy_title1_en ?: 'Rational Antibiotic Stewardship') }}
+                  </h4>
+                  <p class="small text-muted mb-0">
+                    {{ ($locale ?? app()->getLocale()) === 'bn' 
+                      ? ($profile->philosophy_desc1_bn ?: 'সাধারণ ভাইরাল জ্বরে অপ্রয়োজনীয় অ্যান্টিবায়োটিক প্রেসক্রিপশন সম্পূর্ণ পরিহার করে ওষুধের কার্যকারিতা সংরক্ষণ।') 
+                      : ($profile->philosophy_desc1_en ?: 'Strictly avoids unwarranted antibiotic prescriptions for self-limiting viral fevers, guarding patients against toxic side-effects and drug resistance.') }}
+                  </p>
                 </div>
               </div>
 
@@ -179,8 +187,16 @@
                   <i class="bi bi-heart-pulse"></i>
                 </div>
                 <div>
-                  <h4 class="fs-6 fw-bold mb-1">{{ ($locale ?? app()->getLocale()) === 'bn' ? 'সমন্বিত মেটাবলিক চিকিৎসা' : 'Holistic Metabolic Stabilization' }}</h4>
-                  <p class="small text-muted mb-0">{{ ($locale ?? app()->getLocale()) === 'bn' ? 'ডায়াবেটিস ও উচ্চ রক্তচাপের দীর্ঘমেয়াদী নিয়ন্ত্রণে খাদ্যাভ্যাস, শারীরিক ব্যায়াম ও আধুনিক ওষুধের সুষম সমন্বয়।' : 'Combines dietary chronobiology, physical routine guidance, and pharmacological therapy to reverse pre-diabetes and achieve long-term glycemic control.' }}</p>
+                  <h4 class="fs-6 fw-bold mb-1">
+                    {{ ($locale ?? app()->getLocale()) === 'bn' 
+                      ? ($profile->philosophy_title2_bn ?: 'সমন্বিত মেটাবলিক চিকিৎসা') 
+                      : ($profile->philosophy_title2_en ?: 'Holistic Metabolic Stabilization') }}
+                  </h4>
+                  <p class="small text-muted mb-0">
+                    {{ ($locale ?? app()->getLocale()) === 'bn' 
+                      ? ($profile->philosophy_desc2_bn ?: 'ডায়াবেটিস ও উচ্চ রক্তচাপের দীর্ঘমেয়াদী নিয়ন্ত্রণে খাদ্যাভ্যাস, শারীরিক ব্যায়াম ও আধুনিক ওষুধের সুষম সমন্বয়।') 
+                      : ($profile->philosophy_desc2_en ?: 'Combines dietary chronobiology, physical routine guidance, and pharmacological therapy to reverse pre-diabetes and achieve long-term glycemic control.') }}
+                  </p>
                 </div>
               </div>
 
@@ -189,8 +205,16 @@
                   <i class="bi bi-chat-heart"></i>
                 </div>
                 <div>
-                  <h4 class="fs-6 fw-bold mb-1">{{ ($locale ?? app()->getLocale()) === 'bn' ? 'সময় নিয়ে রোগীর কথা শোনা' : 'Unrushed Patient Consultations' }}</h4>
-                  <p class="small text-muted mb-0">{{ ($locale ?? app()->getLocale()) === 'bn' ? 'প্রতিটি রোগীর শারীরিক সমস্যার পুঙ্খানুপুঙ্খ ইতিহাস পর্যালোচনা ও রোগীকে রোগের কারণ স্পষ্টভাবে বুঝিয়ে দেওয়া।' : 'Dedicates comprehensive time to listen, review previous health trajectories, explain medical findings, and involve the patient in every decision.' }}</p>
+                  <h4 class="fs-6 fw-bold mb-1">
+                    {{ ($locale ?? app()->getLocale()) === 'bn' 
+                      ? ($profile->philosophy_title3_bn ?: 'সময় নিয়ে রোগীর কথা শোনা') 
+                      : ($profile->philosophy_title3_en ?: 'Unrushed Patient Consultations') }}
+                  </h4>
+                  <p class="small text-muted mb-0">
+                    {{ ($locale ?? app()->getLocale()) === 'bn' 
+                      ? ($profile->philosophy_desc3_bn ?: 'প্রতিটি রোগীর শারীরিক সমস্যার পুঙ্খানুপুঙ্খ ইতিহাস পর্যালোচনা ও রোগীকে রোগের কারণ স্পষ্টভাবে বুঝিয়ে দেওয়া।') 
+                      : ($profile->philosophy_desc3_en ?: 'Dedicates comprehensive time to listen, review previous health trajectories, explain medical findings, and involve the patient in every decision.') }}
+                  </p>
                 </div>
               </div>
             </div>

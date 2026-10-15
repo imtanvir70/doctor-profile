@@ -328,7 +328,10 @@
 
             <div class="footer-bottom-bar">
                 <div class="footer-copyright">
-                    © {{ date('Y') }} <strong>{{ ($locale ?? app()->getLocale()) === 'bn' ? $profile->name_bn ?? '' : $profile->name_en ?? '' }}</strong> | {{ ($locale ?? app()->getLocale()) === 'bn' ? 'সর্বস্বত্ব সংরক্ষিত।' : 'All Rights Reserved.' }}
+                    © {{ date('Y') }} <strong>{{ ($locale ?? app()->getLocale()) === 'bn' ? $profile->name_bn ?? '' : $profile->name_en ?? '' }}</strong> | 
+                    {{ ($locale ?? app()->getLocale()) === 'bn' 
+                      ? ($profile->footer_copyright_bn ?: 'সর্বস্বত্ব সংরক্ষিত।') 
+                      : ($profile->footer_copyright_en ?: 'All Rights Reserved.') }}
                 </div>
                 <div class="footer-developer-credit">
                     <span>Developed by</span>
