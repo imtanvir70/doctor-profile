@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Consultation Serial | Dr. Abu Hanif Rakib</title>
+  <meta name="description" content="Instant chamber serial booking for Dr. Abu Hanif Rakib in Dhanmondi and Uttara. Attach previous medical prescriptions and reports for clinical review.">
+  <meta name="keywords" content="Doctor appointment Dhanmondi, Ibn Sina Uttara serial, Book Dr Abu Hanif Rakib, Prescription upload doctor serial">
+  <meta name="author" content="Dr. Abu Hanif Rakib">
+  <meta name="robots" content="index, follow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .turbo-progress-bar {
+      height: 3px !important;
+      background-color: var(--accent) !important;
+      box-shadow: 0 0 10px rgba(5, 150, 105, 0.6) !important;
+    }
+
+    @keyframes pageEnterAnim {
+      from {
+        opacity: 0.94;
+        transform: translateY(2px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    body {
+      animation: pageEnterAnim 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    :root {
+      --primary: #0F3B66;
+      --primary-hover: #0a2744;
+      --accent: #059669;
+      --accent-hover: #047857;
+      --accent-light: #d1fae5;
+      --soft-accent: #E0F2FE;
+      --bg-slate: #F8FAFC;
+      --card-surface: #FFFFFF;
+      --text-primary: #0F172A;
+      --text-muted: #475569;
+      --border-color: #E2E8F0;
+      --radius: 12px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 8px 24px -4px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 18px 40px -6px rgba(15, 59, 102, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-slate);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-bottom: 74px;
+    }
+
+    body.lang-bn {
+      font-family: 'Noto Sans Bengali', 'Inter', sans-serif;
+    }
+
+    @media (min-width: 992px) {
+      body {
+        padding-bottom: 0;
+      }
+    }
+
+    h1, h2, h3, h4, h5, h6, .brand-font {
+      font-family: 'Outfit', sans-serif;
+      color: var(--text-primary);
+      letter-spacing: -0.025em;
+    }
+
+    body.lang-bn h1,
+    body.lang-bn h2,
+    body.lang-bn h3,
+    body.lang-bn h4,
+    body.lang-bn h5,
+    body.lang-bn h6,
+    body.lang-bn .brand-font {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      letter-spacing: 0;
+    }
+
+    p {
+      color: var(--text-muted);
+    }
+
+    a {
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .site-header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.07);
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+    }
+
+    .brand-avatar-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #0F3B66 0%, #1e4976 100%);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      box-shadow: 0 4px 10px rgba(15, 59, 102, 0.18);
+    }
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--primary);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-subtitle {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .nav-pill-container {
+      background: rgba(241, 245, 249, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-color);
+      border-radius: 9999px;
+      padding: 0.25rem 0.35rem;
+      gap: 0.2rem;
+    }
+
+    .nav-pill-item {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-muted) !important;
+      padding: 0.45rem 1.1rem !important;
+      border-radius: 9999px;
+      transition: all 0.2s ease;
+    }
+
+    body.lang-bn .nav-pill-item {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      font-size: 0.94rem;
+    }
+
+    .nav-pill-item:hover {
+      color: var(--primary) !important;
+      background-color: #FFFFFF;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-pill-item.active {
+      color: #FFFFFF !important;
+      background-color: var(--primary) !important;
+      box-shadow: 0 2px 8px rgba(15, 59, 102, 0.25);
+    }
+
+    .hero-booking-banner {
+      background: radial-gradient(circle at 80% 20%, #E0F2FE 0%, rgba(240, 249, 255, 0.6) 45%, var(--bg-slate) 85%);
+      padding: 3.5rem 0 3rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .frictionless-booking-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+    }
+
+    .medical-upload-area {
+      border: 2px dashed #CBD5E1;
+      border-radius: var(--radius);
+      padding: 1.3rem 1.5rem;
+      background: #F8FAFC;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      position: relative;
+      text-align: center;
+    }
+
+    .medical-upload-area:hover,
+    .medical-upload-area.dragover {
+      border-color: var(--accent);
+      background-color: var(--accent-light);
+    }
+
+    .medical-upload-input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .upload-icon-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #E2E8F0;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .upload-file-status {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 0.4rem;
+      display: none;
+    }
+
+    .upload-file-status.has-file {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .clinical-collapse-btn {
+      width: 100%;
+      background: #F1F5F9;
+      border: 1.5px dashed #CBD5E1;
+      border-radius: var(--radius);
+      padding: 0.85rem 1.25rem;
+      color: var(--primary);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.94rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+
+    body.lang-bn .clinical-collapse-btn {
+      font-family: 'Noto Sans Bengali', sans-serif;
+    }
+
+    .clinical-collapse-btn:hover {
+      background: #E0F2FE;
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .clinical-collapse-btn .collapse-chevron {
+      transition: transform 0.3s ease;
+    }
+
+    .clinical-collapse-btn[aria-expanded="true"] .collapse-chevron {
+      transform: rotate(180deg);
+    }
+
+    .clinical-collapse-card {
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+
+    .btn-brand-accent {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      border: 1px solid #059669;
+      color: #FFFFFF !important;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      padding: 0.85rem 1.6rem;
+      border-radius: var(--radius);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 10px 24px -4px rgba(5, 150, 105, 0.38);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body.lang-bn .btn-brand-accent {
+      font-family: 'Noto Sans Bengali', sans-serif;
+    }
+
+    .btn-brand-accent:hover {
+      background: linear-gradient(135deg, #047857 0%, #065f46 100%);
+      border-color: #047857;
+      color: #FFFFFF !important;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px -2px rgba(5, 150, 105, 0.48);
+    }
+
+    .clinical-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    .clinical-icon-emerald {
+      background: #ECFDF5;
+      color: #059669;
+    }
+
+    .clinical-icon-blue {
+      background: #EFF6FF;
+      color: #0284C7;
+    }
+
+    .site-footer {
+      background: #0B2545;
+      color: #94a3b8;
+      padding: 4.5rem 0 2rem;
+      border-top: 3px solid #059669;
+      position: relative;
+    }
+
+    .footer-brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: #FFFFFF;
+      line-height: 1.2;
+    }
+
+    body.lang-bn .footer-brand-title {
+      font-family: 'Noto Sans Bengali', sans-serif;
+    }
+
+    .footer-badge-bmdc {
+      background: rgba(5, 150, 105, 0.18);
+      border: 1px solid rgba(5, 150, 105, 0.4);
+      color: #34d399;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .footer-chamber-pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius);
+      padding: 0.9rem 1rem;
+      transition: all 0.25s ease;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-chamber-pill:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(5, 150, 105, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .footer-nav a {
+      color: #cbd5e1;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 0.65rem;
+      font-size: 0.92rem;
+      transition: all 0.2s ease;
+    }
+
+    .footer-nav a:hover {
+      color: #FFFFFF;
+      transform: translateX(3px);
+    }
+
+    .footer-social-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.2s ease;
+    }
+
+    .footer-social-btn:hover {
+      background: var(--accent);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+
+    .floating-action-dock {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 1040;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-end;
+    }
+
+    .dock-btn-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .dock-tooltip-pill {
+      position: absolute;
+      right: calc(100% + 14px);
+      background: #0F172A;
+      color: #FFFFFF;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.45rem 0.9rem;
+      border-radius: 9999px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateX(8px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    body.lang-bn .dock-tooltip-pill {
+      font-family: 'Noto Sans Bengali', sans-serif;
+    }
+
+    .dock-btn-wrapper:hover .dock-tooltip-pill {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .dock-action-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      box-shadow: 0 10px 25px -4px rgba(15, 23, 42, 0.28);
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+      text-decoration: none;
+    }
+
+    .dock-action-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 14px 30px -2px rgba(15, 23, 42, 0.38);
+    }
+
+    .dock-btn-lang {
+      background: #FFFFFF;
+      color: var(--primary);
+    }
+
+    .dock-btn-phone {
+      background: #0284C7;
+      color: #FFFFFF;
+    }
+
+    .dock-btn-appointment {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      color: #FFFFFF;
+    }
+
+    .sticky-mobile-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1045;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0.5rem 0.75rem;
+      box-shadow: 0 -4px 20px rgba(15, 23, 42, 0.08);
+    }
+
+    .btn-mobile-quick {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.2rem;
+      padding: 0.45rem 0.5rem;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      margin: 0 0.25rem;
+    }
+
+    .btn-mobile-call {
+      background: #E0F2FE;
+      color: var(--primary);
+      border: 1px solid rgba(15, 59, 102, 0.15);
+    }
+
+    .btn-mobile-whatsapp {
+      background: #25D366;
+      color: #FFFFFF !important;
+      border: 1px solid #20bd5a;
+    }
+
+    .btn-mobile-book {
+      background: var(--accent);
+      color: #FFFFFF !important;
+      border: 1px solid var(--accent);
+    }
+
+    @media (min-width: 992px) {
+      .sticky-mobile-bar {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 991.98px) {
+      .site-header {
+        background: rgba(255, 255, 255, 0.98) !important;
+        backdrop-filter: blur(14px) !important;
+        -webkit-backdrop-filter: blur(14px) !important;
+        border-bottom: 1px solid var(--border-color) !important;
+        box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.07) !important;
+      }
+      .nav-pill-container {
+        border-radius: var(--radius) !important;
+        padding: 0.5rem !important;
+        gap: 0.35rem !important;
+        background: #F1F5F9 !important;
+      }
+      .nav-pill-item {
+        border-radius: 8px !important;
+        padding: 0.65rem 1rem !important;
+      }
+    }
+
+    @media (min-width: 992px) and (max-width: 1199.98px) {
+      .nav-pill-item {
+        font-size: 0.78rem !important;
+        padding: 0.38rem 0.52rem !important;
+      }
+      .brand-title {
+        font-size: 1.05rem !important;
+      }
+      .brand-avatar-badge {
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 1.1rem !important;
+      }
+    }
+
+    .nav-lang-toggle-btn {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      border-color: rgba(15, 59, 102, 0.25);
+      color: var(--primary);
+      background: #FFFFFF;
+      transition: all 0.2s ease;
+    }
+
+    body.lang-bn .nav-lang-toggle-btn {
+      font-family: 'Noto Sans Bengali', sans-serif;
+    }
+
+    .nav-lang-toggle-btn:hover, .nav-lang-toggle-btn:focus {
+      background: var(--soft-accent);
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    input[type="date"].form-control {
+      min-height: 48px;
+    }
+
+  </style>
+  <style id="i18n-anti-flash">
+    html.i18n-pending body {
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+  </style>
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('dr_rakib_user_lang');
+        var isBn = false;
+        if (saved === 'bn') {
+          isBn = true;
+        } else if (!saved) {
+          var tz = (Intl && Intl.DateTimeFormat) ? Intl.DateTimeFormat().resolvedOptions().timeZone || '' : '';
+          var userLangs = navigator.languages || [navigator.language || ''];
+          var isBdOrIn = tz.includes('Dhaka') || tz.includes('Kolkata') || tz.includes('Calcutta') || tz.includes('Asia/Dhaka') || tz.includes('Asia/Kolkata');
+          var hasBn = userLangs.some(function(l) { return l && l.toLowerCase().startsWith('bn'); });
+          if (isBdOrIn || hasBn) isBn = true;
+        }
+        if (isBn) {
+          document.documentElement.lang = 'bn';
+          document.documentElement.classList.add('lang-bn', 'i18n-pending');
+        } else {
+          document.documentElement.lang = 'en';
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+
+      <header class="site-header sticky-top">
+    <nav class="navbar navbar-expand-lg py-2 py-lg-3" aria-label="Primary Navigation">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-3" href="index.html">
+          <div class="brand-avatar-badge">
+            <i class="bi bi-heart-pulse-fill"></i>
+          </div>
+          <div>
+            <div class="brand-title" data-i18n="hero_doctor_name">Dr. Abu Hanif Rakib</div>
+            <div class="brand-subtitle" data-i18n="doc_designation">Medicine Specialist</div>
+          </div>
+        </a>
+
+        <!-- Mobile Header Actions (Language Switcher + Hamburger Toggler) -->
+        <div class="d-flex align-items-center gap-2 d-lg-none">
+          <button class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 d-flex align-items-center gap-1 nav-lang-toggle-btn" type="button" aria-label="Toggle Language / ভাষা পরিবর্তন">
+            <i class="bi bi-translate"></i>
+            <span class="lang-btn-text">বাংলা</span>
+          </button>
+          <button class="navbar-toggler border-0 shadow-none p-1" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNav" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-list fs-1 text-primary"></i>
+          </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="primaryNav">
+          <div class="ms-auto my-3 my-lg-0">
+            <ul class="navbar-nav nav-pill-container d-flex flex-column flex-lg-row align-items-stretch align-items-lg-center mb-0">
+              <li class="nav-item">
+                <a class="nav-link nav-pill-item" href="index.html" data-i18n="nav_home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link nav-pill-item" href="about.html" data-i18n="nav_about">About Doctor</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link nav-pill-item" href="expertise.html" data-i18n="nav_expertise">Clinical Expertise</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link nav-pill-item" href="chambers.html" data-i18n="nav_chambers">Chambers</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link nav-pill-item" href="blog.html" data-i18n="nav_articles">Health Articles</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link nav-pill-item" href="videos.html" data-i18n="nav_videos">Video Guides</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link nav-pill-item" href="faq.html" data-i18n="nav_faq">Patient Guide</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero-booking-banner">
+      <div class="container">
+        <div class="text-center max-w-700 mx-auto">
+          <div class="badge bg-success-subtle text-success px-3 py-2 rounded-pill fw-bold mb-3 d-inline-flex align-items-center gap-2">
+            <i class="bi bi-shield-check fs-6"></i>
+            <span data-i18n="book_hero_badge">Priority Chamber Reservation</span>
+          </div>
+          <h1 class="display-5 fw-extrabold mb-3" data-i18n="book_headline">Instant Chamber Serial Booking</h1>
+          <p class="fs-5 text-muted mb-0 mx-auto" style="max-width: 680px;" data-i18n="book_sub">
+            Fast verification and direct serial confirmation with chamber staff. Fill in your details below to secure your consultation appointment.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5">
+      <div class="container py-lg-4">
+        <div class="row g-5 align-items-center justify-content-center">
+          <div class="col-lg-5">
+            <div class="d-flex flex-column gap-4 mb-4">
+              <div class="d-flex align-items-start gap-3">
+                <div class="clinical-icon clinical-icon-emerald flex-shrink-0">
+                  <i class="bi bi-lightning-charge-fill"></i>
+                </div>
+                <div>
+                  <h2 class="fs-6 fw-bold text-dark mb-1" data-i18n="book_benefit1_title">Instant Mobile Confirmation</h2>
+                  <p class="text-muted small mb-0" data-i18n="book_benefit1_desc">Receive serial number and estimated arrival time directly on your phone via SMS.</p>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-start gap-3">
+                <div class="clinical-icon clinical-icon-blue flex-shrink-0">
+                  <i class="bi bi-shield-lock-fill"></i>
+                </div>
+                <div>
+                  <h2 class="fs-6 fw-bold text-dark mb-1" data-i18n="book_benefit2_title">Zero Upfront Payment Required</h2>
+                  <p class="text-muted small mb-0" data-i18n="book_benefit2_desc">Consultation fee (BDT 1,200) is paid on-site at the chamber reception counter upon arrival.</p>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-start gap-3">
+                <div class="clinical-icon clinical-icon-emerald flex-shrink-0">
+                  <i class="bi bi-file-earmark-medical-fill"></i>
+                </div>
+                <div>
+                  <h2 class="fs-6 fw-bold text-dark mb-1" data-i18n="book_benefit3_title">Pre-Consultation Clinical Intake</h2>
+                  <p class="text-muted small mb-0" data-i18n="book_benefit3_desc">Optionally attach previous prescriptions and lab tests so the doctor is prepared before you walk in.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-3" style="background-color: #FEF2F2; border: 1px solid #FEE2E2;">
+              <div class="d-flex align-items-center gap-2 text-danger fw-bold small">
+                <i class="bi bi-exclamation-octagon-fill"></i>
+                <span data-i18n="emergency_warning_title">Medical Emergency Warning</span>
+              </div>
+              <p class="small text-muted mt-1 mb-0" data-i18n="emergency_warning_desc">For severe chest pain, acute breathlessness, or signs of acute stroke, please visit the nearest hospital emergency department immediately or dial <strong>999</strong>.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-7">
+            <div class="frictionless-booking-card p-4 p-md-5">
+              <div class="d-flex align-items-center justify-content-between mb-4">
+                <div>
+                  <h2 class="fs-4 fw-bold mb-0 brand-font text-primary" data-i18n="form_title">Quick Appointment Form</h2>
+                  <div class="text-muted small" data-i18n="form_subtitle">Priority Chamber Queue • Fast 2-Step</div>
+                </div>
+                <span class="badge bg-success-subtle text-success fw-bold px-3 py-2 rounded-pill" data-i18n="form_badge">Open For Serials</span>
+              </div>
+
+              <div id="bookingAlertBox" class="alert alert-success d-none mb-4" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                <span id="bookingAlertMsg">Your serial request has been submitted successfully! You will receive confirmation via SMS shortly.</span>
+              </div>
+
+              <form id="standaloneBookingForm" action="#" method="POST" aria-label="Priority Doctor Consultation Booking">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="fullName" class="form-label"><span data-i18n="form_name">Patient Name</span> <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="fullName" name="patient_name" placeholder="Mohammad Hossain" required>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="phoneNumber" class="form-label"><span data-i18n="form_phone">Mobile Number</span> <span class="text-danger">*</span></label>
+                    <input type="tel" class="form-control" id="phoneNumber" name="patient_phone" placeholder="017XXXXXXXX" required>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="selectedChamber" class="form-label"><span data-i18n="form_chamber">Select Chamber</span> <span class="text-danger">*</span></label>
+                    <select class="form-select" id="selectedChamber" name="chamber" required>
+                      <option value="dhanmondi" selected data-i18n="opt_dhanmondi">Popular Diagnostic, Dhanmondi (Sat - Wed)</option>
+                      <option value="uttara" data-i18n="opt_uttara">Ibn Sina Diagnostic, Uttara (Thu - Fri)</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="consultationDate" class="form-label"><span data-i18n="form_date">Preferred Date</span> <span class="text-danger">*</span></label>
+                    <input type="date" class="form-control" id="consultationDate" name="preferred_date" required>
+                  </div>
+
+                  <div class="col-12 mt-3">
+                    <button class="clinical-collapse-btn" type="button" data-bs-toggle="collapse" data-bs-target="#clinicalDetailsCollapse" aria-expanded="false" aria-controls="clinicalDetailsCollapse">
+                      <span class="d-flex align-items-center gap-2">
+                        <i class="bi bi-file-earmark-medical-fill text-accent"></i>
+                        <span data-i18n="form_collapse_title">Add Clinical Details (Optional)</span>
+                      </span>
+                      <i class="bi bi-chevron-down collapse-chevron"></i>
+                    </button>
+
+                    <div class="collapse" id="clinicalDetailsCollapse">
+                      <div class="clinical-collapse-card mt-2">
+                        <div class="row g-3">
+                          <div class="col-6 col-md-4">
+                            <label for="age" class="form-label" data-i18n="form_age">Age</label>
+                            <input type="number" class="form-control" id="age" name="patient_age" placeholder="e.g. 45" min="1" max="120">
+                          </div>
+
+                          <div class="col-6 col-md-4">
+                            <label for="gender" class="form-label" data-i18n="form_gender">Gender</label>
+                            <select class="form-select" id="gender" name="patient_gender">
+                              <option value="male" selected data-i18n="gender_male">Male</option>
+                              <option value="female" data-i18n="gender_female">Female</option>
+                              <option value="other" data-i18n="gender_other">Other</option>
+                            </select>
+                          </div>
+
+                          <div class="col-md-4">
+                            <label for="visitCategory" class="form-label" data-i18n="form_visit_type">Visit Type</label>
+                            <select class="form-select" id="visitCategory" name="visit_type">
+                              <option value="new" selected data-i18n="visit_new">New Consultation</option>
+                              <option value="followup" data-i18n="visit_followup">Follow-Up (30 Days)</option>
+                              <option value="report" data-i18n="visit_report">Report Evaluation</option>
+                            </select>
+                          </div>
+
+                          <div class="col-12">
+                            <label for="medicalIssue" class="form-label" data-i18n="form_symptoms">Primary Symptoms / Reason for Visit</label>
+                            <textarea class="form-control" id="medicalIssue" name="symptoms_summary" rows="2" placeholder="Briefly describe your symptoms (e.g. Uncontrolled diabetes, high BP, fever for 4 days...)"></textarea>
+                          </div>
+
+                          <div class="col-12">
+                            <label class="form-label d-flex align-items-center justify-content-between">
+                              <span data-i18n="form_upload_label">Attach Previous Prescriptions / Lab Reports</span>
+                              <span class="badge bg-light text-secondary border fw-normal" data-i18n="form_upload_optional">Optional • Doctor Review</span>
+                            </label>
+                            <div class="medical-upload-area" id="medicalUploadArea">
+                              <input type="file" class="medical-upload-input" id="reportFiles" name="medical_reports" multiple accept=".pdf,.jpg,.jpeg,.png">
+                              <div class="upload-icon-circle">
+                                <i class="bi bi-cloud-arrow-up-fill"></i>
+                              </div>
+                              <div class="fw-bold text-dark small" data-i18n="form_upload_hint">Click to browse or drag & drop reports here</div>
+                              <div class="text-muted" style="font-size: 0.76rem;" data-i18n="form_upload_formats">Supported formats: PDF, JPG, PNG (Max 15MB)</div>
+                              <div class="upload-file-status" id="uploadStatus">
+                                <i class="bi bi-file-earmark-check-fill"></i>
+                                <span id="uploadFileName">No file selected</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="termsCheck" required checked>
+                      <label class="form-check-label small text-muted" for="termsCheck" data-i18n="form_consent">
+                        I agree to receive appointment serial confirmation and reminder SMS on my phone.
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="col-12 pt-2">
+                    <button type="submit" class="btn btn-brand-accent w-100 justify-content-center py-3 fs-6">
+                      <i class="bi bi-check2-circle fs-5"></i>
+                      <span data-i18n="form_btn_submit">Confirm Serial Request & Get Confirmation</span>
+                    </button>
+                    <div class="text-center text-muted small mt-2 d-flex align-items-center justify-content-center gap-2" style="font-size: 0.82rem;">
+                      <i class="bi bi-shield-check text-success"></i>
+                      <span data-i18n="form_reassurance">No advance payment needed. Serial confirmed via SMS.</span>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row g-5 mb-5">
+        <div class="col-lg-4">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="brand-avatar-badge" style="width: 48px; height: 48px; font-size: 1.35rem;">
+              <i class="bi bi-heart-pulse-fill"></i>
+            </div>
+            <div>
+              <div class="footer-brand-title">Dr. Abu Hanif Rakib</div>
+              <div class="text-accent small fw-bold" style="color: #34d399;" data-i18n="footer_specialty">Consultant Medicine Specialist</div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <span class="footer-badge-bmdc">
+              <i class="bi bi-patch-check-fill"></i>
+              <span data-i18n="hero_bmdc">BMDC Reg No: 84321</span>
+            </span>
+          </div>
+
+          <p class="small text-slate-300 mb-4 pe-lg-3" style="color: #94a3b8; line-height: 1.7;" data-i18n="footer_bio">
+            Associate Professor & Senior Consultant in Internal Medicine. Providing patient-centric clinical diagnostic solutions for diabetes, refractory hypertension, respiratory disorders, and complex internal diseases.
+          </p>
+
+          <div class="d-flex gap-2">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="Doctor Facebook Page">
+              <i class="bi bi-facebook"></i>
+            </a>
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="Doctor YouTube Channel">
+              <i class="bi bi-youtube"></i>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="Doctor LinkedIn Profile">
+              <i class="bi bi-linkedin"></i>
+            </a>
+            <a href="https://wa.me/8801700000000" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="Doctor WhatsApp Assistant">
+              <i class="bi bi-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="col-6 col-md-3 col-lg-2 footer-nav">
+          <h3 class="fs-6 fw-bold text-white mb-3 brand-font" data-i18n="footer_quick_links">Quick Links</h3>
+          <ul class="list-unstyled mb-0">
+            <li><a href="index.html"><i class="bi bi-chevron-right text-success small"></i> <span data-i18n="nav_home">Home</span></a></li>
+            <li><a href="about.html"><i class="bi bi-chevron-right text-success small"></i> <span data-i18n="nav_about">About Doctor</span></a></li>
+            <li><a href="expertise.html"><i class="bi bi-chevron-right text-success small"></i> <span data-i18n="nav_expertise">Clinical Solutions</span></a></li>
+            <li><a href="chambers.html"><i class="bi bi-chevron-right text-success small"></i> <span data-i18n="nav_chambers">Chambers</span></a></li>
+            <li><a href="blog.html"><i class="bi bi-chevron-right text-success small"></i> <span data-i18n="nav_articles">Health Articles</span></a></li>
+            <li><a href="videos.html"><i class="bi bi-chevron-right text-success small"></i> <span data-i18n="nav_videos">Video Guides</span></a></li>
+            <li><a href="booking.html"><i class="bi bi-chevron-right text-success small"></i> <span data-i18n="footer_link_booking">Instant Booking</span></a></li>
+            <li><a href="faq.html"><i class="bi bi-chevron-right text-success small"></i> <span data-i18n="nav_faq">FAQ</span></a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md-3 col-lg-3 footer-nav">
+          <h3 class="fs-6 fw-bold text-white mb-3 brand-font" data-i18n="footer_specialties_title">Specialties</h3>
+          <ul class="list-unstyled mb-0">
+            <li><a href="expertise.html"><i class="bi bi-dot text-info"></i> <span data-i18n="exp_title_1">Diabetes Mellitus</span></a></li>
+            <li><a href="expertise.html"><i class="bi bi-dot text-info"></i> <span data-i18n="exp_title_2">Hypertension Control</span></a></li>
+            <li><a href="expertise.html"><i class="bi bi-dot text-info"></i> <span data-i18n="exp_title_3">Chest & Asthma Protocols</span></a></li>
+            <li><a href="expertise.html"><i class="bi bi-dot text-info"></i> <span data-i18n="exp_title_4">Thyroid Diagnostics</span></a></li>
+            <li><a href="expertise.html"><i class="bi bi-dot text-info"></i> <span data-i18n="exp_title_5">Infectious Fever Workups</span></a></li>
+            <li><a href="expertise.html"><i class="bi bi-dot text-info"></i> <span data-i18n="exp_title_6">Preventive Health Check</span></a></li>
+          </ul>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <h3 class="fs-6 fw-bold text-white mb-3 brand-font" data-i18n="footer_helplines_title">Chamber Serials</h3>
+          <div class="footer-chamber-pill">
+            <div class="text-white small fw-bold">Popular Diagnostic, Dhanmondi</div>
+            <a href="tel:+8801711000001" class="text-info small text-decoration-none fw-semibold d-inline-flex align-items-center gap-1 mt-1">
+              <i class="bi bi-telephone-outbound-fill text-accent" style="color: #34d399;"></i> +880 1711-000001
+            </a>
+            <div class="text-muted" style="font-size: 0.75rem;">Sat – Wed (5:00 PM – 9:30 PM)</div>
+          </div>
+
+          <div class="footer-chamber-pill">
+            <div class="text-white small fw-bold">Ibn Sina Diagnostic, Uttara</div>
+            <a href="tel:+8801722000002" class="text-info small text-decoration-none fw-semibold d-inline-flex align-items-center gap-1 mt-1">
+              <i class="bi bi-telephone-outbound-fill text-accent" style="color: #34d399;"></i> +880 1722-000002
+            </a>
+            <div class="text-muted" style="font-size: 0.75rem;">Thu & Fri (6:00 PM – 9:00 PM)</div>
+          </div>
+
+          <div class="p-2 px-3 rounded-3 bg-danger-subtle text-danger-emphasis small border border-danger-subtle mt-2" data-i18n="footer_emergency_notice">
+            <i class="bi bi-telephone-plus-fill me-1"></i>
+            For emergency resuscitation, call <strong>999</strong> or visit the nearest ER immediately.
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-4 border-top border-secondary-subtle d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 text-center text-md-start" style="border-color: rgba(255, 255, 255, 0.1) !important;">
+        <div class="small text-slate-400" style="color: #94a3b8;" data-i18n="footer_copyright">
+          &copy; 2026 Dr. Abu Hanif Rakib. All Rights Reserved. BMDC Certified Internal Medicine Specialist.
+        </div>
+        <div class="small d-flex gap-3">
+          <a href="#" class="text-slate-400 text-decoration-none" style="color: #94a3b8;" data-i18n="footer_privacy">Privacy Policy</a>
+          <a href="#" class="text-slate-400 text-decoration-none" style="color: #94a3b8;" data-i18n="footer_terms">Terms of Care</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="sticky-mobile-bar" aria-label="Mobile Quick Contacts">
+    <a href="tel:+8801700000000" class="btn-mobile-quick btn-mobile-call">
+      <i class="bi bi-telephone-fill"></i>
+      <span data-i18n="btn_call_serial">Call</span>
+    </a>
+    <a href="https://wa.me/8801700000000?text=Hello%20Dr.%20Abu%20Hanif%20Rakib%2C%20I%20would%20like%20to%20inquire%20about%20a%20consultation%20serial." target="_blank" rel="noopener noreferrer" class="btn-mobile-quick btn-mobile-whatsapp">
+      <i class="bi bi-whatsapp"></i>
+      <span>WhatsApp</span>
+    </a>
+    <a href="#standaloneBookingForm" class="btn-mobile-quick btn-mobile-book">
+      <i class="bi bi-calendar2-check-fill"></i>
+      <span data-i18n="btn_instant_serial">Instant Serial</span>
+    </a>
+  </div>
+
+  <div class="floating-action-dock d-none d-lg-flex" aria-label="Quick Actions">
+    <div class="dock-btn-wrapper">
+      <div class="dock-tooltip-pill">
+        <span id="dockLangTooltipText">বাংলায় পরিবর্তন করুন</span>
+      </div>
+      <button class="dock-action-btn dock-btn-lang" id="dockLangToggle" type="button" aria-label="Toggle Language / ভাষা পরিবর্তন">
+        <i class="bi bi-translate"></i>
+      </button>
+    </div>
+
+    <div class="dock-btn-wrapper">
+      <div class="dock-tooltip-pill">
+        <i class="bi bi-telephone-outbound-fill text-info me-1"></i>
+        <span>হটলাইন: +880 1700-000000</span>
+      </div>
+      <a href="tel:+8801700000000" class="dock-action-btn dock-btn-phone" aria-label="Call Doctor Serial Hotline">
+        <i class="bi bi-telephone-fill"></i>
+      </a>
+    </div>
+
+    <div class="dock-btn-wrapper">
+      <div class="dock-tooltip-pill">
+        <i class="bi bi-lightning-charge-fill text-warning me-1"></i>
+        <span data-i18n="btn_instant_serial">Instant Serial Booking</span>
+      </div>
+      <a href="booking.html" class="dock-action-btn dock-btn-appointment" aria-label="Book Instant Serial">
+        <i class="bi bi-calendar2-check-fill"></i>
+      </a>
+    </div>
+  </div>
+
+  <script>
+  (function() {
+        const translations = {
+      en: {
+        about_card1_desc: "Fellow of College of Physicians & Surgeons (FCPS - Internal Medicine)",
+        about_card1_title: "Post-Graduate Honors",
+        about_card2_desc: "Associate Professor, Department of Medicine, Govt. Medical College",
+        about_card2_title: "Faculty Designation",
+        about_eyebrow: "Personal Biography & Philosophy",
+        about_headline: "Clinical Accuracy Built on Careful Listening & Rational Medicine",
+        about_hero_badge: "Internal Medicine Specialist",
+        about_main_sub: "Learn about the medical background, credentials, and patient-first care philosophy of Dr. Abu Hanif Rakib.",
+        about_main_title: "Dedicated to Evidence-Based Healing & Compassionate Clinical Care",
+        about_p1: "Dr. Abu Hanif Rakib has earned widespread clinical respect as a dedicated Medicine Specialist in Bangladesh. After completing his undergraduate training with distinction from premier institutions, he completed his residency and earned fellowship in Internal Medicine from the Bangladesh College of Physicians and Surgeons (BCPS).",
+        about_p2: "His clinical philosophy centres on treating the whole patient rather than isolated symptoms: avoiding irrational polypharmacy, reducing unnecessary investigational burdens, and framing accessible lifestyle interventions alongside modern therapeutic drugs.",
+        art2_desc: "Why hematocrit monitoring, plasma leakage assessment, and strict fluid balance take clinical precedence over platelets alone during the critical phase.",
+        art2_title: "Dengue Recovery: What Platelet Count Alone Doesn't Tell You",
+        art3_desc: "Recognizing the subtle signs of subclinical hypothyroidism, Vitamin D deficiency, and adult metabolic dysregulation.",
+        art3_title: "Chronic Fatigue, Brain Fog, & Unexplained Weight Gain",
+        art4_desc: "Exploring why patients on three anti-hypertensive drugs still experience blood pressure spikes due to processed foods and seasonings.",
+        art4_title: "Hidden Dietary Sodium & Refractory High Blood Pressure",
+        art5_desc: "Why taking Azithromycin or Cefixime for routine sore throats destroys normal flora and fuels lethal multidrug-resistant superbugs.",
+        art5_title: "Antibiotic Resistance: A Doctor's Urgent Appeal",
+        art6_desc: "Clinical perspectives on gut-brain interactions, the role of chronic sympathetic stress, and avoiding lifelong proton-pump inhibitor overuse.",
+        art6_title: "IBS vs Acid Reflux: Deconstructing Gut Inflammation",
+        badge_bmdc_title: "BMDC Certified Specialist",
+        badge_fcps_sub: "Associate Professor",
+        blog1_desc: "A clinical breakdown of caloric distribution, intermittent walking routines, and how early lifestyle intervention delays or prevents Type 2 Diabetes.",
+        blog1_tag: "Preventive Health",
+        blog1_title: "Lifestyle Modification as Medicine: Reversing Pre-Diabetes",
+        blog2_desc: "Why hematocrit monitoring, plasma leakage assessment, and strict fluid balance are far more critical than focusing solely on platelet numbers during acute dengue.",
+        blog2_tag: "Infectious Diseases",
+        blog2_title: "Dengue Recovery: What Platelet Count Alone Doesn't Tell You",
+        blog3_desc: "Recognizing the subtle signs of subclinical hypothyroidism, Vitamin D deficiency, and metabolic exhaustion in modern urban lifestyles.",
+        blog3_tag: "Diagnostic Care",
+        blog3_title: "Chronic Fatigue, Brain Fog, & Unexplained Weight Gain",
+        blog_badge: "Doctor's Medical Writings",
+        blog_eyebrow: "Medical Insights & Writings",
+        blog_headline: "Articles & Clinical Columns",
+        blog_hub_sub: "Authoritative, evidence-based clinical articles and health insights written by Dr. Abu Hanif Rakib.",
+        blog_hub_title: "Medical Journal & Health Articles",
+        blog_read_more: "Read Full Column",
+        blog_sub: "Educational articles and health columns written by Dr. Abu Hanif Rakib to foster public health literacy and rational lifestyle choices.",
+        book_benefit1_desc: "Receive serial number and estimated arrival time directly on your phone.",
+        book_benefit1_title: "Instant Mobile Confirmation",
+        book_benefit2_desc: "Consultation fee (BDT 1,200) is paid on-site at the chamber reception counter.",
+        book_benefit2_title: "Zero Upfront Payment Required",
+        book_benefit3_desc: "Optionally attach previous prescriptions and lab tests so the doctor is well-prepared for your visit.",
+        book_benefit3_title: "Pre-Consultation Clinical Intake",
+        book_eyebrow: "Instant Reservation",
+        book_headline: "Priority Consultation Booking",
+        book_hero_badge: "Priority Chamber Reservation",
+        book_sub: "Fast verification and direct serial confirmation with chamber staff. Fill in your details below to secure your consultation appointment.",
+        booking_success_title: "Serial Request Confirmed!",
+        btn_book_here: "Book Serial",
+        btn_book_serial: "Book Serial",
+        btn_book_serial_now: "Book Consultation Serial",
+        btn_call_serial: "Call Serial",
+        btn_consult_domain: "Consult Specialist",
+        btn_explore_expertise: "Explore Specialties",
+        btn_instant_serial: "Instant Serial",
+        btn_map: "Map",
+        btn_play_video: "Play Inside",
+        btn_read_article: "Read Full Article",
+        btn_view_all_articles: "View All Health Articles",
+        btn_view_all_videos: "View All Video Guides",
+        btn_view_chambers: "View Chambers & Hours",
+        chamber1_addr: "House #16, Road #2, Dhanmondi R/A, Dhaka-1205 (Room 408)",
+        chamber1_badge: "Primary Center",
+        chamber1_closed: "Thursday & Friday",
+        chamber1_days: "Saturday – Wednesday",
+        chamber1_facility_desc: "Fully accredited pathology lab, 1.5T MRI, 128-slice CT, Echocardiography, Spirometry, Ultrasound, and full-service pharmacy located in the same building.",
+        chamber1_note: "Direct on-site lab, pathology, and pharmacy assistance available.",
+        chamber1_title: "Popular Diagnostic Centre, Dhanmondi",
+        chamber2_addr: "House #52, Sector #3, Jasimuddin Avenue, Uttara, Dhaka (Room 205)",
+        chamber2_badge: "Weekend & Evening",
+        chamber2_closed: "Saturday to Wednesday",
+        chamber2_days: "Thursday & Friday Only",
+        chamber2_facility_desc: "Advanced digital diagnostics, rapid fever panel workups (Dengue NS1, CBC), dedicated patient parking, and streamlined reception queue management.",
+        chamber2_note: "Convenient location for Northern Dhaka and airport access.",
+        chamber2_title: "Ibn Sina Diagnostic Center, Uttara",
+        chamber_fee: "Fee: BDT 1,200",
+        chambers_eyebrow: "Visiting Schedule",
+        chambers_headline: "Consultation Chambers & Direct Serials",
+        chambers_hero_badge: "Dhaka Consultation Locations",
+        chambers_page_sub: "Dr. Abu Hanif Rakib consults at two modern diagnostic centres in Dhanmondi and Uttara. Choose your preferred location to secure an instant chamber serial.",
+        chambers_page_title: "Chambers & Visiting Schedule",
+        chambers_sub: "Dr. Abu Hanif Rakib consults at two premier medical diagnostic centers in Dhaka. Select your preferred chamber to secure a serial.",
+        cta_blog_badge: "Personalized Medical Attention",
+        cta_blog_sub: "Book a consultation serial to discuss your diagnostic tests, chronic health challenges, and tailored therapeutic roadmap with Dr. Abu Hanif Rakib.",
+        cta_blog_title: "Have Questions About Your Health Reports?",
+        cta_booking_banner_sub: "No advance payment required. Secure a confirmed queue number with direct SMS notifications on your mobile phone.",
+        cta_booking_banner_title: "Reserve Your Consultation Serial in 2 Minutes",
+        cta_chamber_badge: "Chamber Consultations",
+        cta_chamber_sub: "Visit Dr. Abu Hanif Rakib at Popular Diagnostic Centre Dhanmondi or Ibn Sina Diagnostic Uttara.",
+        cta_chamber_title: "Looking for an In-Person Medical Review?",
+        cta_consult_badge: "Need In-Person Consultation?",
+        cta_consult_sub: "Direct physical examinations, review of prior blood tests and imaging reports, and customized treatment plans.",
+        cta_consult_title: "Book a Chamber Serial with Dr. Abu Hanif Rakib",
+        cta_expertise_sub: "Consult with Dr. Abu Hanif Rakib for precision diagnosis, medication review, and evidence-based clinical recovery.",
+        cta_expertise_title: "Schedule a Detailed Clinical Consultation",
+        cta_fast_booking: "Online Chamber Reservation",
+        cta_help_sub: "Reach our chamber staff directly by phone, WhatsApp, or reserve your serial online.",
+        cta_help_title: "We Are Here to Assist Your Care Journey",
+        cta_still_questions: "Still Have Questions?",
+        doc_designation: "Medicine Specialist",
+        emergency_warning_desc: "For severe chest pain, acute breathlessness, or signs of acute stroke, please visit the nearest hospital emergency department immediately or dial 999.",
+        emergency_warning_title: "Medical Emergency Warning",
+        exp_app_1: "Prioritizes organ-protective SGLT2 inhibitors and GLP-1 therapy alongside strict nutritional timing to achieve target HbA1c below 6.5% without hypoglycemic risk.",
+        exp_app_2: "Identifies concealed secondary hypertension causes (renal artery stenosis, sleep apnea, endocrine adenomas) to prevent premature strokes and heart failure.",
+        exp_app_3: "Employs objective spirometry parameters and teaches flawless inhaler spacer techniques rather than resorting to prolonged oral steroid dependence.",
+        exp_app_4: "Performs comprehensive Free T3, Free T4, and anti-TPO antibody profiling to deliver precision micro-titrated hormone replenishment.",
+        exp_app_5: "Strict hematocrit monitoring and plasma balance protocol for dengue; zero indiscriminate antibiotic prescriptions for benign viral infections.",
+        exp_app_6: "Staged gut-microbiome and liver enzyme normalization without long-term proton pump inhibitor dependency or unnecessary dietary restrictions.",
+        exp_approach_title: "Doctor's Clinical Approach:",
+        exp_desc_1: "Comprehensive glycemic stabilization for brittle Type 2 & Type 1 diabetes, diabetic neuropathy, kidney risk reduction, and individualized insulin regimen formulation.",
+        exp_desc_2: "Diagnostic screening for resistant secondary hypertension, lipid profile dyslipidemia, cardiac risk assessment, and long-term arterial protection protocols.",
+        exp_desc_3: "Evidence-led therapeutics for chronic refractory cough, bronchial asthma, chronic obstructive pulmonary disease (COPD), allergic bronchitis, and post-viral lung recovery.",
+        exp_desc_4: "Investigation and hormone titration for Hypothyroidism, Hyperthyroidism, Hashimoto's thyroiditis, sudden unexplained weight fluctuations, and chronic fatigue syndromes.",
+        exp_desc_5: "Systematic clinical workups for pyrexia of unknown origin, persistent dengue, complex typhoid, recurrent urinary tract infections, and rational antibiotic stewardship.",
+        exp_desc_6: "Holistic management of irritable bowel symptoms (IBS), non-alcoholic fatty liver disease (NAFLD), hyperuricemia/gout, and comprehensive executive health screenings.",
+        exp_title_1: "Uncontrolled Diabetes & Metabolic Disorders",
+        exp_title_2: "Refractory Hypertension & Cardiovascular Risk",
+        exp_title_3: "Asthma, COPD & Respiratory Diseases",
+        exp_title_4: "Thyroid, Hormone & Endocrine Conditions",
+        exp_title_5: "Infectious Diseases & Prolonged Fever (PUO)",
+        exp_title_6: "Gastrointestinal, Liver & Preventive Medicine",
+        expertise_eyebrow: "Core Clinical Solutions",
+        expertise_headline: "Proven Protocols for Complex Conditions",
+        expertise_hero_badge: "Internal Medicine Disciplines",
+        expertise_page_sub: "Systematic medical protocols developed through 15+ years of clinical practice, dedicated to organ preservation, rational antibiotic therapy, and sustainable metabolic stabilization.",
+        expertise_page_title: "Specialized Clinical Solutions",
+        expertise_sub: "Dedicated, systematic medical management focused on long-term disease remission and organ preservation.",
+        facility_title: "On-Site Facilities:",
+        faq_a1: "You can either complete the online 2-Click booking form above or dial the dedicated serial hotlines directly (Popular Dhanmondi: +880 1711-000001, Ibn Sina Uttara: +880 1722-000002). Booking lines open daily from 8:00 AM.",
+        faq_a2: "Please bring all previous prescriptions, recent diagnostic test slips (blood tests, ECG, imaging reports), and current medication boxes. Having a written timeline of your symptoms is highly encouraged.",
+        faq_a3: "Diagnostic reports requested during your consultation can be reviewed within 7 to 10 days without incurring an extra consultation charge.",
+        faq_a4: "Yes, telemedicine follow-up is available for existing patients who have had at least one in-person clinical examination at either chamber.",
+        faq_a5: "The consultation fee is BDT 1,200 for initial consultations. No advance payment is needed when reserving online. Payment is made directly at the hospital or diagnostic counter upon arrival.",
+        faq_a6: "Chambers are meant for scheduled outpatient consultations. In case of acute chest pain, sudden stroke symptoms, severe breathing distress, or heavy bleeding, please visit the emergency room of your nearest hospital or dial 999 immediately.",
+        faq_eyebrow: "Patient Help Center",
+        faq_headline: "Frequently Asked Questions",
+        faq_hero_badge: "Patient Support & Guidelines",
+        faq_page_sub: "Clear instructions on serial bookings, report evaluation rules, required medical documents, and what to expect during your consultation.",
+        faq_page_title: "Patient Help Guide & FAQs",
+        faq_q1: "How do I reserve a serial for Dr. Abu Hanif Rakib?",
+        faq_q2: "What should I carry with me on the day of consultation?",
+        faq_q3: "What is the report evaluation timeframe?",
+        faq_q4: "Does Dr. Abu Hanif Rakib provide telemedicine follow-ups?",
+        faq_q5: "How much is the consultation fee and how is it paid?",
+        faq_q6: "What if I need urgent medical attention or hospitalization?",
+        faq_sub: "Clear guidance on scheduling serials, previous report reviews, and chamber etiquette.",
+        filter_all: "All Guides",
+        filter_all_articles: "All Articles",
+        filter_antibiotic: "Antibiotic Safety",
+        filter_art_diabetes: "Diabetes & Metabolism",
+        filter_art_heart: "Hypertension & Heart",
+        filter_art_infection: "Fever & Infections",
+        filter_art_lifestyle: "Lifestyle & Diet",
+        filter_bp: "Blood Pressure & Heart",
+        filter_diabetes: "Diabetes & Metabolism",
+        filter_fever: "Fever & Dengue",
+        filter_lungs: "Asthma & Chest",
+        footer_bio: "Associate Professor & Senior Consultant in Internal Medicine. Providing patient-centric clinical diagnostic solutions for diabetes, refractory hypertension, respiratory disorders, and complex internal diseases.",
+        footer_copyright: "© 2026 Dr. Abu Hanif Rakib. All Rights Reserved. BMDC Certified Internal Medicine Specialist.",
+        footer_emergency_notice: "For emergency resuscitation, call 999 or visit the nearest ER immediately.",
+        footer_helplines_title: "Chamber Serials",
+        footer_link_booking: "Instant Booking",
+        footer_privacy: "Privacy Policy",
+        footer_quick_links: "Quick Links",
+        footer_specialties_title: "Specialties",
+        footer_specialty: "Consultant Medicine Specialist",
+        footer_terms: "Terms of Care",
+        form_age: "Age",
+        form_badge: "Open For Serials",
+        form_btn_submit: "Confirm Serial Request & Get Confirmation",
+        form_chamber: "Select Chamber",
+        form_collapse_title: "Add Clinical Details (Optional)",
+        form_consent: "I agree to receive appointment serial confirmation and reminder SMS on my phone.",
+        form_date: "Preferred Date",
+        form_gender: "Gender",
+        form_name: "Patient Name",
+        form_phone: "Mobile Number",
+        form_reassurance: "No advance payment needed. Serial confirmed via SMS.",
+        form_subtitle: "Priority Chamber Queue • Fast 2-Step",
+        form_symptoms: "Primary Symptoms / Reason for Visit",
+        form_title: "Quick Appointment Form",
+        form_upload_formats: "Supported formats: PDF, JPG, PNG (Max 15MB)",
+        form_upload_hint: "Click to browse or drag & drop reports here",
+        form_upload_label: "Attach Previous Prescriptions / Lab Reports",
+        form_upload_optional: "Optional • Doctor Review",
+        form_visit_type: "Visit Type",
+        gender_female: "Female",
+        gender_male: "Male",
+        gender_other: "Other",
+        hero_bio: "Providing authoritative, evidence-based diagnostic care and individualized treatment protocols for chronic, metabolic, and complex non-surgical conditions. Dedicated to clinical precision and patient dignity.",
+        hero_bmdc: "BMDC Reg No: 84321",
+        hero_cta_book: "Book Appointment / Serial",
+        hero_cta_chambers: "View Chambers & Schedule",
+        hero_designation: "Senior Consultant & Medicine Specialist",
+        hero_doctor_name: "Dr. Abu Hanif Rakib",
+        hero_exp_badge: "12+ Years Clinical Excellence",
+        label_closed: "Weekly Off:",
+        label_visiting_days: "Visiting Days",
+        label_visiting_hours: "Visiting Hours",
+        lead_desc: "Pre-diabetes is not a permanent diagnosis—it is a critical physiological window of opportunity. By understanding glycemic kinetics, insulin resistance, and muscle glucose uptake, individuals can normalize HbA1c levels without premature polypharmacy.",
+        lead_point_text: "A 15-minute post-meal brisk walk lowers peak postprandial glucose by up to 22% by activating insulin-independent GLUT4 receptors.",
+        lead_point_title: "Key Clinical Insight:",
+        lead_tag: "Featured Clinical Column",
+        lead_title: "Lifestyle Modification as Medicine: Reversing Pre-Diabetes",
+        member_apb: "Association of Physicians of Bangladesh (APB)",
+        member_bma: "Member, Bangladesh Medical Association",
+        metric_exp: "Years of Hospital Experience",
+        metric_patients: "Patients Successfully Treated",
+        metric_trust: "Patient Trust & Satisfaction",
+        nav_about: "About Doctor",
+        nav_articles: "Health Articles",
+        nav_booking: "Book Serial",
+        nav_chambers: "Chambers",
+        nav_expertise: "Clinical Expertise",
+        nav_faq: "Patient Guide",
+        nav_home: "Home",
+        nav_videos: "Video Guides",
+        opt_dhanmondi: "Popular Diagnostic, Dhanmondi (Sat - Wed)",
+        opt_uttara: "Ibn Sina Diagnostic, Uttara (Thu - Fri)",
+        phil1_desc: "Strictly avoids unwarranted antibiotic prescriptions for self-limiting viral fevers, guarding patients against toxic side-effects and drug resistance.",
+        phil1_title: "Rational Antibiotic Stewardship",
+        phil2_desc: "Combines dietary chronobiology, physical routine guidance, and pharmacological therapy to reverse pre-diabetes and achieve long-term glycemic control.",
+        phil2_title: "Holistic Metabolic Stabilization",
+        phil3_desc: "Dedicates comprehensive time to listen, review previous health trajectories, explain medical findings, and involve the patient in every decision.",
+        phil3_title: "Unrushed Patient Consultations",
+        philosophy_heading: "Clinical Philosophy & Patient Care",
+        reader_author: "Written by Dr. Abu Hanif Rakib, FCPS (Medicine)",
+        review1_meta: "Diabetes Patient • Dhanmondi",
+        review1_text: "\"Dr. Abu Hanif Rakib is one of the most thorough doctors in Dhaka. He spent over 20 minutes analyzing my fluctuating glucose numbers and adjusted my medication smoothly. My HbA1c is now stable at 6.3%.\"",
+        review2_meta: "Hypertension Care • Uttara",
+        review2_text: "\"My mother suffered from unexplained high blood pressure spikes for months. Dr. Rakib accurately diagnosed secondary renal artery constriction and helped us avoid severe organ damage. We are eternally grateful.\"",
+        review3_meta: "General Medicine • Mirpur",
+        review3_text: "\"No unnecessary tests, honest clinical advice, and genuine bedside kindness. When you speak to Dr. Abu Hanif Rakib, you know you are in the hands of a true expert.\"",
+        review_eyebrow: "Patient Testimonials",
+        review_headline: "Stories of Healing & Recovery",
+        review_sub: "Direct feedback from individuals treated under Dr. Abu Hanif Rakib's direct clinical supervision.",
+        tag_endocrine: "Endocrine & Thyroid",
+        timeline_desc1: "Directing clinical rounds, high-dependency internal medicine care, and clinical trials.",
+        timeline_desc2: "Undergraduate bedside teaching, clinical grand rounds, and acute fever diagnostics.",
+        timeline_desc3: "Fellowship awarded in internal medicine following intensive clinical examinations.",
+        timeline_desc4: "Completed clinical clerkships with distinction in Internal Medicine.",
+        timeline_pos1: "Associate Professor, Department of Medicine",
+        timeline_pos2: "Assistant Professor, Internal Medicine",
+        timeline_title: "Academic Track Record & Credentials",
+        v_card1_desc: "Practical clinical advice on what to do when fasting and post-meal glucose spike unexpectedly, and when to seek urgent medical review.",
+        v_card1_title: "Managing Sudden Fluctuations in Blood Sugar",
+        v_card2_desc: "Understanding systolic and diastolic numbers, salt intake reduction, and protecting kidney and heart health over decades.",
+        v_card2_title: "High Blood Pressure: Silent Risks & Prevention",
+        v_card3_desc: "Why simple viral fevers do not require antibiotics, and how antibiotic resistance threatens public health in Bangladesh.",
+        v_card3_title: "Dangers of Indiscriminate Antibiotic Use",
+        v_card4_desc: "Step-by-step guidance on using metered-dose inhalers and rotahalers to achieve optimum pulmonary airway delivery without throat irritation.",
+        v_card4_title: "Asthma vs COPD: Correct Inhaler Techniques",
+        v_card5_desc: "Why day 4 to day 6 of dengue fever requires vigilant fluid balance monitoring, hematocrit testing, and how to spot plasma leakage early.",
+        v_card5_title: "Dengue Critical Phase: Warning Signs & Fluids",
+        v_card6_desc: "Evidence-based nutritional shifts, weight optimization guidelines, and hepatic enzyme stabilization protocols to prevent liver fibrosis.",
+        v_card6_title: "Reversing Grade 1 & 2 Fatty Liver Clinically",
+        video1_desc: "Practical clinical advice on what to do when fasting and post-meal glucose spike unexpectedly, and when to seek urgent medical review.",
+        video1_title: "Managing Sudden Fluctuations in Blood Sugar",
+        video2_desc: "Understanding systolic and diastolic numbers, salt intake reduction, and protecting kidney and heart health over decades.",
+        video2_title: "High Blood Pressure: Silent Risks & Prevention",
+        video3_desc: "Why simple viral fevers do not require antibiotics, and how antibiotic resistance threatens public health in Bangladesh.",
+        video3_title: "Dangers of Indiscriminate Antibiotic Use",
+        video_badge_antibiotic: "Antibiotic Safety",
+        video_badge_bp: "Hypertension Care",
+        video_badge_diabetes: "Diabetes & Diet",
+        video_eyebrow: "Patient Education & Video Guides",
+        video_headline: "Clinical Health Tips & Doctor's Advice",
+        video_hub_badge: "Doctor's Video Archive",
+        video_hub_sub: "Authentic, evidence-based health guidance and disease prevention discussions directly from Dr. Abu Hanif Rakib. Play any video directly inside this website.",
+        video_hub_title: "Clinical Video Guides & Health Advice",
+        video_sub: "Watch Dr. Abu Hanif Rakib discuss prevention, symptom management, and rational medical treatment directly on this website.",
+        visit_followup: "Follow-Up (30 Days)",
+        visit_new: "New Consultation",
+        visit_report: "Report Evaluation"
+      },
+      bn: {
+        about_card1_desc: "ফেলো অব কলেজ অব ফিজিশিয়ান্স অ্যান্ড সার্জনস (FCPS - মেডিসিন)",
+        about_card1_title: "উচ্চতর ডিগ্রি ও ফেলোশিপ",
+        about_card2_desc: "সহযোগী অধ্যাপক, মেডিসিন বিভাগ, সরকারি মেডিকেল কলেজ",
+        about_card2_title: "বর্তমান পদবী",
+        about_eyebrow: "ব্যক্তিগত প্রোফাইল ও দর্শন",
+        about_headline: "মনোযোগ সহকারে শোনা ও যুক্তিভিত্তিক সঠিক চিকিৎসার প্রতিশ্রুতি",
+        about_hero_badge: "মেডিসিন বিশেষজ্ঞ পরিচিতি",
+        about_main_sub: "ডাঃ মোঃ আবু হানিফ রাকিবের চিকিৎসা দর্শন, প্রাতিষ্ঠানিক অভিজ্ঞতা ও কর্মজীবন সম্পর্কে বিস্তারিত জানুন।",
+        about_main_title: "আধুনিক চিকিৎসাসেবা ও মানবিক আন্তরিকতায় নিবেদিত",
+        about_p1: "ডাঃ আবু হানিফ রাকিব বাংলাদেশের একজন স্বনামধন্য ও নিষ্ঠাবান মেডিসিন বিশেষজ্ঞ। ঢাকা মেডিকেল কলেজ থেকে কৃতিত্বের সাথে এমবিবিএস শেষ করার পর বাংলাদেশ কলেজ অব ফিজিশিয়ান্স অ্যান্ড সার্জনস (BCPS) থেকে ইন্টারনাল মেডিসিনে ফেলোশিপ (FCPS) অর্জন করেন।",
+        about_p2: "অপ্রয়োজনীয় টেস্ট বা অতিরিক্ত ওষুধের পরিবর্তে তিনি রোগীর মূল সমস্যা চিহ্নিত করা এবং ওষুধের সাথে কার্যকর লাইফস্টাইল পরিবর্তনের ওপর গুরুত্ব দেন।",
+        art2_desc: "ডেঙ্গু জ্বরে প্লাটিলেটের চেয়ে রক্তের ঘনত্ব বা হেমাটোক্রিট এবং তরলের ভারসাম্য বজায় রাখা কেন জীবনরক্ষাকারী।",
+        art2_title: "ডেঙ্গু জ্বর: শুধু প্লাটিলেট কাউন্টই কি সবকিছু?",
+        art3_desc: "দীর্ঘমেয়াদী ক্লান্তি ও কাজে অনীহার পেছনে থাইরয়েড ও ভিটামিন ডি ঘাটতির নীরব প্রভাব চিহ্নিত করুন।",
+        art3_title: "অতিরিক্ত ক্লান্তি, স্মৃতিভ্রম ও হঠাৎ ওজন বৃদ্ধি",
+        art4_desc: "তিনটি প্রেশারের ওষুধ খেয়েও প্রেশার নিয়ন্ত্রণে না আসার পেছনে প্রক্রিয়াজাত খাবারের গোপন সোডিয়ামের ভূমিকা।",
+        art4_title: "লুকানো লবণ ও অনিয়ন্ত্রিত উচ্চ রক্তচাপের রহস্য",
+        art5_desc: "সামান্য সর্দি-কাশিতে অ্যান্টিবায়োটিক খেয়ে বন্ধ করে দিলে শরীরের রোগজীবাণু কীভাবে ভয়াবহ প্রতিরোধী হয়ে ওঠে।",
+        art5_title: "অযথা অ্যান্টিবায়োটিক সেবন: চিকিৎসকের জরুরি সতর্কতা",
+        art6_desc: "মস্তিষ্ক ও পরিপাকতন্ত্রের সম্পর্ক, মানসিক চাপ এবং প্রতিদিন গ্যাস্ট্রিকের ওষুধের ওপর নির্ভরতা কমানোর উপায়।",
+        art6_title: "আইবিএস বনাম এসিডিটি: পেটের দীর্ঘমেয়াদী সমস্যার সমাধান",
+        badge_bmdc_title: "বিএমডিসি রেজিস্টার্ড স্পেশালিস্ট",
+        badge_fcps_sub: "সহযোগী অধ্যাপক (মেডিসিন)",
+        blog1_desc: "নিয়মিত হাঁটা, পরিমিত ক্যালোরি ও খাদ্যাভ্যাস পরিবর্তনের মাধ্যমে কীভাবে ডায়াবেটিস থেকে দূরে থাকা সম্ভব।",
+        blog1_tag: "প্রতিরোধমূলক স্বাস্থ্য",
+        blog1_title: "ওষুধ নয়, জীবনযাত্রাই চিকিৎসা: প্রি-ডায়াবেটিস নিয়ন্ত্রণ",
+        blog2_desc: "হেমাটোক্রিট পর্যবেক্ষণ, প্লাজমা লিকেজ ও তরল ব্যবস্থাপনার গুরুত্ব কেন প্লাটিলেট সংখ্যার চেয়েও বেশি।",
+        blog2_tag: "সংক্রামক ব্যাধি",
+        blog2_title: "ডেঙ্গু জ্বর: শুধু প্লাটিলেট কাউন্টই কি সবকিছু?",
+        blog3_desc: "সাবক্লিনিক্যাল হাইপোথাইরয়েডিজম, ভিটামিন ডি ঘাটতি ও আধুনিক শহুরে জীবনে দীর্ঘমেয়াদী অবসাদের লক্ষণ।",
+        blog3_tag: "ডায়াগনস্টিক সচেতনতা",
+        blog3_title: "অতিরিক্ত ক্লান্তি, স্মৃতিভ্রম ও হঠাৎ ওজন বৃদ্ধি",
+        blog_badge: "স্বাস্থ্য বিষয়ক নিয়মিত কলাম",
+        blog_eyebrow: "চিকিৎসা ও জীবনধারা",
+        blog_headline: "স্বাস্থ্য পরামর্শ ও বিশেষজ্ঞ নিবন্ধ",
+        blog_hub_sub: "সাধারণ মানুষের স্বাস্থ্য সচেতনতায় ডাঃ মোঃ আবু হানিফ রাকিবের তথ্যবহুল ও সময়োপযোগী চিকিৎসামূলক প্রবন্ধ।",
+        blog_hub_title: "মেডিকেল জার্নাল ও স্বাস্থ্য পরামর্শ",
+        blog_read_more: "সম্পূর্ণ কলাম পড়ুন",
+        blog_sub: "জনস্বাস্থ্য সচেতনতা বৃদ্ধি ও সুস্থ জীবনযাপনে দিকনির্দেশনা দিতে ডাঃ আবু হানিফ রাকিবের লিখিত স্বাস্থ্য পরামর্শ।",
+        book_benefit1_desc: "আপনার সিরিয়াল নম্বর ও সম্ভাব্য পৌঁছানোর সময় মোবাইলে পেয়ে যাবেন।",
+        book_benefit1_title: "মোবাইলে দ্রুত এসএমএস কনফার্মেশন",
+        book_benefit2_desc: "কনসালটেশন ফি (১,২০০ টাকা) চেম্বারের কাউন্টারে সরাসরি পরিশোধ করবেন।",
+        book_benefit2_title: "আগে কোনো ফি দিতে হবে না",
+        book_benefit3_desc: "আপনার পূর্বের প্রেসক্রিপশন ও টেস্ট রিপোর্ট আপলোড করার সুবিধা, যাতে ডাক্তার পূর্বেই প্রস্তুত থাকতে পারেন।",
+        book_benefit3_title: "পূর্ববর্তী রিপোর্ট জমা দেওয়ার সুযোগ",
+        book_eyebrow: "অনলাইন অ্যাপয়েন্টমেন্ট",
+        book_headline: "অগ্রাধিকার ভিত্তিতে সিরিয়াল বুকিং",
+        book_hero_badge: "সহজ চেম্বার সিরিয়াল বুকিং",
+        book_sub: "চেম্বার কর্মীদের সাথে সরাসরি সিরিয়াল নিশ্চিতকরণ ও দ্রুত যাচাই। সিরিয়াল পেতে নিচের তথ্যগুলো পূরণ করুন।",
+        booking_success_title: "সিরিয়াল আবেদন গৃহীত হয়েছে!",
+        btn_book_here: "সিরিয়াল নিন",
+        btn_book_serial: "সিরিয়াল বুক",
+        btn_book_serial_now: "সিরিয়াল বুক করুন",
+        btn_call_serial: "কল করুন",
+        btn_consult_domain: "পরামর্শ নিন",
+        btn_explore_expertise: "বিশেষজ্ঞ সেবাসমূহ",
+        btn_instant_serial: "সিরিয়াল নিন",
+        btn_map: "ম্যাপ",
+        btn_play_video: "ওয়েবসাইটে চালান",
+        btn_read_article: "সম্পূর্ণ প্রবন্ধ পড়ুন",
+        btn_view_all_articles: "সকল স্বাস্থ্য পরামর্শ ও নিবন্ধ দেখুন",
+        btn_view_all_videos: "সকল ভিডিও গাইড দেখুন",
+        btn_view_chambers: "চেম্বার ও সময়সূচি",
+        chamber1_addr: "বাড়ি #১৬, রোড #২, ধানমন্ডি আ/এ, ঢাকা-১২০৫ (রুম ৪০৮)",
+        chamber1_badge: "প্রধান চেম্বার",
+        chamber1_closed: "বৃহস্পতিবার ও শুক্রবার",
+        chamber1_days: "শনিবার – বুধবার",
+        chamber1_facility_desc: "সার্বক্ষণিক প্যাথলজি ল্যাব, ১.৫টি এমআরআই, ১২৮-স্লাইস সিটি স্ক্যান, ইকোকার্ডিওগ্রাফি, স্পাইরোমেট্রি ও পূর্ণাঙ্গ ফার্মেসি সেবা একই ভবনে।",
+        chamber1_note: "চেম্বারে তাৎক্ষণিক রক্ত পরীক্ষা ও ওষুধের সুবিধা রয়েছে।",
+        chamber1_title: "পপুলার ডায়াগনস্টিক সেন্টার, ধানমন্ডি",
+        chamber2_addr: "বাড়ি #৫২, সেক্টর #৩, জসীমউদ্দীন এভিনিউ, উত্তরা, ঢাকা (রুম ২০৫)",
+        chamber2_badge: "উত্তরা চেম্বার",
+        chamber2_closed: "শনিবার থেকে বুধবার",
+        chamber2_days: "বৃহস্পতিবার ও শুক্রবার",
+        chamber2_facility_desc: "উন্নত ডিজিটাল ডায়াগনস্টিকস, দ্রুত ডেঙ্গু প্যানেল টেস্ট (NS1, CBC), নিজস্ব পার্কিং ব্যবস্থা ও রোগী বান্ধব অভ্যর্থনা সেবা।",
+        chamber2_note: "উত্তর ঢাকা ও আশপাশের রোগীদের জন্য সুবিধাজনক লোকেশন।",
+        chamber2_title: "ইবনে সিনা ডায়াগনস্টিক সেন্টার, উত্তরা",
+        chamber_fee: "ভিজিট: ১,২০০ টাকা",
+        chambers_eyebrow: "চেম্বার সময়সূচী",
+        chambers_headline: "চেম্বারের তথ্য ও সরাসরি সিরিয়াল নম্বর",
+        chambers_hero_badge: "ঢাকার চেম্বার ও সময়সূচি",
+        chambers_page_sub: "ডাঃ মোঃ আবু হানিফ রাকিব ধানমন্ডি ও উত্তরার দুটি আধুনিক ডায়াগনস্টিক সেন্টারে নিয়মিত রোগী দেখেন। আপনার সুবিধাজনক স্থান বেছে নিন।",
+        chambers_page_title: "চেম্বার ও রোগী দেখার সময়সূচি",
+        chambers_sub: "ডাঃ আবু হানিফ রাকিব ঢাকার দুটি স্বনামধন্য ডায়াগনস্টিক সেন্টারে রোগী দেখেন। আপনার সুবিধাজনক চেম্বার বেছে নিন।",
+        cta_blog_badge: "বিশেষজ্ঞ চিকিৎসকের পরামর্শ",
+        cta_blog_sub: "আপনার টেস্ট রিপোর্ট পর্যালোচনা ও আধুনিক চিকিৎসার জন্য ডাঃ আবু হানিফ রাকিবের চেম্বারে সিরিয়াল বুক করুন।",
+        cta_blog_title: "আপনার স্বাস্থ্য রিপোর্ট নিয়ে চিন্তিত?",
+        cta_booking_banner_sub: "কোনো অগ্রিম ফি লাগবে না। অনলাইনে বুকিং করলেই নিশ্চিত সিরিয়াল নম্বর পাবেন এসএমএস-এর মাধ্যমে।",
+        cta_booking_banner_title: "মাত্র ২ মিনিটে নিশ্চিত করুন ডাক্তারের সিরিয়াল",
+        cta_chamber_badge: "চেম্বার সিরিয়াল সেবা",
+        cta_chamber_sub: "ধানমন্ডি পপুলার ডায়াগনস্টিক ও উত্তরা ইবনে সিনা চেম্বারে সিরিয়াল বুক করুন সহজ নিয়মে।",
+        cta_chamber_title: "চেম্বারে সরাসরি বিশেষজ্ঞ পরামর্শ চান?",
+        cta_consult_badge: "সরাসরি চিকিৎসা পরামর্শ প্রয়োজন?",
+        cta_consult_sub: "চেম্বারে সরাসরি রিপোর্ট দেখিয়ে প্রেসক্রিপশন ও সুনির্দিষ্ট চিকিৎসা পরামর্শ নিন।",
+        cta_consult_title: "ডাঃ আবু হানিফ রাকিবের সাথে চেম্বারে পরামর্শ নিন",
+        cta_expertise_sub: "আপনার শারীরিক জটিলতা ও ওষুধ পর্যালোচনার জন্য ডাঃ মোঃ আবু হানিফ রাকিবের সাথে সাক্ষাত করুন।",
+        cta_expertise_title: "বিশেষজ্ঞ চিকিৎসকের সাথে সাক্ষাতের সময় নির্ধারণ করুন",
+        cta_fast_booking: "অনলাইন সিরিয়াল সেবা",
+        cta_help_sub: "চেম্বারের হটলাইনে ফোন করুন, হোয়াটসঅ্যাপে মেসেজ দিন অথবা অনলাইনে এখনই সিরিয়াল বুক করুন।",
+        cta_help_title: "আপনার যে কোনো জিজ্ঞাসায় আমরা পাশে আছি",
+        cta_still_questions: "আরও কিছু জানার আছে?",
+        doc_designation: "মেডিসিন বিশেষজ্ঞ",
+        emergency_warning_desc: "হঠাৎ বুকে তীব্র ব্যথা, অতিরিক্ত শ্বাসকষ্ট বা প্যারালাইসিসের লক্ষণে অবিলম্বে নিকটস্থ হাসপাতালের জরুরি বিভাগ অথবা ৯৯৯-এ যোগাযোগ করুন।",
+        emergency_warning_title: "জরুরি সতর্কতা",
+        exp_app_1: "কিডনি ও হার্ট সুরক্ষাকারী আধুনিক ডায়াবেটিস ওষুধ এবং নিয়ন্ত্রিত খাদ্যতালিকার মাধ্যমে সুগার নিয়ন্ত্রণ।",
+        exp_app_2: "অনিয়ন্ত্রিত উচ্চ রক্তচাপের নেপথ্য কারণ শনাক্তকরণ ও অপ্রয়োজনীয় মাত্রাতিরিক্ত ওষুধ পরিহার।",
+        exp_app_3: "স্পাইরোমেট্রি টেস্ট ও ইনহেলারের সঠিক প্রয়োগ পদ্ধতির মাধ্যমে শ্বাসকষ্ট ও সিওপিডির কার্যকর নিয়ন্ত্রণ।",
+        exp_app_4: "সম্পূর্ণ থাইরয়েড অ্যান্টিবডি প্রোফাইলিং এবং রোগীর শারীরিক লক্ষণ অনুযায়ী থাইরয়েড ওষুধের সুনির্দিষ্ট ডোজ নির্ধারণ।",
+        exp_app_5: "ডেঙ্গু ও জ্বরে হেমাটোক্রিট পর্যবেক্ষণ ও প্লাজমা ব্যালেন্স নিশ্চিতকরণ; অপ্রয়োজনীয় অ্যান্টিবায়োটিক সম্পূর্ণ পরিহার।",
+        exp_app_6: "দীর্ঘদিন এসিডিটির ওষুধ না দিয়ে জীবনযাত্রা ও খাদ্যাভ্যাস পরিবর্তনের মাধ্যমে ফ্যাটি লিভার ও আইবিএস নিরাময়।",
+        exp_approach_title: "চিকিৎসকের মূল কর্মপদ্ধতি:",
+        exp_desc_1: "টাইপ-১ ও টাইপ-২ ডায়াবেটিস নিয়ন্ত্রণ, ইনসুলিন সমন্বয়, কিডনি ও স্নায়ু সুরক্ষা এবং সুনির্দিষ্ট খাদ্য পরামর্শ।",
+        exp_desc_2: "অনিয়ন্ত্রিত ব্লাড প্রেশার, রক্তের অতিরিক্ত কোলেস্টেরল নিয়ন্ত্রণ এবং স্ট্রোক ও হার্ট অ্যাটাকের ঝুঁকি কমানো।",
+        exp_desc_3: "দীর্ঘদিনের কাশি, হাঁপানি, অ্যালার্জিক ব্রঙ্কাইটিস ও শ্বাসতন্ত্রের সংক্রমণজনিত জটিলতার আধুনিক চিকিৎসা।",
+        exp_desc_4: "হাইপোথাইরয়েডিজম, হঠাৎ ওজন হ্রাস বা বৃদ্ধি, দীর্ঘস্থায়ী অবসাদ ও বিভিন্ন হরমোন ভারসাম্যহীনতার চিকিৎসা।",
+        exp_desc_5: "অজ্ঞাত কারণে দীর্ঘদিন জ্বর (PUO), ডেঙ্গু, টাইফয়েড ও বারবার প্রস্রাবে ইনফেকশনের সঠিক অ্যান্টিবায়োটিক চিকিৎসা।",
+        exp_desc_6: "আইবিএস (IBS), ফ্যাটি লিভার, পেটের দীর্ঘস্থায়ী সমস্যা ও বার্ষিক রুটিন স্বাস্থ্য পরীক্ষা সেবা।",
+        exp_title_1: "অনিয়ন্ত্রিত ডায়াবেটিস ও মেটাবলিক সমস্যা",
+        exp_title_2: "উচ্চ রক্তচাপ ও হৃদরোগের ঝুঁকি নিয়ন্ত্রণ",
+        exp_title_3: "অ্যাজমা, শ্বাসকষ্ট ও সিওপিডি (COPD)",
+        exp_title_4: "থাইরয়েড ও হরমোনজনিত সমস্যা",
+        exp_title_5: "দীর্ঘদিনের জ্বর ও সংক্রামক ব্যাধি",
+        exp_title_6: "গ্যাস্ট্রিক, লিভার ও প্রতিরোধমূলক স্বাস্থ্য পরীক্ষা",
+        expertise_eyebrow: "বিশেষজ্ঞ সেবা",
+        expertise_headline: "যেসব জটিল রোগের বিশেষায়িত চিকিৎসা দেওয়া হয়",
+        expertise_hero_badge: "বিশেষায়িত চিকিৎসা ক্ষেত্রসমূহ",
+        expertise_page_sub: "১৫+ বছরের চিকিৎসালয় অভিজ্ঞতা ও উচ্চতর ফেলোশিপের আলোকে জটিল মেডিসিন রোগের কার্যকর সমাধান।",
+        expertise_page_title: "বিশেষায়িত চিকিৎসা ও রোগ ব্যবস্থাপনা",
+        expertise_sub: "রোগীর সার্বিক সুস্থতা এবং অঙ্গ-প্রত্যঙ্গ সুরক্ষিত রাখতে নিয়মতান্ত্রিক চিকিৎসা প্রদান।",
+        facility_title: "উপলব্ধ ডায়াগনস্টিক সুবিধাসমূহ:",
+        faq_a1: "আপনি ওয়েবসাইটের ২-ক্লিক ফর্মের মাধ্যমে অনলাইনে অথবা সকাল ৮টা থেকে চেম্বারের নম্বরে সরাসরি ফোন দিয়ে সিরিয়াল নিতে পারবেন (ধানমন্ডি: ০১৭১১-০০০০০১, উত্তরা: ০১৭২২-০০০০০২)।",
+        faq_a2: "রোগীর পূর্ববর্তী সমস্ত প্রেসক্রিপশন, সাম্প্রতিক টেস্ট রিপোর্ট (সিবিসি, সুগার, লিপিড প্রোফাইল ইত্যাদি) এবং বর্তমান ঔষধের তালিকা সঙ্গে আনা জরুরি।",
+        faq_a3: "প্রথম সাক্ষাতে দেওয়া পরীক্ষাগুলোর রিপোর্ট ৭ থেকে ১০ দিনের মধ্যে বিনামূল্যে ডাক্তার স্যারকে দেখানো যাবে।",
+        faq_a4: "পূর্বে চেম্বারে স্বশরীরে দেখানো রোগীদের ক্ষেত্রে প্রয়োজন অনুযায়ী ফলো-আপে টেলিমেডিসিন পরামর্শের সুবিধা দেওয়া হয়।",
+        faq_a5: "প্রথমবার পরামর্শ ফি ১,২০০ টাকা। অনলাইনে কোনো অগ্রিম ফি লাগে না; চেম্বারে এসে রিসেপশন কাউন্টারে পরিশোধ করবেন।",
+        faq_a6: "চেম্বার শুধুমাত্র পূর্বনির্ধারিত বহিঃবিভাগীয় পরামর্শের জন্য। তীব্র বুকে ব্যথা বা স্ট্রোকের মতো জরুরি অবস্থায় অবিলম্বে নিকটস্থ হাসপাতালের ইমার্জেন্সিতে যান।",
+        faq_eyebrow: "রোগী সহায়তা কেন্দ্র",
+        faq_headline: "সাধারণ কিছু প্রশ্নোত্তর",
+        faq_hero_badge: "রোগী সহায়তা ও তথ্যাবলী",
+        faq_page_sub: "সিরিয়াল বুকিং, রিপোর্ট দেখানোর নিয়ম, প্রয়োজনীয় কাগজপত্র এবং চেম্বার সংক্রান্ত তথ্যের সহজ নির্দেশিকা।",
+        faq_page_title: "রোগী সহায়তা ও সাধারণ প্রশ্নোত্তর",
+        faq_q1: "ডাঃ আবু হানিফ রাকিবের সিরিয়াল কীভাবে নেওয়া যায়?",
+        faq_q2: "প্রথম সাক্ষাতে সাথে কী কী কাগজপত্র আনা উচিত?",
+        faq_q3: "রিপোর্ট দেখানোর নিয়ম কী?",
+        faq_q4: "অনলাইন বা টেলিমেডিসিনে রোগী দেখেন কি?",
+        faq_q5: "পরামর্শ ফি কত এবং কীভাবে পরিশোধ করতে হয়?",
+        faq_q6: "জরুরি চিকিৎসা বা হাসপাতালে ভর্তির প্রয়োজন হলে কী করব?",
+        faq_sub: "সিরিয়াল বুকিং, রিপোর্ট দেখানো ও চেম্বার সংক্রান্ত প্রয়োজনীয় তথ্য।",
+        filter_all: "সকল ভিডিও",
+        filter_all_articles: "সকল প্রবন্ধ",
+        filter_antibiotic: "অ্যান্টিবায়োটিক",
+        filter_art_diabetes: "ডায়াবেটিস ও মেটাবলিজম",
+        filter_art_heart: "উচ্চ রক্তচাপ ও হার্ট",
+        filter_art_infection: "জ্বর ও ইনফেকশন",
+        filter_art_lifestyle: "জীবনযাত্রা ও খাদ্যাভ্যাস",
+        filter_bp: "উচ্চ রক্তচাপ",
+        filter_diabetes: "ডায়াবেটিস",
+        filter_fever: "জ্বর ও ডেঙ্গু",
+        filter_lungs: "শ্বাসকষ্ট ও হাঁপানি",
+        footer_bio: "সহযোগী অধ্যাপক ও সিনিয়র কনসালট্যান্ট (মেডিসিন)। জটিল মেডিসিন, ডায়াবেটিস ও হৃদরোগের আধুনিক চিকিৎসা সেবা।",
+        footer_copyright: "© ২০২৬ ডাঃ আবু হানিফ রাকিব। সর্বস্বত্ব সংরক্ষিত। বিএমডিসি রেজিস্টার্ড মেডিসিন বিশেষজ্ঞ।",
+        footer_emergency_notice: "জরুরি আশঙ্কাজনক অবস্থায় অবিলম্বে ৯৯৯ অথবা নিকটস্থ হাসপাতালের ইমার্জেন্সিতে যান।",
+        footer_helplines_title: "চেম্বার সিরিয়াল",
+        footer_link_booking: "সিরিয়াল বুকিং",
+        footer_privacy: "গোপনীয়তা নীতি",
+        footer_quick_links: "প্রয়োজনীয় লিংক",
+        footer_specialties_title: "চিকিৎসা সেবা",
+        footer_specialty: "কনসালট্যান্ট মেডিসিন বিশেষজ্ঞ",
+        footer_terms: "চিকিৎসা সংক্রান্ত নিয়মাবলী",
+        form_age: "বয়স",
+        form_badge: "সিরিয়াল চালু আছে",
+        form_btn_submit: "সিরিয়াল নিশ্চিত করুন ও কনফার্মেশন পান",
+        form_chamber: "চেম্বার নির্বাচন করুন",
+        form_collapse_title: "চিকিৎসা সংক্রান্ত অতিরিক্ত তথ্য দিন (ঐচ্ছিক)",
+        form_consent: "আমি ফোনে অ্যাপয়েন্টমেন্টের তথ্য ও সিরিয়াল সংক্রান্ত এসএমএস পেতে সম্মত আছি।",
+        form_date: "তারিখ নির্ধারণ করুন",
+        form_gender: "লিঙ্গ",
+        form_name: "রোগীর পুরো নাম",
+        form_phone: "মোবাইল নম্বর",
+        form_reassurance: "অগ্রিম কোনো ফি দিতে হবে না। এসএমএস-এর মাধ্যমে সিরিয়াল নিশ্চিত করা হবে।",
+        form_subtitle: "অগ্রাধিকার সিরিয়াল তালিকা • সহজ ২-ধাপ",
+        form_symptoms: "মূল সমস্যা / লক্ষণসমূহ সংক্ষেপে লিখুন",
+        form_title: "সিরিয়াল বুকিং ফর্ম",
+        form_upload_formats: "সমর্থিত ফরম্যাট: PDF, JPG, PNG (সর্বোচ্চ ১৫ মেগাবাইট)",
+        form_upload_hint: "ফাইল নির্বাচন করতে ক্লিক করুন অথবা এখানে টেনে এনে ছাড়ুন",
+        form_upload_label: "পূর্ববর্তী প্রেসক্রিপশন / টেস্ট রিপোর্ট যুক্ত করুন",
+        form_upload_optional: "ঐচ্ছিক • ডাক্তার পর্যালোচনার জন্য",
+        form_visit_type: "রোগীর ধরন",
+        gender_female: "মহিলা",
+        gender_male: "পুরুষ",
+        gender_other: "অন্যান্য",
+        hero_bio: "দীর্ঘমেয়াদী জটিল রোগ, অনিয়ন্ত্রিত ডায়াবেটিস, উচ্চ রক্তচাপ ও বিভিন্ন মেডিসিন সংক্রান্ত রোগের আন্তর্জাতিক প্রোটোকল অনুযায়ী সঠিক ও নির্ভরযোগ্য চিকিৎসা প্রদান করেন।",
+        hero_bmdc: "বিএমডিসি রেজি. নং: 84321",
+        hero_cta_book: "সিরিয়াল বুক করুন",
+        hero_cta_chambers: "চেম্বার ও সময়সূচী দেখুন",
+        hero_designation: "সিনিয়র কনসালট্যান্ট ও মেডিসিন বিশেষজ্ঞ",
+        hero_doctor_name: "ডাঃ মোঃ আবু হানিফ রাকিব",
+        hero_exp_badge: "১২+ বছরের অভিজ্ঞ বিশেষজ্ঞ",
+        label_closed: "বন্ধের দিন:",
+        label_visiting_days: "রোগী দেখার দিন:",
+        label_visiting_hours: "রোগী দেখার সময়:",
+        lead_desc: "প্রি-ডায়াবেটিস কোনো স্থায়ী রোগ নয়—সঠিক সময়ে খাদ্য পরিবর্তন ও নিয়মিত শারীরিক ব্যায়ামের মাধ্যমে এটিকে সম্পূর্ণ নিরাময় করা সম্ভব।",
+        lead_point_text: "ভারী খাবারের পর ১৫ মিনিট হাঁটাহাঁটি রক্তে সুগারের মাত্রা প্রায় ২২% পর্যন্ত কমিয়ে দেয়।",
+        lead_point_title: "বিশেষ পরামর্শ:",
+        lead_tag: "বিশেষ চিকিৎসকের কলাম",
+        lead_title: "ওষুধ নয়, জীবনযাত্রাই চিকিৎসা: প্রি-ডায়াবেটিস নিয়ন্ত্রণ",
+        member_apb: "অ্যাসোসিয়েশন অব ফিজিশিয়ান্স অব বাংলাদেশ (APB)",
+        member_bma: "সদস্য, বাংলাদেশ মেডিকেল অ্যাসোসিয়েশন (BMA)",
+        metric_exp: "বছরের ক্লিনিক্যাল অভিজ্ঞতা",
+        metric_patients: "সফলভাবে সুস্থ হওয়া রোগী",
+        metric_trust: "রোগীদের আস্থা ও সন্তুষ্টি",
+        nav_about: "ডাক্তার সম্পর্কে",
+        nav_articles: "স্বাস্থ্য পরামর্শ ও নিবন্ধ",
+        nav_booking: "সিরিয়াল বুকিং",
+        nav_chambers: "চেম্বার সময়সূচী",
+        nav_expertise: "চিকিৎসা সেবা",
+        nav_faq: "রোগী নির্দেশিকা",
+        nav_home: "হোম",
+        nav_videos: "ভিডিও পরামর্শ",
+        opt_dhanmondi: "পপুলার ডায়াগনস্টিক, ধানমন্ডি (শনি - বুধ)",
+        opt_uttara: "ইবনে সিনা ডায়াগনস্টিক, উত্তরা (বৃহস্পতি - শুক্র)",
+        phil1_desc: "সাধারণ ভাইরাল জ্বরে অপ্রয়োজনীয় অ্যান্টিবায়োটিক প্রেসক্রিপশন সম্পূর্ণ পরিহার করে ওষুধের কার্যকারিতা সংরক্ষণ।",
+        phil1_title: "যথাযথ অ্যান্টিবায়োটিক প্রয়োগ",
+        phil2_desc: "ডায়াবেটিস ও উচ্চ রক্তচাপের দীর্ঘমেয়াদী নিয়ন্ত্রণে খাদ্যাভ্যাস, শারীরিক ব্যায়াম ও আধুনিক ওষুধের সুষম সমন্বয়।",
+        phil2_title: "সমন্বিত মেটাবলিক চিকিৎসা",
+        phil3_desc: "প্রতিটি রোগীর শারীরিক সমস্যার পুঙ্খানুপুঙ্খ ইতিহাস পর্যালোচনা ও রোগীকে রোগের কারণ স্পষ্টভাবে বুঝিয়ে দেওয়া।",
+        phil3_title: "সময় নিয়ে রোগীর কথা শোনা",
+        philosophy_heading: "চিকিৎসা দর্শন ও রোগীসেবার অঙ্গীকার",
+        reader_author: "লেখক: ডাঃ মোঃ আবু হানিফ রাকিব, এফসিপিএস (মেডিসিন)",
+        review1_meta: "ডায়াবেটিস রোগী • ধানমন্ডি",
+        review1_text: "\"\u09a1\u09be\u0983 \u0986\u09ac\u09c1 \u09b9\u09be\u09a8\u09bf\u09ab \u09b0\u09be\u0995\u09bf\u09ac \u09b8\u09cd\u09af\u09be\u09b0 \u0985\u09a4\u09cd\u09af\u09a8\u09cd\u09a4 \u09af\u09a4\u09cd\u09a8\u09ac\u09be\u09a8 \u098f\u0995\u099c\u09a8 \u09a1\u09be\u0995\u09cd\u09a4\u09be\u09b0\u0964 \u09a6\u09c0\u09b0\u09cd\u0998 \u09ea \u09ac\u099b\u09b0 \u09a7\u09b0\u09c7 \u09a1\u09be\u09af\u09bc\u09be\u09ac\u09c7\u099f\u09bf\u09b8\u09c7\u09b0 \u09b8\u09ae\u09b8\u09cd\u09af\u09be \u099b\u09bf\u09b2\u0964 \u09b8\u09cd\u09af\u09be\u09b0\u09c7\u09b0 \u0993\u09b7\u09c1\u09a7 \u0993 \u0996\u09be\u09a6\u09cd\u09af\u09a4\u09be\u09b2\u09bf\u0995\u09be \u09ae\u09c7\u09a8\u09c7 \u098f\u0996\u09a8 \u0986\u09ae\u09be\u09b0 HbA1c \u09ec.\u09e9% \u098f \u09a8\u09c7\u09ae\u09c7 \u098f\u09b8\u09c7\u099b\u09c7\u0964\"",
+        review2_meta: "উচ্চ রক্তচাপ রোগী • উত্তরা",
+        review2_text: "\"\u0986\u09ae\u09be\u09b0 \u09ae\u09be\u09af\u09bc\u09c7\u09b0 \u09b9\u09a0\u09be\u09ce \u09b9\u09a0\u09be\u09ce \u09ac\u09cd\u09b2\u09be\u09a1 \u09aa\u09cd\u09b0\u09c7\u09b6\u09be\u09b0 \u09ac\u09c7\u09dc\u09c7 \u09af\u09c7\u09a4\u0964 \u09b8\u09cd\u09af\u09be\u09b0 \u0985\u09a4\u09cd\u09af\u09a8\u09cd\u09a4 \u09a8\u09bf\u0996\u09c1\u0981\u09a4\u09ad\u09be\u09ac\u09c7 \u09aa\u09b0\u09c0\u0995\u09cd\u09b7\u09be \u0995\u09b0\u09c7 \u0995\u09bf\u09a1\u09a8\u09bf \u0986\u09b0\u09cd\u099f\u09be\u09b0\u09bf\u09b0 \u09b8\u09ae\u09b8\u09cd\u09af\u09be \u099a\u09bf\u09b9\u09cd\u09a8\u09bf\u09a4 \u0995\u09b0\u09c7\u09a8 \u098f\u09ac\u0982 \u09b8\u09ae\u09af\u09bc\u09ae\u09a4\u09cb \u09b8\u09a0\u09bf\u0995 \u099a\u09bf\u0995\u09bf\u09ce\u09b8\u09be \u09a6\u09c7\u09a8\u0964\"",
+        review3_meta: "জেনারেল মেডিসিন • মিরপুর",
+        review3_text: "\"\u0985\u09b9\u09c7\u09a4\u09c1\u0995 \u0985\u09a4\u09bf\u09b0\u09bf\u0995\u09cd\u09a4 \u09aa\u09b0\u09c0\u0995\u09cd\u09b7\u09be \u09a6\u09c7\u09a8 \u09a8\u09be \u098f\u09ac\u0982 \u09b6\u09be\u09a8\u09cd\u09a4\u09ad\u09be\u09ac\u09c7 \u09aa\u09cd\u09b0\u09a4\u09bf\u099f\u09bf \u0995\u09a5\u09be \u09b6\u09cb\u09a8\u09c7\u09a8\u0964 \u09a2\u09be\u0995\u09be\u09af\u09bc \u098f\u09ae\u09a8 \u0986\u09a8\u09cd\u09a4\u09b0\u09bf\u0995 \u09ae\u09c7\u09a1\u09bf\u09b8\u09bf\u09a8 \u09ac\u09bf\u09b6\u09c7\u09b7\u099c\u09cd\u099e \u09aa\u09be\u0993\u09af\u09bc\u09be \u0986\u09b8\u09b2\u09c7\u0987 \u09ad\u09be\u0997\u09cd\u09af\u09c7\u09b0 \u09ac\u09cd\u09af\u09be\u09aa\u09be\u09b0\u0964\"",
+        review_eyebrow: "রোগীদের অভিজ্ঞতা",
+        review_headline: "সুস্থ হয়ে ফেরা রোগীদের কিছু কথা",
+        review_sub: "ডাঃ আবু হানিফ রাকিবের সরাসরি চিকিৎসায় সুস্থ হওয়া রোগীদের বাস্তব মতামত।",
+        tag_endocrine: "হরমোন ও থাইরয়েড",
+        timeline_desc1: "ঢাকা মেডিকেল কলেজ ও হাসপাতাল | ২০২১ – বর্তমান",
+        timeline_desc2: "স্যার সলিমুল্লাহ মেডিকেল কলেজ (মিটফোর্ড) | ২০১৭ – ২০২১",
+        timeline_desc3: "বিসিপিএস (BCPS) থেকে ইন্টারনাল মেডিসিনে মর্যাদাপূর্ণ এফসিপিএস অর্জন।",
+        timeline_desc4: "ঢাকা মেডিকেল কলেজ থেকে ইন্টার্নশিপ ও অনার্স সহ এমবিবিএস সম্পন্ন।",
+        timeline_pos1: "সহযোগী অধ্যাপক, মেডিসিন বিভাগ",
+        timeline_pos2: "সহকারী অধ্যাপক, ইন্টারনাল মেডিসিন",
+        timeline_title: "শিক্ষা ও পেশাগত কর্মজীবন",
+        v_card1_desc: "খাবার আগে ও পরে সুগার হঠাৎ বেড়ে গেলে করণীয় এবং ইনসুলিনের সঠিক ভারসাম্য রক্ষা।",
+        v_card1_title: "রক্তে সুগারের হঠাৎ ওঠা-নামা নিয়ন্ত্রণে করণীয়",
+        v_card2_desc: "সিস্টোলিক ও ডায়াস্টোলিক প্রেশার বোঝা এবং হার্ট ও কিডনি সুরক্ষায় লবণ নিয়ন্ত্রণের গুরুত্ব।",
+        v_card2_title: "উচ্চ রক্তচাপের নীরব ঝুঁকি ও সুরক্ষার উপায়",
+        v_card3_desc: "ভাইরাল জ্বরে কেন অ্যান্টিবায়োটিক লাগে না এবং ওষুধের কার্যকারিতা নষ্ট হওয়ার কারণ।",
+        v_card3_title: "অযথা অ্যান্টিবায়োটিক সেবনের মারাত্মক বিপদ",
+        v_card4_desc: "ইনহেলার ব্যবহারের সময় সাধারণ ভুলগুলো এড়িয়ে ফুসফুসে ওষুধের সঠিক কার্যকারিতা নিশ্চিতকরণ।",
+        v_card4_title: "অ্যাজমা ও সিওপিডি: ইনহেলার ব্যবহারের সঠিক নিয়ম",
+        v_card5_desc: "জ্বর কমে যাওয়ার পর ডেঙ্গুর ক্রিটিক্যাল ফেজে সতর্কতা ও চিকিৎসকের নিবিড় পরামর্শ।",
+        v_card5_title: "ডেঙ্গু জ্বরের ঝুঁকিপূর্ণ ধাপ ও তরল ব্যবস্থাপনার নিয়ম",
+        v_card6_desc: "সঠিক খাদ্যাভ্যাস, ওজন নিয়ন্ত্রণ ও নিয়মতান্ত্রিক জীবনযাত্রার মাধ্যমে ফ্যাটি লিভার দূর করা।",
+        v_card6_title: "গ্রেড ১ ও ২ ফ্যাটি লিভার নিরাময়ের বাস্তবসম্মত উপায়",
+        video1_desc: "খালি পেটে ও খাওয়ার পরে সুগার বেড়ে গেলে তাৎক্ষণিক কী করবেন এবং কখন জরুরি চিকিৎসকের শরণাপন্ন হবেন।",
+        video1_title: "হঠাৎ রক্তের সুগার ওঠানামা করলে করণীয়",
+        video2_desc: "ব্লাড প্রেশারের সঠিক মাপ, লবণ নিয়ন্ত্রণের উপায় এবং দীর্ঘমেয়াদে হার্ট ও কিডনি সুস্থ রাখার ক্লিনিক্যাল পরামর্শ।",
+        video2_title: "উচ্চ রক্তচাপের নীরব ঝুঁকি ও প্রতিরোধ",
+        video3_desc: "সাধারণ ভাইরাল জ্বরে কেন অ্যান্টিবায়োটিক দরকার নেই এবং অ্যান্টিবায়োটিক রেজিস্ট্যান্সের ভয়াবহ পরিণতি।",
+        video3_title: "অযথা অ্যান্টিবায়োটিক সেবনের মারাত্মক বিপদ",
+        video_badge_antibiotic: "অ্যান্টিবায়োটিক সতর্কতা",
+        video_badge_bp: "উচ্চ রক্তচাপ",
+        video_badge_diabetes: "ডায়াবেটিস ও খাদ্য",
+        video_eyebrow: "রোগী সচেতনতা ও ভিডিও গাইড",
+        video_headline: "ভিডিও পরামর্শ ও চিকিৎসকের মতামত",
+        video_hub_badge: "ভিডিও পরামর্শ ও স্বাস্থ্যবার্তা",
+        video_hub_sub: "রোগ প্রতিরোধ ও সুস্বাস্থ্যের সুরক্ষায় ডাঃ মোঃ আবু হানিফ রাকিবের ভিডিও পরামর্শ ও সচেতনতামূলক নির্দেশিকা।",
+        video_hub_title: "চিকিৎসকের তথ্যবহুল ভিডিও গাইড",
+        video_sub: "বিভিন্ন রোগ প্রতিরোধ, লক্ষণ সনাক্তকরণ ও সঠিক চিকিৎসা সম্পর্কে ডাঃ আবু হানিফ রাকিবের ভিডিও আলোচনা সরাসরি এই ওয়েবসাইটে দেখুন।",
+        visit_followup: "পুরাতন রোগী (৩০ দিনের মধ্যে)",
+        visit_new: "নতুন রোগী",
+        visit_report: "রিপোর্ট দেখানোর জন্য"
+      }
+    };
+
+    function getInitialLang() {
+      try {
+        var saved = localStorage.getItem('dr_rakib_user_lang');
+        if (saved === 'bn' || saved === 'en') return saved;
+      } catch (e) {}
+      try {
+        var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+        var userLangs = navigator.languages || [navigator.language || ''];
+        var isBdOrIn = tz.includes('Dhaka') || tz.includes('Kolkata') || tz.includes('Calcutta') || tz.includes('Asia/Dhaka') || tz.includes('Asia/Kolkata');
+        var hasBengali = userLangs.some(function(l) { return l && l.toLowerCase().startsWith('bn'); });
+        if (isBdOrIn || hasBengali) return 'bn';
+      } catch (err) {}
+      return 'en';
+    }
+
+    var currentLang = getInitialLang();
+
+    function applyLanguage(lang, persist) {
+      if (persist) {
+        try {
+          localStorage.setItem('dr_rakib_user_lang', lang);
+        } catch (e) {}
+      }
+      currentLang = lang;
+      if (lang === 'bn') {
+        document.documentElement.lang = 'bn';
+        document.body.classList.add('lang-bn');
+      } else {
+        document.documentElement.lang = 'en';
+        document.body.classList.remove('lang-bn');
+      }
+
+      var dockTooltip = document.getElementById('dockLangTooltipText');
+            document.querySelectorAll('.nav-lang-toggle-btn .lang-btn-text').forEach(function(el) {
+        el.textContent = lang === 'bn' ? 'EN' : 'বাংলা';
+      });
+      var dockBtnLabel = document.getElementById('dockLangBtnLabel');
+      if (lang === 'bn') {
+        if (dockTooltip) dockTooltip.textContent = 'Switch to English';
+        if (dockBtnLabel) dockBtnLabel.textContent = 'EN';
+      } else {
+        if (dockTooltip) dockTooltip.textContent = 'বাংলায় দেখুন';
+        if (dockBtnLabel) dockBtnLabel.textContent = 'বাংলা';
+      }
+
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key] !== undefined) {
+          el.textContent = translations[lang][key];
+        }
+      });
+      document.documentElement.classList.remove('i18n-pending');
+    }
+
+    applyLanguage(currentLang, false);
+
+    document.querySelectorAll('#dockLangToggle, .nav-lang-toggle-btn').forEach(function(btn) {
+      btn.onclick = function(e) {
+        e.preventDefault();
+        var nextLang = currentLang === 'bn' ? 'en' : 'bn';
+        applyLanguage(nextLang, true);
+      };
+    });
+
+    var siteHeader = document.querySelector('.site-header');
+    if (siteHeader) {
+      function checkScroll() {
+        if (window.scrollY > 30) {
+          siteHeader.classList.add('scrolled');
+        } else {
+          siteHeader.classList.remove('scrolled');
+        }
+      }
+      window.addEventListener('scroll', checkScroll);
+      checkScroll();
+    }
+
+      var uploadArea = document.getElementById('medicalUploadArea');
+      var fileInput = document.getElementById('reportFiles');
+      var uploadStatus = document.getElementById('uploadStatus');
+      var uploadFileName = document.getElementById('uploadFileName');
+
+      if (fileInput && uploadStatus && uploadFileName) {
+        fileInput.onchange = function() {
+          if (fileInput.files && fileInput.files.length > 0) {
+            var count = fileInput.files.length;
+            uploadFileName.textContent = count === 1 ? fileInput.files[0].name : count + (currentLang === 'bn' ? ' টি ফাইল সংযুক্ত করা হয়েছে' : ' files attached');
+            uploadStatus.classList.add('has-file');
+          } else {
+            uploadStatus.classList.remove('has-file');
+          }
+        };
+      }
+
+      var form = document.getElementById('standaloneBookingForm');
+      var alertBox = document.getElementById('bookingAlertBox');
+      var alertMsg = document.getElementById('bookingAlertMsg');
+
+      if (form) {
+        form.onsubmit = function(e) {
+          e.preventDefault();
+          if (alertBox && alertMsg) {
+            alertMsg.textContent = currentLang === 'bn'
+              ? 'আপনার সিরিয়াল সফলভাবে গৃহীত হয়েছে! শীঘ্রই এসএমএস-এর মাধ্যমে সিরিয়াল নম্বর পাবেন।'
+              : 'Your serial request has been submitted successfully! You will receive confirmation via SMS shortly.';
+            alertBox.classList.remove('d-none');
+            form.reset();
+            if (uploadStatus) uploadStatus.classList.remove('has-file');
+            alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        };
+      }
+      var dateInput = document.getElementById('consultationDate');
+      if (dateInput) {
+        try {
+          var today = new Date().toISOString().split('T')[0];
+          dateInput.setAttribute('min', today);
+        } catch (e) {}
+      }
+
+  })();
+  </script>
+</body>
+</html>
