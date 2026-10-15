@@ -423,7 +423,7 @@ class DatabaseSeeder extends Seeder
                 'duration' => '8:45',
                 'description_en' => 'Practical clinical advice on what to do when fasting and post-meal glucose spike unexpectedly, and when to seek urgent medical review.',
                 'description_bn' => 'খাবার আগে ও পরে সুগার হঠাৎ বেড়ে গেলে করণীয় এবং ইনসুলিনের সঠিক ভারসাম্য রক্ষা।',
-                'thumbnail' => 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80',
+                'thumbnail' => 'https://img.youtube.com/vi/ScMzIvxBSi4/hqdefault.jpg',
                 'display_order' => 1,
             ],
             [
@@ -434,7 +434,7 @@ class DatabaseSeeder extends Seeder
                 'duration' => '10:12',
                 'description_en' => 'Understanding systolic and diastolic numbers, salt intake reduction, and protecting kidney and heart health over decades.',
                 'description_bn' => 'সিস্টোলিক ও ডায়াস্টোলিক প্রেশার বোঝা এবং হার্ট ও কিডনি সুরক্ষায় লবণ নিয়ন্ত্রণের গুরুত্ব।',
-                'thumbnail' => 'https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?auto=format&fit=crop&w=800&q=80',
+                'thumbnail' => 'https://img.youtube.com/vi/ScMzIvxBSi4/hqdefault.jpg',
                 'display_order' => 2,
             ],
             [
@@ -445,7 +445,7 @@ class DatabaseSeeder extends Seeder
                 'duration' => '7:30',
                 'description_en' => 'Why simple viral fevers do not require antibiotics, and how antibiotic resistance threatens public health in Bangladesh.',
                 'description_bn' => 'ভাইরাল জ্বরে কেন অ্যান্টিবায়োটিক লাগে না এবং ওষুধের কার্যকারিতা নষ্ট হওয়ার কারণ।',
-                'thumbnail' => 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=800&q=80',
+                'thumbnail' => 'https://img.youtube.com/vi/ScMzIvxBSi4/hqdefault.jpg',
                 'display_order' => 3,
             ],
             [
@@ -456,7 +456,7 @@ class DatabaseSeeder extends Seeder
                 'duration' => '9:15',
                 'description_en' => 'Step-by-step guidance on using metered-dose inhalers and rotahalers to achieve optimum pulmonary airway delivery without throat irritation.',
                 'description_bn' => 'ইনহেলার ব্যবহারের সময় সাধারণ ভুলগুলো এড়িয়ে ফুসফুসে ওষুধের সঠিক কার্যকারিতা নিশ্চিতকরণ।',
-                'thumbnail' => 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80',
+                'thumbnail' => 'https://img.youtube.com/vi/ScMzIvxBSi4/hqdefault.jpg',
                 'display_order' => 4,
             ],
             [
@@ -467,7 +467,7 @@ class DatabaseSeeder extends Seeder
                 'duration' => '11:05',
                 'description_en' => 'Why day 4 to day 6 of dengue fever requires vigilant fluid balance monitoring, hematocrit testing, and how to spot plasma leakage early.',
                 'description_bn' => 'জ্বর কমে যাওয়ার পর ডেঙ্গুর ক্রিটিক্যাল ফেজে সতর্কতা ও চিকিৎসকের নিবিড় পরামর্শ।',
-                'thumbnail' => 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=800&q=80',
+                'thumbnail' => 'https://img.youtube.com/vi/ScMzIvxBSi4/hqdefault.jpg',
                 'display_order' => 5,
             ],
             [
@@ -478,7 +478,7 @@ class DatabaseSeeder extends Seeder
                 'duration' => '12:40',
                 'description_en' => 'Evidence-based nutritional shifts, weight optimization guidelines, and hepatic enzyme stabilization protocols to prevent liver fibrosis.',
                 'description_bn' => 'সঠিক খাদ্যাভ্যাস, ওজন নিয়ন্ত্রণ ও নিয়মতান্ত্রিক জীবনযাত্রার মাধ্যমে ফ্যাটি লিভার দূর করা।',
-                'thumbnail' => 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=800&q=80',
+                'thumbnail' => 'https://img.youtube.com/vi/ScMzIvxBSi4/hqdefault.jpg',
                 'display_order' => 6,
             ],
         ];

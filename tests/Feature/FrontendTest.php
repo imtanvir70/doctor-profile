@@ -86,8 +86,14 @@ class FrontendTest extends TestCase
 
     public function test_videos_page_loads_successfully()
     {
+        $video = \App\Models\Video::first();
         $response = $this->get('/videos');
         $response->assertStatus(200);
+
+        if ($video) {
+            $response->assertSee('data-video-id="' . $video->youtube_id . '"', false);
+            $response->assertSee($video->thumbnail_url, false);
+        }
     }
 
     public function test_faq_page_loads_successfully()

@@ -22,6 +22,7 @@
           <button type="button" class="filter-pill-btn" data-filter="antibiotic">{{ ($locale ?? app()->getLocale()) === 'bn' ? 'অ্যান্টিবায়োটিক সতর্কতা' : 'Antibiotic Safety' }}</button>
           <button type="button" class="filter-pill-btn" data-filter="fever">{{ ($locale ?? app()->getLocale()) === 'bn' ? 'জ্বর ও ডেঙ্গু' : 'Fever & Dengue' }}</button>
           <button type="button" class="filter-pill-btn" data-filter="respiratory">{{ ($locale ?? app()->getLocale()) === 'bn' ? 'অ্যাজমা ও বক্ষব্যাধি' : 'Asthma & Chest' }}</button>
+          <button type="button" class="filter-pill-btn" data-filter="liver">{{ ($locale ?? app()->getLocale()) === 'bn' ? 'লিভার ও পরিপাক' : 'Liver & Digestion' }}</button>
         </div>
       </div>
     </div>
@@ -34,11 +35,11 @@
           <div class="col-md-6 col-lg-4 video-grid-item" data-category="{{ strtolower($vid->category ?? 'diabetes') }}">
             <div class="video-card">
               <div class="video-thumb-container js-play-video" 
-                   data-video-id="{{ $vid->youtube_video_id }}" 
+                   data-video-id="{{ $vid->youtube_id ?? $vid->youtube_video_id }}" 
                    data-title="{{ ($locale ?? app()->getLocale()) === 'bn' ? $vid->title_bn : $vid->title_en }}" 
                    data-desc="{{ ($locale ?? app()->getLocale()) === 'bn' ? $vid->description_bn : $vid->description_en }}" 
                    role="button" tabindex="0">
-                <img src="{{ $vid->thumbnail_url ?? 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80' }}" alt="{{ $vid->title_en }}" class="video-thumb-img" loading="lazy">
+                <img src="{{ $vid->thumbnail_url ?? ($vid->thumbnail ?? ('https://img.youtube.com/vi/' . ($vid->youtube_id ?? 'ScMzIvxBSi4') . '/hqdefault.jpg')) }}" alt="{{ $vid->title_en }}" class="video-thumb-img" loading="lazy">
                 <div class="video-play-btn-circle"><i class="bi bi-play-fill"></i></div>
                 @if(!empty($vid->duration))
                   <span class="video-duration-tag"><i class="bi bi-clock me-1"></i>{{ $vid->duration }}</span>
@@ -54,7 +55,7 @@
                 </div>
                 <div class="d-flex align-items-center justify-content-between pt-3 border-top">
                   <button type="button" class="btn btn-sm btn-danger rounded-pill px-3 py-1 js-play-video" 
-                          data-video-id="{{ $vid->youtube_video_id }}" 
+                          data-video-id="{{ $vid->youtube_id ?? $vid->youtube_video_id }}" 
                           data-title="{{ ($locale ?? app()->getLocale()) === 'bn' ? $vid->title_bn : $vid->title_en }}" 
                           data-desc="{{ ($locale ?? app()->getLocale()) === 'bn' ? $vid->description_bn : $vid->description_en }}">
                     <i class="bi bi-play-circle me-1"></i> <span>{{ ($locale ?? app()->getLocale()) === 'bn' ? 'প্লে করুন' : 'Play Inside' }}</span>

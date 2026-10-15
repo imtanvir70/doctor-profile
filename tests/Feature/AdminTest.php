@@ -357,6 +357,11 @@ class AdminTest extends TestCase
         $shortResponse->assertSessionHas('success');
         $video->refresh();
         $this->assertEquals('nFgsBxw-zWQ', $video->youtube_id);
+
+        // Verify the /videos page immediately reflects the updated video ID and thumbnail
+        $frontendResponse = $this->get('/videos');
+        $frontendResponse->assertSee('data-video-id="nFgsBxw-zWQ"', false);
+        $frontendResponse->assertSee('https://img.youtube.com/vi/nFgsBxw-zWQ/hqdefault.jpg', false);
     }
 
     public function test_faq_update_operation()
