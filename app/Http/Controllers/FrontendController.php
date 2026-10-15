@@ -38,7 +38,7 @@ class FrontendController extends Controller
         $data['specialties'] = Specialty::where('is_active', true)->orderBy('display_order')->get();
         $data['articles'] = Article::where('is_published', true)->orderByDesc('is_featured')->latest()->take(3)->get();
         $data['videos'] = Video::where('is_active', true)->orderBy('display_order')->take(3)->get();
-        $data['reviews'] = Review::where('is_approved', true)->take(3)->get();
+        $data['reviews'] = Review::where('is_approved', true)->orderByDesc('is_featured')->latest()->get();
         $data['faqs'] = Faq::where('is_active', true)->orderBy('display_order')->take(4)->get();
 
         return view('frontend.index', $data);
