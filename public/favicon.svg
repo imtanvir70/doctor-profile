@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="favGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F3B66" />
+      <stop offset="100%" stop-color="#08223c" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+  </defs>
+  <!-- Background rounded box -->
+  <rect width="64" height="64" rx="16" fill="url(#favGrad)" />
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-opacity="0.3" />
+  <!-- Medical Red / Emerald Cross -->
+  <path d="M26 14h12v12h12v12H38v12H26V38H14V26h12V14z" fill="url(#accentGrad)" />
+  <!-- Heartbeat pulse line -->
+  <path d="M12 32h11l3-7 5 14 4-9 3 4h14" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

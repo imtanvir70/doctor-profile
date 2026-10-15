@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title', 'Admin Portal') | {{ $profile->name_en ?? 'Doctor Portal' }}</title>
   
+  {{-- Dynamic Admin Portal Favicon --}}
+  <link rel="icon" type="image/svg+xml" href="{{ $profile->favicon_url }}">
+  <link rel="alternate icon" href="{{ $profile->favicon_url }}">
+  <link rel="apple-touch-icon" href="{{ $profile->favicon_url }}">
+
   {{-- Fonts & Bootstrap 5 --}}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

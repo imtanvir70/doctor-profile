@@ -83,14 +83,16 @@ class AdminTest extends TestCase
             'consultation_fee' => 'BDT 1,200',
             'primary_color' => '#0369a1',
             'accent_color' => '#06b6d4',
+            'favicon_file' => \Illuminate\Http\UploadedFile::fake()->image('favicon.png', 32, 32),
         ]);
 
         $updateResponse->assertSessionHas('success');
-        $this->assertDatabaseHas('drprofile', [
-            'experience_years' => '15+',
-            'primary_color' => '#0369a1',
-            'accent_color' => '#06b6d4',
-        ]);
+        $profile = \App\Models\DrProfile::first();
+        $this->assertNotNull($profile->favicon);
+        $this->assertStringContainsString('storage/profile', $profile->favicon);
+
+        $frontendResponse = $this->get('/');
+        $frontendResponse->assertSee($profile->favicon_url, false);
     }
 
     public function test_seo_settings_index_and_update()

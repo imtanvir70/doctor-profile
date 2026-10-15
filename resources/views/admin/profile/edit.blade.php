@@ -410,6 +410,48 @@
           <div id="avatar_file_info" class="small text-muted" style="font-size: 0.75rem;">Square aspect ratio recommended (Max 4MB).</div>
         </div>
 
+        {{-- Site Favicon & Browser Tab Branding Card --}}
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+          <div class="card-header bg-white py-3 border-bottom d-flex align-items-center justify-content-between">
+            <h3 class="fs-6 fw-bold mb-0 text-dark brand-font">
+              <i class="bi bi-browser-chrome text-primary me-2"></i>Website Favicon (ওয়েবসাইট আইকন)
+            </h3>
+            <span class="badge bg-primary-subtle text-primary px-2 py-1 rounded-pill" style="font-size: 0.7rem;">Browser Tab</span>
+          </div>
+          <div class="card-body p-4 text-center">
+            {{-- Browser Tab Live Simulation Mockup --}}
+            <div class="mb-3 p-2 rounded-3 text-start" style="background: #e2e8f0; border: 1px solid #cbd5e1;">
+              <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-top-3 bg-white shadow-sm" style="max-width: 250px; border-bottom: 2px solid var(--admin-accent);">
+                <img id="favicon_tab_preview" src="{{ $profile->favicon_url }}" alt="Favicon" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
+                <span class="small text-truncate fw-semibold text-dark" style="font-size: 0.75rem;">{{ $profile->name_en ?? 'Doctor Portal' }}</span>
+                <span class="ms-auto text-muted" style="font-size: 0.7rem; cursor: default;">&times;</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-center gap-3 mb-3">
+              <div class="position-relative p-2 rounded-3 border bg-light d-flex align-items-center justify-content-center" style="width: 64px; height: 64px;">
+                <img id="favicon_preview_img" src="{{ $profile->favicon_url }}" alt="Favicon Preview" style="max-width: 48px; max-height: 48px; object-fit: contain;">
+                <span id="favicon_new_badge" class="badge bg-success position-absolute bottom-0 start-50 translate-middle-x mb-0 shadow-sm d-none" style="font-size: 0.62rem;">New</span>
+              </div>
+              <div class="text-start">
+                <div class="fw-bold small text-dark">Current Favicon</div>
+                <div class="small text-muted" style="font-size: 0.72rem;">ব্রাউজার ট্যাব ও বুকমার্কে এই আইকনটি প্রদর্শিত হবে</div>
+              </div>
+            </div>
+
+            <div class="text-start mb-2">
+              <label for="favicon_file" class="form-label small fw-semibold">Upload New Favicon (.ico, .png, .svg, .webp)</label>
+              <input type="file" class="form-control form-control-sm mb-1" id="favicon_file" name="favicon_file" accept=".ico,.png,.svg,.webp,.jpg,.jpeg">
+              <div id="favicon_file_info" class="small text-muted" style="font-size: 0.72rem;">Square 32x32, 64x64, 192x192 বা SVG ফরম্যাট সবচেয়ে ভালো (Max 2MB)।</div>
+            </div>
+
+            <div class="text-start mt-3 pt-2 border-top">
+              <label for="favicon_url_input" class="form-label small fw-semibold">অথবা Favicon Direct URL:</label>
+              <input type="text" class="form-control form-control-sm" id="favicon_url_input" name="favicon" value="{{ old('favicon', $profile->favicon) }}" placeholder="https://... বা /favicon.svg">
+            </div>
+          </div>
+        </div>
+
         {{-- Hotlines & Contacts --}}
         <div class="card border-0 shadow-sm rounded-4 mb-4">
           <div class="card-header bg-white py-3 border-bottom">
@@ -563,6 +605,47 @@
             }
           };
           reader.readAsDataURL(file);
+        }
+      });
+    }
+
+    // Live Website Favicon Preview
+    var favInput = document.getElementById('favicon_file');
+    var favUrlInput = document.getElementById('favicon_url_input');
+    var favPreviewImg = document.getElementById('favicon_preview_img');
+    var favTabPreview = document.getElementById('favicon_tab_preview');
+    var favBadge = document.getElementById('favicon_new_badge');
+    var favInfo = document.getElementById('favicon_file_info');
+
+    if (favInput) {
+      favInput.addEventListener('change', function(e) {
+        var file = e.target.files && e.target.files[0];
+        if (file) {
+          if (file.size > 2 * 1024 * 1024) {
+            alert('Favicon file exceeds 2MB.');
+            return;
+          }
+          var reader = new FileReader();
+          reader.onload = function(evt) {
+            if (favPreviewImg) favPreviewImg.src = evt.target.result;
+            if (favTabPreview) favTabPreview.src = evt.target.result;
+            if (favBadge) favBadge.classList.remove('d-none');
+            if (favInfo) {
+              favInfo.innerHTML = '<span class="text-success fw-semibold"><i class="bi bi-check2-circle me-1"></i>' + file.name + ' (' + (file.size / 1024).toFixed(1) + ' KB)</span>';
+            }
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+
+    if (favUrlInput) {
+      favUrlInput.addEventListener('input', function(e) {
+        var val = e.target.value.trim();
+        if (val) {
+          if (favPreviewImg) favPreviewImg.src = val;
+          if (favTabPreview) favTabPreview.src = val;
+          if (favBadge) favBadge.classList.remove('d-none');
         }
       });
     }

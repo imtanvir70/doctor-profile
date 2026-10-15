@@ -36,6 +36,11 @@
         content="{{ ($locale ?? app()->getLocale()) === 'bn' ? $seo->meta_description_bn ?? $profile->hero_bio_bn : $seo->meta_description_en ?? $profile->hero_bio_en }}">
     <meta name="twitter:image" content="{{ $seo->og_image ?? ($globalSeo->og_image ?? $profile->avatar) }}">
 
+    {{-- Dynamic Site Favicon --}}
+    <link rel="icon" type="image/svg+xml" href="{{ $profile->favicon_url }}">
+    <link rel="alternate icon" href="{{ $profile->favicon_url }}">
+    <link rel="apple-touch-icon" href="{{ $profile->favicon_url }}">
+
     {{-- Fonts & Bootstrap 5 --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

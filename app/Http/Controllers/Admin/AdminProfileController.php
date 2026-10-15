@@ -84,11 +84,22 @@ class AdminProfileController extends Controller
             'expertise_banner_desc_bn' => 'nullable|string',
             'footer_copyright_en' => 'nullable|string|max:200',
             'footer_copyright_bn' => 'nullable|string|max:200',
+            'favicon' => 'nullable|string|max:500',
         ]);
 
         if ($request->hasFile('avatar_file')) {
             $path = $request->file('avatar_file')->store('profile', 'public');
             $validated['avatar'] = asset('storage/' . $path);
+        }
+
+        if ($request->hasFile('favicon_file')) {
+            $request->validate([
+                'favicon_file' => 'nullable|file|mimes:ico,png,svg,webp,jpg,jpeg|max:2048',
+            ]);
+            $favPath = $request->file('favicon_file')->store('profile', 'public');
+            $validated['favicon'] = asset('storage/' . $favPath);
+        } elseif ($request->filled('favicon')) {
+            $validated['favicon'] = $request->input('favicon');
         }
 
         $profile->update($validated);
