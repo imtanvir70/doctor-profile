@@ -95,6 +95,64 @@ class AdminTest extends TestCase
         $frontendResponse->assertSee($profile->favicon_url, false);
     }
 
+    public function test_bmdc_reg_is_optional_and_hidden_when_blank()
+    {
+        // 1. Update with blank BMDC Reg
+        $updateResponse = $this->actingAs($this->adminUser)->post('/admin/profile', [
+            'name_en' => 'Dr. Abu Hanif Rakib',
+            'name_bn' => 'ডাঃ মোঃ আবু হানিফ রাকিব',
+            'designation_en' => 'Senior Consultant',
+            'designation_bn' => 'সিনিয়র কনসালট্যান্ট',
+            'degrees_en' => 'MBBS, FCPS',
+            'degrees_bn' => 'এমবিবিএস, এফসিপিএস',
+            'bmdc_reg' => '', // blank!
+            'experience_years' => '15+',
+            'patients_count' => '30,000+',
+            'satisfaction_rate' => '99.5%',
+            'hotline_phone' => '+8801711000001',
+            'hotline_whatsapp' => '8801711000001',
+            'email' => 'admin@drabuhanifrakib.com',
+            'consultation_fee' => 'BDT 1,200',
+        ]);
+
+        $updateResponse->assertSessionHas('success');
+        $profile = \App\Models\DrProfile::first();
+        $this->assertNull($profile->bmdc_reg);
+
+        // 2. Verify neither home nor about page display BMDC Reg when blank
+        $homeResponse = $this->get('/');
+        $homeResponse->assertStatus(200);
+        $homeResponse->assertDontSee('BMDC Reg');
+
+        $aboutResponse = $this->get('/about');
+        $aboutResponse->assertStatus(200);
+        $aboutResponse->assertDontSee('BMDC Reg');
+
+        // 3. Update with a valid BMDC Reg number and verify it appears
+        $this->actingAs($this->adminUser)->post('/admin/profile', [
+            'name_en' => 'Dr. Abu Hanif Rakib',
+            'name_bn' => 'ডাঃ মোঃ আবু হানিফ রাকিব',
+            'designation_en' => 'Senior Consultant',
+            'designation_bn' => 'সিনিয়র কনসালট্যান্ট',
+            'degrees_en' => 'MBBS, FCPS',
+            'degrees_bn' => 'এমবিবিএস, এফসিপিএস',
+            'bmdc_reg' => '99887',
+            'experience_years' => '15+',
+            'patients_count' => '30,000+',
+            'satisfaction_rate' => '99.5%',
+            'hotline_phone' => '+8801711000001',
+            'hotline_whatsapp' => '8801711000001',
+            'email' => 'admin@drabuhanifrakib.com',
+            'consultation_fee' => 'BDT 1,200',
+        ]);
+
+        $profile->refresh();
+        $this->assertEquals('99887', $profile->bmdc_reg);
+
+        $homeResponseWithBmdc = $this->get('/');
+        $homeResponseWithBmdc->assertSee('BMDC Reg No: 99887');
+    }
+
     public function test_seo_settings_index_and_update()
     {
         $response = $this->actingAs($this->adminUser)->get('/admin/seo');

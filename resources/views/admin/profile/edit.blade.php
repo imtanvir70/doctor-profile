@@ -150,8 +150,9 @@
               </div>
 
               <div class="col-md-4">
-                <label for="bmdc_reg" class="form-label small fw-semibold">BMDC Reg No <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="bmdc_reg" name="bmdc_reg" value="{{ old('bmdc_reg', $profile->bmdc_reg) }}" required>
+                <label for="bmdc_reg" class="form-label small fw-semibold">BMDC Reg No <span class="badge bg-light text-secondary border ms-1" style="font-size: 0.68rem;">Optional</span></label>
+                <input type="text" class="form-control" id="bmdc_reg" name="bmdc_reg" value="{{ old('bmdc_reg', $profile->bmdc_reg) }}" placeholder="e.g. 84321 (ফাঁকা রাখলে দেখাবে না)">
+                <div class="form-text small" style="font-size: 0.72rem;">ফাঁকা রাখলে ফ্রন্টএন্ডের কোথাও BMDC নম্বর প্রদর্শিত হবে না।</div>
               </div>
 
               <div class="col-md-4">

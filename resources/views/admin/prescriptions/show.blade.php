@@ -29,8 +29,9 @@
           <div>
             <h2 class="fs-4 fw-bold text-primary mb-1 brand-font">{{ $profile->name_en ?? 'Dr. Abu Hanif Rakib' }}</h2>
             <div class="small fw-semibold text-secondary">{{ $profile->designation_en ?? 'Consultant Medicine Specialist' }}</div>
-            <div class="small text-muted">{{ $profile->degrees_en ?? 'MBBS, BCS (Health), FCPS (Medicine)' }}</div>
-            <div class="small text-success fw-semibold">BMDC Reg No: {{ $profile->bmdc_reg ?? '84321' }}</div>
+            @if (!empty($profile->bmdc_reg))
+            <div class="small text-success fw-semibold">BMDC Reg No: {{ $profile->bmdc_reg }}</div>
+            @endif
           </div>
           <div class="text-end">
             <h3 class="fs-5 fw-bold text-dark mb-1">{{ $profile->name_bn ?? 'ডাঃ মোঃ আবু হানিফ রাকিব' }}</h3>

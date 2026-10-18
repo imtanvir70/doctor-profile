@@ -25,7 +25,7 @@ class AdminProfileController extends Controller
             'designation_bn' => 'required|string|max:200',
             'degrees_en' => 'required|string|max:255',
             'degrees_bn' => 'required|string|max:255',
-            'bmdc_reg' => 'required|string|max:50',
+            'bmdc_reg' => 'nullable|string|max:50',
             'experience_years' => 'required|string|max:50',
             'patients_count' => 'required|string|max:50',
             'satisfaction_rate' => 'required|string|max:50',

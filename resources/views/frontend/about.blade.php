@@ -7,7 +7,7 @@
         <div class="col-lg-8">
           <div class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill fw-bold mb-3 d-inline-flex align-items-center gap-2">
             <i class="bi bi-patch-check-fill fs-6"></i>
-            <span>BMDC Reg No: {{ $profile->bmdc_reg ?? '84321' }} • {{ ($locale ?? app()->getLocale()) === 'bn' ? 'মেডিসিন বিশেষজ্ঞ' : 'Internal Medicine' }}</span>
+            <span>{{ !empty($profile->bmdc_reg) ? ('BMDC Reg No: ' . $profile->bmdc_reg . ' • ') : '' }}{{ ($locale ?? app()->getLocale()) === 'bn' ? ($profile->designation_bn ?? 'মেডিসিন বিশেষজ্ঞ') : ($profile->designation_en ?? 'Internal Medicine') }}</span>
           </div>
           <h1 class="display-5 fw-extrabold mb-3">
             {{ ($locale ?? app()->getLocale()) === 'bn' ? ($profile->name_bn ?? 'ডাঃ মোঃ আবু হানিফ রাকিব') : ($profile->name_en ?? 'Dr. Abu Hanif Rakib') }}
@@ -75,10 +75,12 @@
             </div>
 
             <div class="d-flex flex-wrap gap-2">
+              @if (!empty($profile->bmdc_reg))
               <span class="about-affiliation-pill">
                 <i class="bi bi-patch-check-fill text-primary"></i>
                 <span>BMDC Reg: {{ $profile->bmdc_reg }}</span>
               </span>
+              @endif
               <span class="about-affiliation-pill">
                 <i class="bi bi-award-fill text-success"></i>
                 <span>{{ $profile->experience_years }} {{ ($locale ?? app()->getLocale()) === 'bn' ? 'বছরের ক্লিনিক্যাল অভিজ্ঞতা' : 'Years Clinical Experience' }}</span>
@@ -131,6 +133,7 @@
                 </div>
               </div>
 
+              @if (!empty($profile->bmdc_reg))
               <div class="med-timeline-item">
                 <div class="med-timeline-badge">
                   <i class="bi bi-shield-fill-check text-primary"></i>
@@ -143,6 +146,7 @@
                   </div>
                 </div>
               </div>
+              @endif
 
               <div class="med-timeline-item">
                 <div class="med-timeline-badge">

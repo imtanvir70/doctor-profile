@@ -8,10 +8,12 @@
                 <div class="col-lg-7 text-center text-lg-start">
                     <div
                         class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start gap-2 mb-3">
+                        @if (!empty($profile->bmdc_reg))
                         <span class="badge-bmdc">
                             <i class="bi bi-patch-check-fill text-primary"></i>
-                            <span>BMDC Reg No: {{ $profile->bmdc_reg ?? '84321' }}</span>
+                            <span>BMDC Reg No: {{ $profile->bmdc_reg }}</span>
                         </span>
+                        @endif
                         <span class="badge-experience">
                             <i class="bi bi-award-fill"></i>
                             <span>{{ $profile->experience_years ?? '12+' }}
@@ -152,10 +154,12 @@
                     </div>
 
                     <div class="d-flex flex-wrap gap-2">
+                        @if (!empty($profile->bmdc_reg))
                         <span class="about-affiliation-pill">
                             <i class="bi bi-patch-check-fill text-primary"></i>
                             <span>BMDC Reg: {{ $profile->bmdc_reg }}</span>
                         </span>
+                        @endif
                         <span class="about-affiliation-pill">
                             <i class="bi bi-award-fill text-success"></i>
                             <span>{{ $profile->experience_years }}
@@ -218,6 +222,7 @@
                                 </div>
                             </div>
 
+                            @if (!empty($profile->bmdc_reg))
                             <div class="med-timeline-item">
                                 <div class="med-timeline-badge">
                                     <i class="bi bi-shield-fill-check text-primary"></i>
@@ -234,6 +239,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
 
                             <div class="med-timeline-item">
                                 <div class="med-timeline-badge">

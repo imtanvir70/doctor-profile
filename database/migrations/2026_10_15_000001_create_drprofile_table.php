@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('designation_bn')->default('সিনিয়র কনসালট্যান্ট ও মেডিসিন বিশেষজ্ঞ');
             $table->string('degrees_en')->default('MBBS, BCS (Health), FCPS (Medicine)');
             $table->string('degrees_bn')->default('এমবিবিএস, বিসিএস (স্বাস্থ্য), এফসিপিএস (মেডিসিন)');
-            $table->string('bmdc_reg')->default('84321');
+            $table->string('bmdc_reg')->nullable()->default('84321');
             $table->string('experience_years')->default('12+');
             $table->string('patients_count')->default('28,000+');
             $table->string('satisfaction_rate')->default('98.7%');

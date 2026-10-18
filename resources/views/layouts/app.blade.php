@@ -244,12 +244,14 @@
                         </div>
                     </div>
 
+                    @if (!empty($profile->bmdc_reg))
                     <div class="mb-3">
                         <span class="footer-badge-bmdc">
                             <i class="bi bi-patch-check-fill"></i>
-                            <span>BMDC Reg: {{ $profile->bmdc_reg ?? '' }}</span>
+                            <span>BMDC Reg: {{ $profile->bmdc_reg }}</span>
                         </span>
                     </div>
+                    @endif
 
                     <p class="footer-bio-text mb-4 pe-lg-3">
                         {{ ($locale ?? app()->getLocale()) === 'bn' ? $profile->hero_bio_bn ?? '' : $profile->hero_bio_en ?? '' }}

@@ -166,9 +166,11 @@
           <div class="doctor-name-en">{{ $profile->name_en ?? 'Dr. Abu Hanif Rakib' }}</div>
           <div class="small fw-semibold text-secondary">{{ $profile->degrees_en ?? 'MBBS (DMC), BCS (Health), FCPS (Medicine)' }}</div>
           <div class="small fw-bold text-dark">{{ $profile->designation_en ?? 'Associate Professor & Consultant, Department of Medicine' }}</div>
+          @if (!empty($profile->bmdc_reg))
           <div class="mt-1">
-            <span class="bmdc-badge-pill">BMDC Reg No: {{ $profile->bmdc_reg ?? '84321' }}</span>
+            <span class="bmdc-badge-pill">BMDC Reg No: {{ $profile->bmdc_reg }}</span>
           </div>
+          @endif
         </div>
         <div class="text-end" style="width: 45%;">
           <div class="doctor-name-bn">{{ $profile->name_bn ?? 'ডাঃ মোঃ আবু হানিফ রাকিব' }}</div>
