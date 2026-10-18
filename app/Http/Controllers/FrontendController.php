@@ -167,6 +167,73 @@ class FrontendController extends Controller
         ]);
     }
 
+    public function storeReview(Request $request)
+    {
+        $validated = $request->validate([
+            'patient_name' => 'required|string|max:150',
+            'patient_phone' => ['required', 'string', 'regex:/^01[3-9]\d{8}$/'],
+            'last_visit_date' => 'required|date|before_or_equal:today',
+            'rating' => 'required|integer|min:1|max:5',
+            'treated_for' => 'nullable|string|max:150',
+            'review_text' => 'required|string|min:10|max:2000',
+        ], [
+            'patient_name.required' => 'রোগীর নাম প্রদান করা আবশ্যক / Patient name is required.',
+            'patient_phone.required' => '১১ ডিজিটের সঠিক মোবাইল নম্বর প্রদান করুন / Valid 11-digit mobile number is required.',
+            'patient_phone.regex' => 'মোবাইল নম্বরটি ১১ ডিজিটের বাংলাদেশি ফরম্যাটে (০১৩-০১৯) হতে হবে / Phone number must be 11 digits BD format (013-019).',
+            'last_visit_date.required' => 'সর্বশেষ ডাক্তার দেখানোর তারিখ প্রদান করুন / Last consultation date is required.',
+            'last_visit_date.before_or_equal' => 'সর্বশেষ ডাক্তার দেখানোর তারিখ আজকের দিন বা অতীতের হতে হবে / Last visit date cannot be in the future.',
+            'rating.required' => 'রেটিং নির্বাচন করুন / Please select a rating.',
+            'review_text.required' => 'আপনার রিভিউ বা মন্তব্য লিখুন / Review text is required.',
+            'review_text.min' => 'রিভিউ অন্তত ১০ অক্ষরের হতে হবে / Review must be at least 10 characters.',
+        ]);
+
+        $initials = collect(explode(' ', trim($validated['patient_name'])))
+            ->filter()
+            ->map(fn($w) => mb_substr($w, 0, 1))
+            ->take(2)
+            ->join('');
+        if (empty($initials)) {
+            $initials = mb_substr($validated['patient_name'], 0, 2);
+        }
+
+        $colors = ['clinical-icon-blue', 'clinical-icon-teal', 'clinical-icon-amber', 'clinical-icon-emerald', 'clinical-icon-rose'];
+        $randomColor = $colors[array_rand($colors)];
+
+        $treatedFor = trim($validated['treated_for'] ?? '');
+        $locationTagEn = $treatedFor ? ($treatedFor . ' Care') : 'Verified Patient';
+        $locationTagBn = $treatedFor ? ($treatedFor . ' চিকিৎসা') : 'ভেরিফাইড রোগী';
+
+        Review::create([
+            'patient_name' => $validated['patient_name'],
+            'patient_phone' => $validated['patient_phone'],
+            'last_visit_date' => $validated['last_visit_date'],
+            'treated_for' => $treatedFor ?: null,
+            'patient_initials' => strtoupper($initials) ?: 'PT',
+            'color_class' => $randomColor,
+            'location_tag_en' => $locationTagEn,
+            'location_tag_bn' => $locationTagBn,
+            'rating' => (int) $validated['rating'],
+            'review_text_en' => $validated['review_text'],
+            'review_text_bn' => $validated['review_text'],
+            'is_featured' => false,
+            'is_approved' => false,
+        ]);
+
+        $locale = App::getLocale();
+        $message = $locale === 'bn'
+            ? 'আপনার মূল্যবান মতামতের জন্য ধন্যবাদ! ডাক্তার যাচাই করার পর আপনার রিভিউটি ওয়েবসাইটে প্রকাশিত হবে।'
+            : 'Thank you for your review! It has been submitted and will appear on the website once verified by the doctor.';
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => $message,
+            ]);
+        }
+
+        return redirect()->to(url()->previous() . '#reviews')->with('success_review', $message);
+    }
+
     public function switchLocale($locale)
     {
         if (in_array($locale, ['en', 'bn'])) {

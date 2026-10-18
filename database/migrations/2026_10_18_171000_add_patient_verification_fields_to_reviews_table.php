@@ -1,0 +1,24 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::table('reviews', function (Blueprint $table) {
+            $table->string('patient_phone')->nullable()->after('patient_name');
+            $table->date('last_visit_date')->nullable()->after('patient_phone');
+            $table->string('treated_for')->nullable()->after('last_visit_date');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('reviews', function (Blueprint $table) {
+            $table->dropColumn(['patient_phone', 'last_visit_date', 'treated_for']);
+        });
+    }
+};

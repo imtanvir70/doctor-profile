@@ -903,16 +903,47 @@
                     </p>
                 </div>
 
-                {{-- Slider Prev / Next Navigation Arrows --}}
-                <div class="d-flex align-items-center gap-2 align-self-start align-self-md-auto">
-                    <button type="button" class="btn-testimonial-nav swiper-button-prev-custom" aria-label="Previous Testimonial">
-                        <i class="bi bi-arrow-left"></i>
+                {{-- Review Action Button & Slider Prev / Next Navigation Arrows --}}
+                <div class="d-flex align-items-center gap-3 align-self-start align-self-md-auto flex-wrap">
+                    <button type="button" class="btn btn-brand-primary px-3 py-2 rounded-pill fw-semibold shadow-sm d-inline-flex align-items-center gap-2"
+                        data-bs-toggle="modal" data-bs-target="#patientReviewModal">
+                        <i class="bi bi-pencil-square"></i>
+                        <span>{{ ($locale ?? app()->getLocale()) === 'bn' ? 'মতামত বা রিভিউ দিন' : 'Write a Review' }}</span>
                     </button>
-                    <button type="button" class="btn-testimonial-nav swiper-button-next-custom" aria-label="Next Testimonial">
-                        <i class="bi bi-arrow-right"></i>
-                    </button>
+
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="button" class="btn-testimonial-nav swiper-button-prev-custom" aria-label="Previous Testimonial">
+                            <i class="bi bi-arrow-left"></i>
+                        </button>
+                        <button type="button" class="btn-testimonial-nav swiper-button-next-custom" aria-label="Next Testimonial">
+                            <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
+
+            @if (session('success_review'))
+                <div class="alert alert-success d-flex align-items-center gap-3 mb-4 rounded-3 shadow-xs" role="alert">
+                    <i class="bi bi-check-circle-fill fs-3 text-success flex-shrink-0"></i>
+                    <div>
+                        <div class="fw-bold fs-6">
+                            {{ ($locale ?? app()->getLocale()) === 'bn' ? 'মতামত সফলভাবে গৃহীত হয়েছে!' : 'Review Submitted Successfully!' }}
+                        </div>
+                        <div class="small">{{ session('success_review') }}</div>
+                    </div>
+                </div>
+            @endif
+
+            @if ($errors->has('patient_name') || $errors->has('patient_phone') || $errors->has('last_visit_date') || $errors->has('review_text'))
+                <div class="alert alert-danger mb-4 rounded-3">
+                    <div class="fw-bold small mb-1"><i class="bi bi-exclamation-triangle-fill me-1"></i> {{ ($locale ?? app()->getLocale()) === 'bn' ? 'রিভিউ জমাদানে ত্রুটি হয়েছে:' : 'Review submission errors:' }}</div>
+                    <ul class="mb-0 small ps-3">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <!-- Swiper Slider Container -->
             <div class="swiper testimonials-swiper">
@@ -958,6 +989,141 @@
             </div>
         </div>
     </section>
+
+    <style>
+        .star-rating-group {
+            display: inline-flex;
+            flex-direction: row-reverse;
+            gap: 4px;
+        }
+        .star-rating-group input {
+            display: none;
+        }
+        .star-rating-group label {
+            font-size: 1.5rem;
+            color: #cbd5e1;
+            cursor: pointer;
+            transition: color 0.15s ease-in-out, transform 0.15s;
+            padding: 0 2px;
+        }
+        .star-rating-group label:hover,
+        .star-rating-group label:hover ~ label,
+        .star-rating-group input:checked ~ label {
+            color: #f59e0b !important;
+        }
+        .star-rating-group label:hover {
+            transform: scale(1.15);
+        }
+    </style>
+
+    {{-- Patient Review Submission Modal (Static Backdrop - Close button only) --}}
+    <div class="modal fade" id="patientReviewModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="patientReviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content rounded-4 border-0 shadow-lg overflow-hidden">
+                <div class="modal-header bg-light py-3 px-4 border-bottom">
+                    <div>
+                        <h5 class="modal-title fs-5 fw-bold text-dark d-flex align-items-center gap-2 mb-1" id="patientReviewModalLabel">
+                            <i class="bi bi-pencil-square text-primary"></i>
+                            <span>{{ ($locale ?? app()->getLocale()) === 'bn' ? 'চিকিৎসাসেবা সম্পর্কে আপনার রিভিউ দিন' : 'Share Your Patient Experience' }}</span>
+                        </h5>
+                        <p class="text-muted small mb-0">
+                            {{ ($locale ?? app()->getLocale()) === 'bn' ? 'আপনার বাস্তব অভিজ্ঞতা অন্য রোগীদের সঠিক সিদ্ধান্ত নিতে সাহায্য করবে।' : 'Your real feedback helps fellow patients find trusted healthcare guidance.' }}
+                        </p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('reviews.store') }}" method="POST" id="patientReviewForm" data-turbo="false">
+                    @csrf
+                    <div class="modal-body p-4">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="revPatientName" class="form-label small fw-semibold text-dark">
+                                    {{ ($locale ?? app()->getLocale()) === 'bn' ? 'রোগীর পূর্ণ নাম' : 'Patient Full Name' }} <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="revPatientName" name="patient_name"
+                                    required maxlength="150" placeholder="{{ ($locale ?? app()->getLocale()) === 'bn' ? 'যেমন: মোহাম্মদ রফিকুল ইসলাম' : 'e.g. Md. Rafiqul Islam' }}"
+                                    value="{{ old('patient_name') }}">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="revPatientPhone" class="form-label small fw-semibold text-dark">
+                                    {{ ($locale ?? app()->getLocale()) === 'bn' ? 'মোবাইল নম্বর (১১ ডিজিট)' : 'Mobile Phone (11-digit BD)' }} <span class="text-danger">*</span>
+                                </label>
+                                <input type="tel" class="form-control" id="revPatientPhone" name="patient_phone"
+                                    required pattern="01[3-9][0-9]{8}" maxlength="11" minlength="11" inputmode="numeric"
+                                    placeholder="017XXXXXXXX" value="{{ old('patient_phone') }}">
+                                <div class="form-text small text-muted" style="font-size: 0.76rem;">
+                                    {{ ($locale ?? app()->getLocale()) === 'bn' ? '১১ ডিজিটের বাংলাদেশি নম্বর (যেমন: 01712345678)। ভেরিফিকেশনের জন্য সংরক্ষিত থাকবে।' : '11-digit BD format (e.g. 01712345678). Used for verification only.' }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="revLastVisitDate" class="form-label small fw-semibold text-dark">
+                                    {{ ($locale ?? app()->getLocale()) === 'bn' ? 'সর্বশেষ ডাক্তার দেখানোর তারিখ' : 'Last Consultation Date' }} <span class="text-danger">*</span>
+                                </label>
+                                <input type="date" class="form-control" id="revLastVisitDate" name="last_visit_date"
+                                    required max="{{ date('Y-m-d') }}" value="{{ old('last_visit_date') }}">
+                                <div class="form-text small text-muted" style="font-size: 0.76rem;">
+                                    {{ ($locale ?? app()->getLocale()) === 'bn' ? 'সর্বশেষ যে তারিখে ডাক্তারকে দেখিয়েছেন (আজ বা অতীতের তারিখ)।' : 'Date of your last visit (must be today or in the past).' }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="revTreatedFor" class="form-label small fw-semibold text-dark">
+                                    {{ ($locale ?? app()->getLocale()) === 'bn' ? 'রোগের ধরন বা বিভাগ' : 'Condition / Treated For' }}
+                                </label>
+                                <input type="text" class="form-control" id="revTreatedFor" name="treated_for"
+                                    maxlength="150" placeholder="{{ ($locale ?? app()->getLocale()) === 'bn' ? 'যেমন: ডায়াবেটিস, থাইরয়েড, হরমোন' : 'e.g. Diabetes, Thyroid, Hormone' }}"
+                                    value="{{ old('treated_for') }}">
+                                <div class="form-text small text-muted" style="font-size: 0.76rem;">
+                                    {{ ($locale ?? app()->getLocale()) === 'bn' ? 'ঐচ্ছিক: যে রোগের জন্য চিকিৎসা নিয়েছিলেন।' : 'Optional: The condition you were treated for.' }}
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label small fw-semibold text-dark d-block mb-1">
+                                    {{ ($locale ?? app()->getLocale()) === 'bn' ? 'আপনার রেটিং' : 'Your Rating' }} <span class="text-danger">*</span>
+                                </label>
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="star-rating-group">
+                                        @for ($star = 5; $star >= 1; $star--)
+                                            <input type="radio" name="rating" id="revStar{{ $star }}" value="{{ $star }}" {{ $star === 5 ? 'checked' : '' }} required>
+                                            <label for="revStar{{ $star }}" title="{{ $star }} Stars"><i class="bi bi-star-fill"></i></label>
+                                        @endfor
+                                    </div>
+                                    <span class="small text-muted fw-semibold" id="ratingTextDisplay">
+                                        {{ ($locale ?? app()->getLocale()) === 'bn' ? '৫ স্টার (অসাধারণ)' : '5 Stars (Excellent)' }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="revReviewText" class="form-label small fw-semibold text-dark">
+                                    {{ ($locale ?? app()->getLocale()) === 'bn' ? 'আপনার বাস্তব অভিজ্ঞতা বা মন্তব্য' : 'Your Review & Experience' }} <span class="text-danger">*</span>
+                                </label>
+                                <textarea class="form-control" id="revReviewText" name="review_text" rows="4"
+                                    required minlength="10" maxlength="2000"
+                                    placeholder="{{ ($locale ?? app()->getLocale()) === 'bn' ? 'ডাক্তারের চিকিৎসাসেবা, চেম্বার পরিবেশ এবং আপনার আরোগ্য লাভের অনুভূতি সংক্ষেপে বর্ণনা করুন...' : 'Describe how the consultation helped you, doctor behavior, and recovery...' }}">{{ old('review_text') }}</textarea>
+                                <div class="form-text small text-muted" style="font-size: 0.76rem;">
+                                    {{ ($locale ?? app()->getLocale()) === 'bn' ? 'কমপক্ষে ১০ অক্ষর। শালীন ও গঠনমূলক মতামত কাম্য।' : 'Minimum 10 characters. Constructive and helpful feedback.' }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light py-3 px-4 border-top d-flex align-items-center justify-content-between">
+                        <button type="button" class="btn btn-outline-secondary px-3 py-2" data-bs-dismiss="modal">
+                            <i class="bi bi-x-circle me-1"></i>
+                            <span>{{ ($locale ?? app()->getLocale()) === 'bn' ? 'বন্ধ করুন' : 'Cancel' }}</span>
+                        </button>
+                        <button type="submit" class="btn btn-brand-primary px-4 py-2 fw-bold d-inline-flex align-items-center gap-2">
+                            <i class="bi bi-send-fill"></i>
+                            <span>{{ ($locale ?? app()->getLocale()) === 'bn' ? 'রিভিউ জমা দিন' : 'Submit Review' }}</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     {{-- FAQ Section --}}
     <section id="faq" class="py-5 section-transition-faq">
@@ -1084,9 +1250,37 @@
                 }
             }
 
+            function initReviewRating() {
+                var ratingInputs = document.querySelectorAll('input[name="rating"]');
+                var ratingText = document.getElementById('ratingTextDisplay');
+                var isBn = '{{ ($locale ?? app()->getLocale()) }}' === 'bn';
+                var labels = isBn ? {
+                    '5': '৫ স্টার (অসাধারণ)',
+                    '4': '৪ স্টার (খুব ভালো)',
+                    '3': '৩ স্টার (ভালো)',
+                    '2': '২ স্টার (মোটামুটি)',
+                    '1': '১ স্টার (সন্তোষজনক নয়)'
+                } : {
+                    '5': '5 Stars (Excellent)',
+                    '4': '4 Stars (Very Good)',
+                    '3': '3 Stars (Good)',
+                    '2': '2 Stars (Fair)',
+                    '1': '1 Star (Poor)'
+                };
+
+                ratingInputs.forEach(function(input) {
+                    input.addEventListener('change', function() {
+                        if (ratingText && labels[this.value]) {
+                            ratingText.textContent = labels[this.value];
+                        }
+                    });
+                });
+            }
+
             function initIndexPage() {
                 initIndexUpload();
                 initTestimonialsSlider();
+                initReviewRating();
             }
 
             document.addEventListener('turbo:before-cache', function() {

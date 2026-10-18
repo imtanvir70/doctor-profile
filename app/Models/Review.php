@@ -10,6 +10,7 @@ class Review extends Model
     protected $casts = [
         'is_featured' => 'boolean',
         'is_approved' => 'boolean',
+        'last_visit_date' => 'date',
     ];
 }
 

@@ -163,5 +163,60 @@ class FrontendTest extends TestCase
         $this->assertStringContainsString('text/plain', $robotsResponse->headers->get('Content-Type'));
         $this->assertStringContainsString("User-agent: *\nAllow: /\n", $robotsResponse->getContent());
     }
+
+    public function test_frontend_has_review_button_and_static_backdrop_modal()
+    {
+        $response = $this->get('/');
+        $response->assertStatus(200);
+        $response->assertSee('patientReviewModal');
+        $response->assertSee('data-bs-backdrop="static"', false);
+        $response->assertSee('data-bs-keyboard="false"', false);
+        $response->assertSee('pattern="01[3-9][0-9]{8}"', false);
+    }
+
+    public function test_patient_can_submit_review_from_frontend()
+    {
+        $response = $this->post('/reviews', [
+            'patient_name' => 'Kazi Nazrul Islam',
+            'patient_phone' => '01812345678',
+            'last_visit_date' => date('Y-m-d', strtotime('-3 days')),
+            'treated_for' => 'ডায়াবেটিস ও প্রেশার',
+            'rating' => 5,
+            'review_text' => 'ডাক্তার সাহেবের চিকিৎসায় আমি অত্যন্ত সন্তুষ্ট ও সুস্থ।',
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertSessionHas('success_review');
+
+        $this->assertDatabaseHas('reviews', [
+            'patient_name' => 'Kazi Nazrul Islam',
+            'patient_phone' => '01812345678',
+            'rating' => 5,
+            'is_approved' => false,
+        ]);
+    }
+
+    public function test_patient_review_validates_bd_phone_and_past_date()
+    {
+        // Invalid BD phone number
+        $response = $this->post('/reviews', [
+            'patient_name' => 'Invalid Phone Patient',
+            'patient_phone' => '01212345678', // 012 is not valid in BD
+            'last_visit_date' => date('Y-m-d'),
+            'rating' => 5,
+            'review_text' => 'Valid length text here for review...',
+        ]);
+        $response->assertSessionHasErrors('patient_phone');
+
+        // Invalid future date
+        $futureResponse = $this->post('/reviews', [
+            'patient_name' => 'Future Date Patient',
+            'patient_phone' => '01712345678',
+            'last_visit_date' => date('Y-m-d', strtotime('+3 days')),
+            'rating' => 5,
+            'review_text' => 'Valid length text here for review...',
+        ]);
+        $futureResponse->assertSessionHasErrors('last_visit_date');
+    }
 }
 

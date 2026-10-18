@@ -450,6 +450,9 @@ class AdminTest extends TestCase
 
         $response = $this->actingAs($this->adminUser)->put("/admin/reviews/{$review->id}", [
             'patient_name' => 'Dr. Farhana Updated',
+            'patient_phone' => '01799887766',
+            'last_visit_date' => '2026-10-10',
+            'treated_for' => 'থাইরয়েড সমস্যা',
             'location_tag_en' => 'Endocrinology Care • Gulshan',
             'location_tag_bn' => 'এন্ডোক্রিনোলজি সেবা • গুলশান',
             'rating' => 5,
@@ -462,7 +465,25 @@ class AdminTest extends TestCase
         $response->assertSessionHas('success');
         $review->refresh();
         $this->assertEquals('Dr. Farhana Updated', $review->patient_name);
-        $this->assertEquals('Endocrinology Care • Gulshan', $review->location_tag_en);
+        $this->assertEquals('01799887766', $review->patient_phone);
+        $this->assertEquals('2026-10-10', $review->last_visit_date?->format('Y-m-d'));
+        $this->assertEquals('থাইরয়েড সমস্যা', $review->treated_for);
+    }
+
+    public function test_admin_reviews_index_does_not_have_add_patient_review_form()
+    {
+        $response = $this->actingAs($this->adminUser)->get('/admin/reviews');
+        $response->assertStatus(200);
+        $response->assertDontSee('Add Patient Review');
+        $response->assertSee('Patient Reviews & Moderation');
+
+        // Test toggle approval
+        $review = \App\Models\Review::first();
+        $initialApproval = $review->is_approved;
+        $toggleResponse = $this->actingAs($this->adminUser)->post("/admin/reviews/{$review->id}/toggle");
+        $toggleResponse->assertSessionHas('success');
+        $review->refresh();
+        $this->assertEquals(!$initialApproval, $review->is_approved);
     }
 }
 

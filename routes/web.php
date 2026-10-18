@@ -36,6 +36,7 @@ Route::get('/videos', [FrontendController::class, 'videos'])->name('videos');
 Route::get('/faq', [FrontendController::class, 'faq'])->name('faq');
 Route::get('/booking', [FrontendController::class, 'booking'])->name('booking');
 Route::post('/booking', [FrontendController::class, 'storeSerial'])->name('booking.store');
+Route::post('/reviews', [FrontendController::class, 'storeReview'])->name('reviews.store');
 Route::get('/lang/{locale}', [FrontendController::class, 'switchLocale'])->name('lang.switch');
 
 // Dynamic Sitemap & Robots.txt for SEO
