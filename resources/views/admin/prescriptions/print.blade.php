@@ -141,24 +141,40 @@
       display: inline-block;
       margin-bottom: 0.25rem;
     }
+
+    /* Blank Pad Print Mode */
+    .prescription-sheet.pad-mode .doctor-header {
+      opacity: 0;
+      height: 2.8cm;
+      margin-bottom: 0.5cm;
+    }
+    .prescription-sheet.pad-mode .prescription-footer {
+      opacity: 0;
+    }
   </style>
 </head>
 <body>
 
   {{-- Print Action Controls (Hidden on Print) --}}
   <div class="no-print text-center mb-4">
-    <div class="d-inline-flex gap-2">
+    <div class="d-inline-flex flex-wrap align-items-center gap-2 bg-white p-2 rounded-4 shadow-sm border">
       <button onclick="window.print()" class="btn btn-success fw-bold px-4 py-2 shadow-sm">
         <i class="bi bi-printer-fill me-1"></i> Print / Save as PDF (A4)
       </button>
+      <button type="button" id="togglePadModeBtn" class="btn btn-outline-primary fw-semibold px-3 py-2">
+        <i class="bi bi-file-earmark-medical me-1"></i> <span>Doctor Pad Mode (প্যাড প্রিন্ট)</span>
+      </button>
+      <a href="{{ route('admin.prescriptions.edit', $prescription->id) }}" class="btn btn-outline-warning text-dark px-3 py-2">
+        <i class="bi bi-pencil-square me-1"></i> Edit
+      </a>
       <a href="{{ route('admin.prescriptions.show', $prescription->id) }}" class="btn btn-outline-secondary px-3 py-2">
-        <i class="bi bi-arrow-left me-1"></i> Back to Prescription Details
+        <i class="bi bi-arrow-left me-1"></i> Back
       </a>
     </div>
   </div>
 
   {{-- A4 Prescription Sheet --}}
-  <div class="prescription-sheet">
+  <div class="prescription-sheet" id="prescriptionSheet">
     <div>
       {{-- Doctor Letterhead --}}
       <div class="doctor-header d-flex justify-content-between align-items-start">
@@ -288,6 +304,21 @@
     </div>
   </div>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var btn = document.getElementById('togglePadModeBtn');
+      var sheet = document.getElementById('prescriptionSheet');
+      if (btn && sheet) {
+        btn.addEventListener('click', function() {
+          sheet.classList.toggle('pad-mode');
+          var isPad = sheet.classList.contains('pad-mode');
+          btn.classList.toggle('btn-primary', isPad);
+          btn.classList.toggle('btn-outline-primary', !isPad);
+          btn.querySelector('span').textContent = isPad ? 'Full A4 Mode (হেডার যুক্ত করুন)' : 'Doctor Pad Mode (প্যাড প্রিন্ট)';
+        });
+      }
+    });
+  </script>
 </body>
 </html>
 

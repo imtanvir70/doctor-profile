@@ -11,6 +11,9 @@
     </div>
 
     <div class="d-flex gap-2">
+      <a href="{{ route('admin.prescriptions.edit', $prescription->id) }}" class="btn btn-outline-warning text-dark fw-bold">
+        <i class="bi bi-pencil-square me-1"></i> Edit Prescription
+      </a>
       <a href="{{ route('admin.prescriptions.print', $prescription->id) }}" target="_blank" class="btn btn-success fw-bold">
         <i class="bi bi-printer-fill me-1"></i> Print Official Prescription (A4)
       </a>

@@ -110,6 +110,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/prescriptions/create', [AdminPrescriptionController::class, 'create'])->name('prescriptions.create');
         Route::post('/prescriptions', [AdminPrescriptionController::class, 'store'])->name('prescriptions.store');
         Route::get('/prescriptions/{id}', [AdminPrescriptionController::class, 'show'])->name('prescriptions.show');
+        Route::get('/prescriptions/{id}/edit', [AdminPrescriptionController::class, 'edit'])->name('prescriptions.edit');
+        Route::put('/prescriptions/{id}', [AdminPrescriptionController::class, 'update'])->name('prescriptions.update');
         Route::get('/prescriptions/{id}/print', [AdminPrescriptionController::class, 'print'])->name('prescriptions.print');
         Route::delete('/prescriptions/{id}', [AdminPrescriptionController::class, 'destroy'])->name('prescriptions.destroy');
 

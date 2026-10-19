@@ -208,7 +208,7 @@ class AdminTest extends TestCase
 
         $createPageResponse = $this->actingAs($this->adminUser)->get('/admin/prescriptions/create');
         $createPageResponse->assertStatus(200);
-        $createPageResponse->assertSee('Doctor Prescription (EMR Pad)');
+        $createPageResponse->assertSee('Digital Prescription (EMR Pad)');
 
         $storeResponse = $this->actingAs($this->adminUser)->post('/admin/prescriptions', [
             'prescription_no' => 'RX-2026-TEST',
@@ -254,12 +254,68 @@ class AdminTest extends TestCase
         $this->assertNotNull($prescription);
         $storeResponse->assertRedirect(route('admin.prescriptions.show', $prescription->id));
 
-        // Test Printable A4 Sheet
+        // Test Printable A4 Sheet & Pad Mode
         $printResponse = $this->actingAs($this->adminUser)->get("/admin/prescriptions/{$prescription->id}/print");
         $printResponse->assertStatus(200);
         $printResponse->assertSee('Abul Kashem');
         $printResponse->assertSee('Tab. Metformin 500mg');
         $printResponse->assertSee('১+০+১');
+        $printResponse->assertSee('Doctor Pad Mode');
+
+        // Test Edit Page
+        $editResponse = $this->actingAs($this->adminUser)->get("/admin/prescriptions/{$prescription->id}/edit");
+        $editResponse->assertStatus(200);
+        $editResponse->assertSee('Edit Prescription');
+        $editResponse->assertSee('Abul Kashem');
+
+        // Test Update with an empty second row (safe auto-cleaning)
+        $updateResponse = $this->actingAs($this->adminUser)->put("/admin/prescriptions/{$prescription->id}", [
+            'prescription_no' => 'RX-2026-TEST',
+            'chamber_id' => $chamber->id,
+            'patient_name' => 'Abul Kashem Updated',
+            'patient_phone' => '01711223344',
+            'patient_age' => 53,
+            'patient_gender' => 'male',
+            'consultation_date' => date('Y-m-d'),
+            'bp_systolic' => '125',
+            'bp_diastolic' => '80',
+            'pulse' => '76',
+            'diagnosis' => 'Type 2 Diabetes Mellitus - Controlled',
+            'medicines' => [
+                [
+                    'name' => 'Tab. Metformin 850mg',
+                    'dose' => '১+০+১',
+                    'timing' => 'খাবারের পরে (After Meal)',
+                    'duration' => '১ মাস',
+                    'instructions' => 'নিয়মিত সেব্য',
+                ],
+                [
+                    'name' => '', // blank row to verify safe auto-cleaning
+                    'dose' => '',
+                    'timing' => '',
+                    'duration' => '',
+                    'instructions' => '',
+                ],
+            ],
+            'investigations' => [
+                ['name' => 'Fasting Blood Sugar', 'instructions' => 'Fasting'],
+                ['name' => '', 'instructions' => ''], // blank investigation
+            ],
+            'special_advice' => 'নিয়মিত ব্যায়াম ও খাদ্য নিয়ন্ত্রণ জারি রাখুন।',
+        ]);
+
+        $updateResponse->assertRedirect(route('admin.prescriptions.show', $prescription->id));
+        $this->assertDatabaseHas('prescriptions', [
+            'id' => $prescription->id,
+            'patient_name' => 'Abul Kashem Updated',
+            'patient_age' => 53,
+        ]);
+
+        // Check that blank medicine was cleanly filtered out
+        $refreshedRx = Prescription::find($prescription->id);
+        $this->assertCount(1, $refreshedRx->medicines);
+        $this->assertEquals('Tab. Metformin 850mg', $refreshedRx->medicines[0]['name']);
+        $this->assertCount(1, $refreshedRx->investigations);
     }
 
     public function test_international_projects_crud_operations()

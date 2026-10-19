@@ -73,6 +73,9 @@
                   <a href="{{ route('admin.prescriptions.show', $rx->id) }}" class="btn btn-sm btn-outline-primary py-1 px-2" title="View Prescription">
                     <i class="bi bi-eye"></i>
                   </a>
+                  <a href="{{ route('admin.prescriptions.edit', $rx->id) }}" class="btn btn-sm btn-outline-warning text-dark py-1 px-2" title="Edit Prescription">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
                   <a href="{{ route('admin.prescriptions.print', $rx->id) }}" target="_blank" class="btn btn-sm btn-outline-success py-1 px-2" title="Print Official Prescription (A4)">
                     <i class="bi bi-printer"></i>
                   </a>
