@@ -485,5 +485,92 @@ class AdminTest extends TestCase
         $review->refresh();
         $this->assertEquals(!$initialApproval, $review->is_approved);
     }
+
+    public function test_blog_index_and_navigation()
+    {
+        $response = $this->actingAs($this->adminUser)->get('/admin/blogs');
+        $response->assertStatus(200);
+        $response->assertSee('Blog Posts');
+        $response->assertSee('Write New Blog Post');
+
+        // Alias /admin/articles route
+        $articleResponse = $this->actingAs($this->adminUser)->get('/admin/articles');
+        $articleResponse->assertStatus(200);
+        $articleResponse->assertSee('Blog Posts');
+    }
+
+    public function test_blog_post_creation_single_language_publish()
+    {
+        $response = $this->actingAs($this->adminUser)->post('/admin/articles', [
+            'title' => 'ডায়াবেটিস সচেতনতা ও স্বাস্থ্যবিধি',
+            'content' => '<p>দৈনিক হাঁটাচলা এবং সুষম খাবার গ্রহণ রক্তে শর্করার মাত্রা নিয়ন্ত্রণে রাখে।</p>',
+            'category' => 'Preventive Health',
+            'submit_action' => 'publish',
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertSessionHas('success');
+
+        $this->assertDatabaseHas('articles', [
+            'title_bn' => 'ডায়াবেটিস সচেতনতা ও স্বাস্থ্যবিধি',
+            'title_en' => 'ডায়াবেটিস সচেতনতা ও স্বাস্থ্যবিধি',
+            'category' => 'Preventive Health',
+            'is_published' => true,
+        ]);
+    }
+
+    public function test_blog_post_autosave_every_30s_as_draft()
+    {
+        // 1. If blank, autosave is skipped
+        $blankResponse = $this->actingAs($this->adminUser)->postJson('/admin/articles/autosave', [
+            'title' => '',
+            'content' => '',
+        ]);
+        $blankResponse->assertStatus(200);
+        $blankResponse->assertJson(['success' => false, 'skipped' => true]);
+
+        // 2. If content is present, saves as draft without publishing
+        $saveResponse = $this->actingAs($this->adminUser)->postJson('/admin/articles/autosave', [
+            'title' => 'Autosaved Draft Title',
+            'content' => '<p>Writing preliminary draft notes...</p>',
+            'category' => 'Cardiovascular',
+        ]);
+        $saveResponse->assertStatus(200);
+        $saveResponse->assertJson(['success' => true]);
+        $newId = $saveResponse->json('id');
+        $this->assertNotNull($newId);
+
+        $savedArticle = \App\Models\Article::find($newId);
+        $this->assertNotNull($savedArticle);
+        $this->assertEquals('Autosaved Draft Title', $savedArticle->title_en);
+        $this->assertFalse($savedArticle->is_published, 'Autosave must ALWAYS save as draft and never publish automatically');
+
+        // 3. Second autosave updates the same draft
+        $updateResponse = $this->actingAs($this->adminUser)->postJson('/admin/articles/autosave', [
+            'id' => $newId,
+            'title' => 'Autosaved Draft Title Updated',
+            'content' => '<p>Writing preliminary draft notes with more details...</p>',
+            'category' => 'Cardiovascular',
+        ]);
+        $updateResponse->assertStatus(200);
+        $updateResponse->assertJson(['success' => true, 'id' => $newId]);
+
+        $savedArticle->refresh();
+        $this->assertEquals('Autosaved Draft Title Updated', $savedArticle->title_en);
+        $this->assertFalse($savedArticle->is_published);
+
+        // 4. Test explicit publish button
+        $publishResponse = $this->actingAs($this->adminUser)->put("/admin/articles/{$newId}", [
+            'title' => 'Autosaved Draft Title Updated',
+            'content' => '<p>Writing preliminary draft notes with more details...</p>',
+            'category' => 'Cardiovascular',
+            'submit_action' => 'publish',
+        ]);
+        $publishResponse->assertSessionHas('success');
+
+        $savedArticle->refresh();
+        $this->assertTrue($savedArticle->is_published, 'Clicking publish button must publish the post');
+        $this->assertNotNull($savedArticle->published_at);
+    }
 }
 

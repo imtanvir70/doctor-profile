@@ -215,9 +215,9 @@
         <span>Clinical Specialties</span>
       </a>
 
-      <a href="{{ route('admin.articles.index') }}" class="sidebar-link {{ request()->routeIs('admin.articles.*') ? 'active' : '' }}">
-        <i class="bi bi-journal-richtext"></i>
-        <span>Health Articles</span>
+      <a href="{{ route('admin.articles.index') }}" class="sidebar-link {{ request()->routeIs('admin.articles.*') || request()->routeIs('admin.blogs.*') ? 'active' : '' }}">
+        <i class="bi bi-pencil-square"></i>
+        <span>Blog Posts</span>
       </a>
 
       <a href="{{ route('admin.videos.index') }}" class="sidebar-link {{ request()->routeIs('admin.videos.*') ? 'active' : '' }}">

@@ -48,12 +48,12 @@
     <div class="col-sm-6 col-xl-3">
       <div class="stat-card">
         <div class="d-flex align-items-center justify-content-between mb-3">
-          <span class="text-muted small fw-semibold">Chambers & Articles</span>
+          <span class="text-muted small fw-semibold">Chambers & Blogs</span>
           <div class="stat-icon-box bg-info-subtle text-info">
             <i class="bi bi-hospital"></i>
           </div>
         </div>
-        <div class="stat-number text-info">{{ $chambersCount }} <span class="fs-6 fw-normal text-muted">/ {{ $totalArticles }} Posts</span></div>
+        <div class="stat-number text-info">{{ $chambersCount }} <span class="fs-6 fw-normal text-muted">/ {{ $totalArticles }} Blogs</span></div>
         <div class="small text-muted mt-1"><i class="bi bi-check-all me-1"></i> Live on site</div>
       </div>
     </div>

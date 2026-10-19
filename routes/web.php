@@ -116,8 +116,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // 5. Chambers Management
         Route::resource('chambers', AdminChamberController::class);
 
-        // 6. Medical Articles / Blog
+        // 6. Medical Blog & Articles
+        Route::post('/articles/autosave', [AdminArticleController::class, 'autosave'])->name('articles.autosave');
+        Route::post('/blogs/autosave', [AdminArticleController::class, 'autosave'])->name('blogs.autosave');
         Route::resource('articles', AdminArticleController::class);
+        Route::resource('blogs', AdminArticleController::class)->names('admin.blogs');
 
         // 7. Video Guides
         Route::get('/videos', [AdminVideoController::class, 'index'])->name('videos.index');

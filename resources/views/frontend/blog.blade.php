@@ -49,10 +49,10 @@
                   <div class="fw-bold text-primary small mb-1"><i class="bi bi-check-circle-fill text-success me-1"></i> <span>{{ ($locale ?? app()->getLocale()) === 'bn' ? 'ক্লিনিক্যাল গুরুত্ব:' : 'Key Clinical Insight:' }}</span></div>
                   <div class="small text-muted">{{ ($locale ?? app()->getLocale()) === 'bn' ? 'খাবার গ্রহণের পর ১৫ মিনিট হাঁটাহাঁটি পোস্টপ্রান্ডিয়াল গ্লুকোজ প্রায় ২২% কমিয়ে দেয়।' : 'A 15-minute post-meal brisk walk lowers peak postprandial glucose significantly by activating GLUT4 receptors.' }}</div>
                 </div>
+                <div class="js-article-full-body d-none">{!! ($locale ?? app()->getLocale()) === 'bn' ? ($leadArticle->content_bn ?? $leadArticle->excerpt_bn) : ($leadArticle->content_en ?? $leadArticle->excerpt_en) !!}</div>
                 <button type="button" class="btn btn-brand-primary js-open-article" 
                         data-title="{{ ($locale ?? app()->getLocale()) === 'bn' ? $leadArticle->title_bn : $leadArticle->title_en }}"
-                        data-category="{{ $leadArticle->category }}"
-                        data-body="{{ ($locale ?? app()->getLocale()) === 'bn' ? ($leadArticle->content_bn ?? $leadArticle->excerpt_bn) : ($leadArticle->content_en ?? $leadArticle->excerpt_en) }}">
+                        data-category="{{ $leadArticle->category }}">
                   <i class="bi bi-book-half me-2"></i> <span>{{ ($locale ?? app()->getLocale()) === 'bn' ? 'সম্পূর্ণ প্রবন্ধ পড়ুন' : 'Read Full Article' }}</span>
                 </button>
               </div>
@@ -77,10 +77,10 @@
                   <p class="small text-muted mb-3">{{ ($locale ?? app()->getLocale()) === 'bn' ? $art->excerpt_bn : $art->excerpt_en }}</p>
                 </div>
                 <div class="pt-3 border-top d-flex align-items-center justify-content-between">
+                  <div class="js-article-full-body d-none">{!! ($locale ?? app()->getLocale()) === 'bn' ? ($art->content_bn ?? $art->excerpt_bn) : ($art->content_en ?? $art->excerpt_en) !!}</div>
                   <button type="button" class="btn btn-link p-0 text-primary fw-bold small text-decoration-none js-open-article"
                           data-title="{{ ($locale ?? app()->getLocale()) === 'bn' ? $art->title_bn : $art->title_en }}"
-                          data-category="{{ $art->category }}"
-                          data-body="{{ ($locale ?? app()->getLocale()) === 'bn' ? ($art->content_bn ?? $art->excerpt_bn) : ($art->content_en ?? $art->excerpt_en) }}">
+                          data-category="{{ $art->category }}">
                     <span>{{ ($locale ?? app()->getLocale()) === 'bn' ? 'সম্পূর্ণ পড়ুন' : 'Read Article' }}</span> <i class="bi bi-arrow-right"></i>
                   </button>
                   <span class="badge bg-light text-secondary border small">{{ $art->category }}</span>
@@ -151,11 +151,19 @@
             e.preventDefault();
             var title = btn.getAttribute('data-title');
             var cat = btn.getAttribute('data-category');
-            var body = btn.getAttribute('data-body');
+            var card = btn.closest('.article-card') || btn.closest('.featured-lead-article') || btn.parentElement;
+            var bodyEl = card ? card.querySelector('.js-article-full-body') : null;
+            var body = bodyEl ? bodyEl.innerHTML : (btn.getAttribute('data-body') || '');
 
             if (readerTitle) readerTitle.textContent = title;
             if (readerBadge) readerBadge.textContent = cat;
-            if (readerBody) readerBody.innerHTML = '<p class="lead text-dark fw-medium mb-3">' + body.replace(/\n\n/g, '</p><p>') + '</p>';
+            if (readerBody) {
+              if (body.indexOf('<') !== -1) {
+                readerBody.innerHTML = body;
+              } else {
+                readerBody.innerHTML = '<p class="lead text-dark fw-medium mb-3">' + body.replace(/\n\n/g, '</p><p>') + '</p>';
+              }
+            }
 
             if (modalEl && window.bootstrap) {
               var bsModal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
