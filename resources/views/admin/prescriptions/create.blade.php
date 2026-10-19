@@ -3,6 +3,221 @@
 @section('title', 'Write Digital Prescription')
 @section('page_heading', 'Digital Prescription (EMR Pad)')
 
+@push('styles')
+<style>
+  /* 1-Click Clinical Disease Presets - Perfect Hover and Lift */
+  .clinical-preset-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.95rem;
+    font-size: 0.83rem;
+    font-weight: 600;
+    border-radius: 50rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: 1px solid transparent;
+    background-color: #ffffff;
+    color: #1e293b;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    user-select: none;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .clinical-preset-pill:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  }
+  .clinical-preset-pill:active {
+    transform: scale(0.97);
+  }
+  .clinical-preset-pill.preset-diabetes {
+    border-color: #86efac;
+    color: #166534;
+    background: #f0fdf4;
+  }
+  .clinical-preset-pill.preset-diabetes:hover {
+    background: #16a34a !important;
+    color: #ffffff !important;
+    border-color: #16a34a;
+  }
+  .clinical-preset-pill.preset-diabetes:hover i {
+    color: #ffffff !important;
+  }
+  .clinical-preset-pill.preset-hypertension {
+    border-color: #fca5a5;
+    color: #991b1b;
+    background: #fef2f2;
+  }
+  .clinical-preset-pill.preset-hypertension:hover {
+    background: #dc2626 !important;
+    color: #ffffff !important;
+    border-color: #dc2626;
+  }
+  .clinical-preset-pill.preset-hypertension:hover i {
+    color: #ffffff !important;
+  }
+  .clinical-preset-pill.preset-gastric {
+    border-color: #93c5fd;
+    color: #1e40af;
+    background: #eff6ff;
+  }
+  .clinical-preset-pill.preset-gastric:hover {
+    background: #2563eb !important;
+    color: #ffffff !important;
+    border-color: #2563eb;
+  }
+  .clinical-preset-pill.preset-gastric:hover i {
+    color: #ffffff !important;
+  }
+  .clinical-preset-pill.preset-fever {
+    border-color: #fde047;
+    color: #854d0e;
+    background: #fefce8;
+  }
+  .clinical-preset-pill.preset-fever:hover {
+    background: #ca8a04 !important;
+    color: #ffffff !important;
+    border-color: #ca8a04;
+  }
+  .clinical-preset-pill.preset-fever:hover i {
+    color: #ffffff !important;
+  }
+  .clinical-preset-pill.preset-thyroid {
+    border-color: #a5f3fc;
+    color: #155e75;
+    background: #ecfeff;
+  }
+  .clinical-preset-pill.preset-thyroid:hover {
+    background: #0891b2 !important;
+    color: #ffffff !important;
+    border-color: #0891b2;
+  }
+  .clinical-preset-pill.preset-thyroid:hover i {
+    color: #ffffff !important;
+  }
+
+  /* Quick Dose Pills - High Contrast, Always Visible */
+  .quick-pills-bar {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+  }
+  .dose-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    color: #0f172a !important;
+    border: 1.5px solid #94a3b8;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 0.28rem 0.65rem;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    user-select: none;
+  }
+  .dose-chip:hover {
+    background-color: #0d6efd;
+    color: #ffffff !important;
+    border-color: #0d6efd;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(13, 110, 253, 0.25);
+  }
+  .dose-chip:active {
+    transform: scale(0.95);
+  }
+  .dose-chip.dose-chip-sos {
+    background-color: #fef2f2;
+    color: #dc2626 !important;
+    border-color: #fca5a5;
+  }
+  .dose-chip.dose-chip-sos:hover {
+    background-color: #dc2626;
+    color: #ffffff !important;
+    border-color: #dc2626;
+  }
+  .timing-chip {
+    display: inline-flex;
+    align-items: center;
+    background-color: #ffffff;
+    color: #334155 !important;
+    border: 1px dashed #64748b;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.25rem 0.55rem;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    user-select: none;
+  }
+  .timing-chip:hover {
+    background-color: #0f172a;
+    color: #ffffff !important;
+    border-color: #0f172a;
+    border-style: solid;
+  }
+
+  /* Diagnostic Test Chips */
+  .test-chips-wrapper {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+    scrollbar-width: thin;
+  }
+  .test-chips-wrapper::-webkit-scrollbar {
+    height: 4px;
+  }
+  .test-chips-wrapper::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 4px;
+  }
+  .test-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    background-color: #f0f9ff;
+    color: #0369a1 !important;
+    border: 1px solid #7dd3fc;
+    border-radius: 6px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    padding: 0.22rem 0.55rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+    flex-shrink: 0;
+  }
+  .test-chip:hover {
+    background-color: #0284c7;
+    color: #ffffff !important;
+    border-color: #0284c7;
+    transform: translateY(-1px);
+  }
+  .test-chip:active {
+    transform: scale(0.95);
+  }
+  .test-chip .plus-icon {
+    font-weight: bold;
+    font-size: 0.85rem;
+    line-height: 1;
+  }
+
+  /* Pulse Animation on field insertion */
+  @keyframes inputPulseSuccess {
+    0% { box-shadow: 0 0 0 0 rgba(25, 135, 84, 0.5); border-color: #198754; }
+    70% { box-shadow: 0 0 0 6px rgba(25, 135, 84, 0); border-color: #198754; }
+    100% { box-shadow: none; }
+  }
+  .field-updated-pulse {
+    animation: inputPulseSuccess 0.8s ease-out;
+  }
+</style>
+@endpush
+
 @section('content')
   {{-- Safety Alert Banner (Dynamic via JS) --}}
   <div id="clinicalSafetyBanner" class="alert alert-warning border-warning shadow-sm rounded-4 mb-4 d-none" role="alert">
@@ -218,20 +433,25 @@
         </div>
 
         <div class="d-flex flex-wrap gap-2 pt-1">
-          <button type="button" class="btn btn-sm btn-outline-success bg-white fw-semibold js-apply-template" data-template="diabetes">
-            🩺 ডায়াবেটিস রুটিন (Diabetes Followup)
+          <button type="button" class="clinical-preset-pill preset-diabetes js-apply-template" data-template="diabetes">
+            <i class="bi bi-droplet-half text-success"></i>
+            <span>ডায়াবেটিস রুটিন (Diabetes Followup)</span>
           </button>
-          <button type="button" class="btn btn-sm btn-outline-danger bg-white fw-semibold js-apply-template" data-template="hypertension">
-            💓 উচ্চ রক্তচাপ (High BP / Hypertension)
+          <button type="button" class="clinical-preset-pill preset-hypertension js-apply-template" data-template="hypertension">
+            <i class="bi bi-heart-pulse text-danger"></i>
+            <span>উচ্চ রক্তচাপ (High BP / Hypertension)</span>
           </button>
-          <button type="button" class="btn btn-sm btn-outline-primary bg-white fw-semibold js-apply-template" data-template="gastric">
-            💊 গ্যাস্ট্রিক ও এসিডিটি (Dyspepsia / Acid Peptic)
+          <button type="button" class="clinical-preset-pill preset-gastric js-apply-template" data-template="gastric">
+            <i class="bi bi-capsule text-primary"></i>
+            <span>গ্যাস্ট্রিক ও এসিডিটি (Dyspepsia / Acid Peptic)</span>
           </button>
-          <button type="button" class="btn btn-sm btn-outline-warning text-dark bg-white fw-semibold js-apply-template" data-template="fever">
-            🌡️ সাধারণ জ্বর ও সর্দি (Fever & Flu)
+          <button type="button" class="clinical-preset-pill preset-fever js-apply-template" data-template="fever">
+            <i class="bi bi-thermometer-sun text-warning"></i>
+            <span>সাধারণ জ্বর ও সর্দি (Fever & Flu)</span>
           </button>
-          <button type="button" class="btn btn-sm btn-outline-info bg-white fw-semibold js-apply-template" data-template="thyroid">
-            🦋 হাইপোথাইরয়েড (Hypothyroidism)
+          <button type="button" class="clinical-preset-pill preset-thyroid js-apply-template" data-template="thyroid">
+            <i class="bi bi-shield-check text-info"></i>
+            <span>হাইপোথাইরয়েড (Hypothyroidism)</span>
           </button>
         </div>
       </div>
@@ -259,17 +479,24 @@
       </div>
 
       <div class="card-body p-3 p-md-4">
-        {{-- Quick Dosage & Timing Chips Helper --}}
-        <div class="p-2 mb-3 rounded-2 bg-light border small d-flex flex-wrap align-items-center gap-1">
-          <span class="text-muted fw-semibold me-1">Quick Dose Pills:</span>
-          <button type="button" class="badge btn btn-outline-secondary py-1 px-2 js-chip-dose" data-val="১ + ০ + ১">১+০+১</button>
-          <button type="button" class="badge btn btn-outline-secondary py-1 px-2 js-chip-dose" data-val="১ + ০ + ০">১+০+০</button>
-          <button type="button" class="badge btn btn-outline-secondary py-1 px-2 js-chip-dose" data-val="০ + ০ + ১">০+০+১</button>
-          <button type="button" class="badge btn btn-outline-secondary py-1 px-2 js-chip-dose" data-val="১ + ১ + ১">১+১+১</button>
-          <button type="button" class="badge btn btn-outline-secondary py-1 px-2 js-chip-dose" data-val="০ + ১ + ০">০+১+০</button>
-          <button type="button" class="badge btn btn-outline-secondary py-1 px-2 js-chip-dose" data-val="১/২ + ০ + ১/২">১/২+০+১/২</button>
-          <button type="button" class="badge btn btn-outline-secondary py-1 px-2 js-chip-dose" data-val="১ চামচ করে ৩ বার">১ চামচ ৩ বার</button>
-          <button type="button" class="badge btn btn-outline-warning text-dark py-1 px-2 js-chip-dose" data-val="প্রয়োজনে (SOS)">প্রয়োজনে (SOS)</button>
+        {{-- Quick Dosage & Timing Chips Helper (High Contrast, Bold, Guaranteed Visible) --}}
+        <div class="quick-pills-bar p-2 p-md-3 mb-3 rounded-3 d-flex flex-wrap align-items-center gap-1 gap-md-2">
+          <span class="text-dark fw-bold small me-1 d-flex align-items-center gap-1">
+            <i class="bi bi-capsule-pill text-primary"></i> Quick Dose Pills:
+          </span>
+          <button type="button" class="dose-chip js-chip-dose" data-val="১ + ০ + ১">১+০+১</button>
+          <button type="button" class="dose-chip js-chip-dose" data-val="১ + ০ + ০">১+০+০</button>
+          <button type="button" class="dose-chip js-chip-dose" data-val="০ + ০ + ১">০+০+১</button>
+          <button type="button" class="dose-chip js-chip-dose" data-val="১ + ১ + ১">১+১+১</button>
+          <button type="button" class="dose-chip js-chip-dose" data-val="০ + ১ + ০">০+১+০</button>
+          <button type="button" class="dose-chip js-chip-dose" data-val="১/২ + ০ + ১/২">১/২+০+১/২</button>
+          <button type="button" class="dose-chip js-chip-dose" data-val="১ চামচ করে ৩ বার">১ চামচ ৩ বার</button>
+          <button type="button" class="dose-chip dose-chip-sos js-chip-dose" data-val="প্রয়োজনে (SOS)">🚨 প্রয়োজনে (SOS)</button>
+          
+          <div class="vr mx-1 d-none d-sm-inline-block text-secondary"></div>
+          <button type="button" class="timing-chip js-chip-timing" data-val="খাবারের পরে (After Meal)">খাবারের পরে</button>
+          <button type="button" class="timing-chip js-chip-timing" data-val="খাবারের আগে (Before Meal)">খাবারের আগে</button>
+          <button type="button" class="timing-chip js-chip-timing" data-val="সকালে খালি পেটে (Empty Stomach)">খালি পেটে</button>
         </div>
 
         <div class="table-responsive">
@@ -328,22 +555,100 @@
           <div class="card-header bg-white py-3 border-bottom d-flex align-items-center justify-content-between">
             <h3 class="fs-6 fw-bold mb-0 text-dark brand-font d-flex align-items-center gap-2">
               <i class="bi bi-eyedropper text-info"></i>
-              <span>Diagnostic Tests (Investigations)</span>
+              <span>Diagnostic Tests (ল্যাব ও টেস্ট)</span>
             </h3>
             <button type="button" class="btn btn-sm btn-outline-info fw-semibold" id="addInvestigationBtn">
-              <i class="bi bi-plus-lg me-1"></i> Add Test
+              <i class="bi bi-plus-lg me-1"></i> Add Custom Test
             </button>
           </div>
-          <div class="card-body p-3" id="investigationsContainer">
-            <div class="input-group input-group-sm mb-2 investigation-row">
-              <input type="text" name="investigations[0][name]" class="form-control" placeholder="e.g. HbA1c" value="HbA1c">
-              <input type="text" name="investigations[0][instructions]" class="form-control" placeholder="Fast 8-10 hrs" value="Fasting">
-              <button type="button" class="btn btn-outline-danger remove-inv-btn" title="Remove"><i class="bi bi-trash"></i></button>
+          <div class="card-body p-3">
+            {{-- Quick Select Test Dropdown (Categorized, Zero Typing) --}}
+            <div class="mb-2">
+              <div class="input-group input-group-sm">
+                <span class="input-group-text bg-light text-primary border-secondary-subtle fw-bold">
+                  <i class="bi bi-search me-1"></i> Quick Test Select:
+                </span>
+                <select id="quickTestDropdown" class="form-select form-select-sm">
+                  <option value="">-- Choose Common Test from List --</option>
+                  <optgroup label="🩸 Blood Tests (রক্ত পরীক্ষা)">
+                    <option value="CBC with ESR" data-inst="Routine">CBC with ESR</option>
+                    <option value="RBS (Random Blood Sugar)" data-inst="Before Consultation">RBS (Random Blood Sugar)</option>
+                    <option value="FBS & 2HABF" data-inst="Overnight 8-10 hrs fasting & 2h after breakfast">FBS & 2HABF</option>
+                    <option value="HbA1c" data-inst="Routine">HbA1c</option>
+                    <option value="Serum Creatinine" data-inst="Routine">Serum Creatinine</option>
+                    <option value="Lipid Profile" data-inst="10-12 hrs fasting">Lipid Profile</option>
+                    <option value="SGPT (ALT)" data-inst="Routine">SGPT (ALT)</option>
+                    <option value="SGOT (AST)" data-inst="Routine">SGOT (AST)</option>
+                    <option value="Serum Bilirubin (Total & Direct)" data-inst="Routine">Serum Bilirubin</option>
+                    <option value="Serum Electrolytes (Na+, K+, Cl-)" data-inst="Routine">Serum Electrolytes</option>
+                    <option value="Serum Uric Acid" data-inst="Routine">Serum Uric Acid</option>
+                    <option value="Serum TSH" data-inst="Early morning sample">Serum TSH</option>
+                    <option value="Free T4 (FT4)" data-inst="Routine">Free T4 (FT4)</option>
+                    <option value="Serum Calcium & Albumin" data-inst="Routine">Serum Calcium & Albumin</option>
+                    <option value="Serum Vitamin D3 (25-OH)" data-inst="Routine">Serum Vitamin D3</option>
+                    <option value="Serum Ferritin" data-inst="Routine">Serum Ferritin</option>
+                    <option value="CRP (Quantitative)" data-inst="Routine">CRP (Quantitative)</option>
+                    <option value="Troponin-I (High Sensitive)" data-inst="Urgent / STAT">Troponin-I</option>
+                    <option value="Dengue NS1 Ag & CBC" data-inst="Immediate / STAT">Dengue NS1 Ag & CBC</option>
+                    <option value="Widal Test" data-inst="Routine">Widal Test</option>
+                    <option value="HBsAg (Screening)" data-inst="Routine">HBsAg</option>
+                  </optgroup>
+                  <optgroup label="🧪 Urine & Stool (প্রস্রাব ও মল পরীক্ষা)">
+                    <option value="Urine R/M/E" data-inst="Clean catch midstream morning sample">Urine R/M/E</option>
+                    <option value="Urine C/S" data-inst="Sterile container midstream">Urine C/S</option>
+                    <option value="Urine for Microalbumin" data-inst="First morning void">Urine for Microalbumin</option>
+                    <option value="Stool R/M/E" data-inst="Routine fresh stool">Stool R/M/E</option>
+                    <option value="Stool for Occult Blood (OBT)" data-inst="No red meat for 3 days">Stool OBT</option>
+                  </optgroup>
+                  <optgroup label="📷 Radiology & Imaging (এক্স-রে ও আল্ট্রা)">
+                    <option value="Chest X-Ray P/A View" data-inst="Full inspiration">Chest X-Ray P/A View</option>
+                    <option value="USG of Whole Abdomen" data-inst="Overnight fasting & full bladder">USG of Whole Abdomen</option>
+                    <option value="USG of KUB & Prostate" data-inst="Full bladder with strong urge">USG of KUB & Prostate</option>
+                    <option value="USG of Thyroid Gland" data-inst="Routine">USG of Thyroid Gland</option>
+                    <option value="X-Ray Lumbo-Sacral Spine (B/V)" data-inst="Routine">X-Ray LS Spine (B/V)</option>
+                    <option value="X-Ray Both Knee Joints (A/P & Lat)" data-inst="Standing">X-Ray Both Knee Joints</option>
+                  </optgroup>
+                  <optgroup label="🫀 Cardiology & Special (ইসিজি ও অন্যান্য)">
+                    <option value="ECG (12-Lead Resting)" data-inst="At rest">ECG (12-Lead Resting)</option>
+                    <option value="Echocardiogram (2D & Color Doppler)" data-inst="Routine">Echocardiogram (Echo)</option>
+                    <option value="ETT (Exercise Tolerance Test)" data-inst="Comfortable clothing & light meal">ETT</option>
+                    <option value="Endoscopy of Upper GI (OGD)" data-inst="Overnight fasting (8 hours)">Endoscopy (OGD)</option>
+                    <option value="Colonoscopy" data-inst="Bowel preparation as advised">Colonoscopy</option>
+                    <option value="Spirometry (PFT)" data-inst="Routine">Spirometry (PFT)</option>
+                  </optgroup>
+                </select>
+              </div>
             </div>
-            <div class="input-group input-group-sm mb-2 investigation-row">
-              <input type="text" name="investigations[1][name]" class="form-control" placeholder="e.g. Serum Creatinine" value="Serum Creatinine">
-              <input type="text" name="investigations[1][instructions]" class="form-control" placeholder="Routine" value="Routine">
-              <button type="button" class="btn btn-outline-danger remove-inv-btn" title="Remove"><i class="bi bi-trash"></i></button>
+
+            {{-- 1-Click Most Common Test Badges (Mobile-friendly horizontal scroll) --}}
+            <div class="test-chips-wrapper mb-3 d-flex align-items-center gap-1">
+              <span class="small text-muted me-1 flex-shrink-0" style="font-size: 0.72rem;"><i class="bi bi-stars text-warning"></i> Frequent:</span>
+              <button type="button" class="test-chip js-quick-add-test" data-test="CBC with ESR" data-inst="Routine"><span class="plus-icon">+</span> CBC</button>
+              <button type="button" class="test-chip js-quick-add-test" data-test="RBS (Random Blood Sugar)" data-inst="Before Consultation"><span class="plus-icon">+</span> RBS</button>
+              <button type="button" class="test-chip js-quick-add-test" data-test="HbA1c" data-inst="Routine"><span class="plus-icon">+</span> HbA1c</button>
+              <button type="button" class="test-chip js-quick-add-test" data-test="Serum Creatinine" data-inst="Routine"><span class="plus-icon">+</span> S. Creatinine</button>
+              <button type="button" class="test-chip js-quick-add-test" data-test="Lipid Profile" data-inst="10-12 hrs fasting"><span class="plus-icon">+</span> Lipid Profile</button>
+              <button type="button" class="test-chip js-quick-add-test" data-test="SGPT (ALT)" data-inst="Routine"><span class="plus-icon">+</span> SGPT</button>
+              <button type="button" class="test-chip js-quick-add-test" data-test="Serum Electrolytes" data-inst="Routine"><span class="plus-icon">+</span> Electrolytes</button>
+              <button type="button" class="test-chip js-quick-add-test" data-test="Serum TSH" data-inst="Early morning"><span class="plus-icon">+</span> TSH</button>
+              <button type="button" class="test-chip js-quick-add-test" data-test="Urine R/M/E" data-inst="Clean catch midstream morning sample"><span class="plus-icon">+</span> Urine R/E</button>
+              <button type="button" class="test-chip js-quick-add-test" data-test="ECG (12-Lead Resting)" data-inst="At rest"><span class="plus-icon">+</span> ECG</button>
+              <button type="button" class="test-chip js-quick-add-test" data-test="Chest X-Ray P/A View" data-inst="Full inspiration"><span class="plus-icon">+</span> Chest X-Ray</button>
+              <button type="button" class="test-chip js-quick-add-test" data-test="USG of Whole Abdomen" data-inst="Overnight fasting & full bladder"><span class="plus-icon">+</span> USG Abdomen</button>
+            </div>
+
+            {{-- Investigation Rows Container --}}
+            <div id="investigationsContainer">
+              <div class="input-group input-group-sm mb-2 investigation-row">
+                <input type="text" name="investigations[0][name]" list="commonDiagnosticTests" class="form-control" placeholder="Test Name (e.g. HbA1c)" value="HbA1c">
+                <input type="text" name="investigations[0][instructions]" list="commonTestInstructions" class="form-control" placeholder="Fast 8-10 hrs" value="Fasting">
+                <button type="button" class="btn btn-outline-danger remove-inv-btn" title="Remove"><i class="bi bi-trash"></i></button>
+              </div>
+              <div class="input-group input-group-sm mb-2 investigation-row">
+                <input type="text" name="investigations[1][name]" list="commonDiagnosticTests" class="form-control" placeholder="Test Name (e.g. Serum Creatinine)" value="Serum Creatinine">
+                <input type="text" name="investigations[1][instructions]" list="commonTestInstructions" class="form-control" placeholder="Routine" value="Routine">
+                <button type="button" class="btn btn-outline-danger remove-inv-btn" title="Remove"><i class="bi bi-trash"></i></button>
+              </div>
             </div>
           </div>
         </div>
@@ -382,6 +687,60 @@
         </button>
       </div>
     </div>
+
+    {{-- Comprehensive Clinical Datalists for Autocomplete --}}
+    <datalist id="commonDiagnosticTests">
+      <option value="CBC with ESR">
+      <option value="RBS (Random Blood Sugar)">
+      <option value="FBS (Fasting Blood Sugar)">
+      <option value="2HABF (2 Hours After Breakfast)">
+      <option value="HbA1c">
+      <option value="Serum Creatinine">
+      <option value="Lipid Profile">
+      <option value="SGPT (ALT)">
+      <option value="SGOT (AST)">
+      <option value="Serum Bilirubin (Total & Direct)">
+      <option value="Serum Electrolytes (Na+, K+, Cl-)">
+      <option value="Serum Uric Acid">
+      <option value="Serum TSH">
+      <option value="Free T4 (FT4)">
+      <option value="Serum Calcium & Albumin">
+      <option value="Serum Vitamin D3 (25-OH)">
+      <option value="Serum Ferritin">
+      <option value="CRP (Quantitative)">
+      <option value="Troponin-I (High Sensitive)">
+      <option value="Dengue NS1 Ag & CBC">
+      <option value="Widal Test">
+      <option value="HBsAg (Screening)">
+      <option value="Anti-HCV">
+      <option value="Urine R/M/E">
+      <option value="Urine C/S">
+      <option value="Urine for Microalbumin">
+      <option value="Stool R/M/E">
+      <option value="Stool for Occult Blood (OBT)">
+      <option value="Chest X-Ray P/A View">
+      <option value="USG of Whole Abdomen">
+      <option value="USG of KUB & Prostate">
+      <option value="USG of Thyroid Gland">
+      <option value="ECG (12-Lead Resting)">
+      <option value="Echocardiogram (Echo)">
+      <option value="ETT (Exercise Tolerance Test)">
+      <option value="Endoscopy of Upper GI (OGD)">
+      <option value="Colonoscopy">
+      <option value="Spirometry (PFT)">
+    </datalist>
+
+    <datalist id="commonTestInstructions">
+      <option value="Overnight fasting (8-10 hrs)">
+      <option value="10-12 hrs fasting">
+      <option value="Full bladder with strong urge">
+      <option value="Clean catch midstream morning sample">
+      <option value="Routine">
+      <option value="Urgent / STAT">
+      <option value="Early morning sample">
+      <option value="Before consultation">
+      <option value="At rest">
+    </datalist>
   </form>
 @endsection
 
@@ -401,17 +760,43 @@
       }
     });
 
-    // 1. Quick Dose Pills
+    // 1. Quick Dose & Timing Pills (Always visible & interactive with visual pulse)
     document.querySelectorAll('.js-chip-dose').forEach(function(chip) {
       chip.addEventListener('click', function() {
         var val = this.getAttribute('data-val');
-        if (!activeDoseInput) {
+        if (!activeDoseInput || !document.contains(activeDoseInput)) {
           var allDose = document.querySelectorAll('.js-med-dose');
           if (allDose.length > 0) activeDoseInput = allDose[allDose.length - 1];
         }
         if (activeDoseInput) {
           activeDoseInput.value = val;
           activeDoseInput.focus();
+          activeDoseInput.classList.add('field-updated-pulse');
+          setTimeout(function() {
+            activeDoseInput.classList.remove('field-updated-pulse');
+          }, 800);
+        }
+      });
+    });
+
+    document.querySelectorAll('.js-chip-timing').forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        var val = this.getAttribute('data-val');
+        var allTiming = document.querySelectorAll('.js-med-timing');
+        if (allTiming.length > 0) {
+          var targetSelect = allTiming[allTiming.length - 1];
+          if (activeDoseInput && document.contains(activeDoseInput)) {
+            var row = activeDoseInput.closest('.medicine-row');
+            if (row) {
+              var rowSelect = row.querySelector('.js-med-timing');
+              if (rowSelect) targetSelect = rowSelect;
+            }
+          }
+          targetSelect.value = val;
+          targetSelect.classList.add('field-updated-pulse');
+          setTimeout(function() {
+            targetSelect.classList.remove('field-updated-pulse');
+          }, 800);
         }
       });
     });
@@ -701,21 +1086,78 @@
       });
     });
 
-    // 7. Add Investigation Row
+    // 7. Diagnostic Tests Management (Fast, Non-Cluttered, Mobile-Friendly)
     var addInvBtn = document.getElementById('addInvestigationBtn');
     var invContainer = document.getElementById('investigationsContainer');
+    var quickTestDropdown = document.getElementById('quickTestDropdown');
 
-    function addInvestigationRow(name, instructions) {
+    function addInvestigationRow(name, instructions, shouldPulse) {
       var div = document.createElement('div');
       div.className = 'input-group input-group-sm mb-2 investigation-row';
       div.innerHTML = `
-        <input type="text" name="investigations[${invIdx}][name]" class="form-control" placeholder="Test Name (e.g. HbA1c)" value="${name || ''}">
-        <input type="text" name="investigations[${invIdx}][instructions]" class="form-control" placeholder="Instructions (e.g. Fasting)" value="${instructions || ''}">
+        <input type="text" name="investigations[${invIdx}][name]" list="commonDiagnosticTests" class="form-control ${shouldPulse ? 'field-updated-pulse' : ''}" placeholder="Test Name (e.g. HbA1c)" value="${name || ''}">
+        <input type="text" name="investigations[${invIdx}][instructions]" list="commonTestInstructions" class="form-control" placeholder="Instructions (e.g. Fasting)" value="${instructions || ''}">
         <button type="button" class="btn btn-outline-danger remove-inv-btn" title="Remove"><i class="bi bi-trash"></i></button>
       `;
       invContainer.appendChild(div);
       invIdx++;
+      if (shouldPulse) {
+        var addedInput = div.querySelector('input[name*="[name]"]');
+        setTimeout(function() { if (addedInput) addedInput.classList.remove('field-updated-pulse'); }, 1000);
+      }
     }
+
+    function addOrFillInvestigation(name, instructions) {
+      if (!name) return;
+      var rows = invContainer.querySelectorAll('.investigation-row');
+      var targetRow = null;
+
+      // Check if any existing row has an empty name
+      for (var i = 0; i < rows.length; i++) {
+        var nameInput = rows[i].querySelector('input[name*="[name]"]');
+        if (nameInput && !nameInput.value.trim()) {
+          targetRow = rows[i];
+          break;
+        }
+      }
+
+      if (targetRow) {
+        var nameInput = targetRow.querySelector('input[name*="[name]"]');
+        var instInput = targetRow.querySelector('input[name*="[instructions]"]');
+        if (nameInput) {
+          nameInput.value = name;
+          nameInput.classList.add('field-updated-pulse');
+          setTimeout(function() { nameInput.classList.remove('field-updated-pulse'); }, 1000);
+        }
+        if (instInput && instructions) {
+          instInput.value = instructions;
+        }
+      } else {
+        addInvestigationRow(name, instructions || 'Routine', true);
+      }
+    }
+
+    // Quick Test Dropdown Selection
+    if (quickTestDropdown) {
+      quickTestDropdown.addEventListener('change', function() {
+        var sel = this.options[this.selectedIndex];
+        if (sel && sel.value) {
+          var name = sel.value;
+          var inst = sel.getAttribute('data-inst') || 'Routine';
+          addOrFillInvestigation(name, inst);
+          this.selectedIndex = 0;
+        }
+      });
+    }
+
+    // 1-Click Frequent Test Chips
+    document.querySelectorAll('.js-quick-add-test').forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        var name = this.getAttribute('data-test');
+        var inst = this.getAttribute('data-inst') || 'Routine';
+        addOrFillInvestigation(name, inst);
+      });
+    });
 
     if (addInvBtn && invContainer) {
       addInvBtn.addEventListener('click', function() {
