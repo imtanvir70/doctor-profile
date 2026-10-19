@@ -97,15 +97,16 @@
                 <label class="form-label small fw-semibold text-dark">
                   Short Summary / Excerpt (সংক্ষিপ্ত বিবরণী)
                 </label>
-                <textarea name="excerpt" id="singleExcerptInput" class="form-control" rows="2" placeholder="পোস্টের সারসংক্ষেপ (খালি রাখলে প্রথম ১৬০ অক্ষর স্বয়ংক্রিয়ভাবে নেওয়া হবে)...">{{ $singleExcerpt }}</textarea>
+                <textarea name="excerpt" id="singleExcerptInput" class="form-control" rows="2" placeholder="পোস্টের সারসংক্ষেপ (খালি রাখলে কন্টেন্ট থেকে প্রথম ১৬০ অক্ষর স্বয়ংক্রিয়ভাবে নেওয়া হবে)...">{{ $singleExcerpt }}</textarea>
                 <div class="form-text small text-muted" style="font-size: 0.75rem;">খালি রাখলে ব্লগ কন্টেন্ট থেকে প্রথম কয়েক লাইন সারাংশ হিসেবে ব্যবহৃত হবে।</div>
               </div>
 
               <div class="mb-4">
-                <label class="form-label small fw-semibold text-dark">
-                  Full Blog Content (বিস্তারিত ব্লগ কন্টেন্ট) <span class="text-danger">*</span>
+                <label class="form-label small fw-semibold text-dark d-flex align-items-center justify-content-between">
+                  <span>Full Blog Content (Summernote Editor) <span class="text-danger">*</span></span>
+                  <span class="badge bg-light text-secondary border small"><i class="bi bi-file-richtext me-1"></i>Summernote Active</span>
                 </label>
-                <textarea name="content" id="singleContentEditor" class="form-control" rows="12">{{ $singleContent }}</textarea>
+                <textarea name="content" id="singleContentEditor" class="form-control summernote-area">{{ $singleContent }}</textarea>
               </div>
             </div>
 
@@ -136,8 +137,8 @@
                     <textarea name="excerpt_bn" id="excerptBnInput" class="form-control" rows="2" placeholder="বাংলায় সংক্ষিপ্ত সারাংশ...">{{ old('excerpt_bn', $article->excerpt_bn) }}</textarea>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label small fw-semibold text-dark">বিস্তারিত ব্লগ কন্টেন্ট (বাংলা) <span class="text-danger">*</span></label>
-                    <textarea name="content_bn" id="contentBnEditor" class="form-control" rows="10">{{ old('content_bn', $article->content_bn) }}</textarea>
+                    <label class="form-label small fw-semibold text-dark">বিস্তারিত ব্লগ কন্টেন্ট (বাংলা - Summernote) <span class="text-danger">*</span></label>
+                    <textarea name="content_bn" id="contentBnEditor" class="form-control summernote-area">{{ old('content_bn', $article->content_bn) }}</textarea>
                   </div>
                 </div>
 
@@ -152,8 +153,8 @@
                     <textarea name="excerpt_en" id="excerptEnInput" class="form-control" rows="2" placeholder="Short excerpt in English...">{{ old('excerpt_en', $article->excerpt_en) }}</textarea>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label small fw-semibold text-dark">Full Blog Content (English) <span class="text-danger">*</span></label>
-                    <textarea name="content_en" id="contentEnEditor" class="form-control" rows="10">{{ old('content_en', $article->content_en) }}</textarea>
+                    <label class="form-label small fw-semibold text-dark">Full Blog Content (English - Summernote) <span class="text-danger">*</span></label>
+                    <textarea name="content_en" id="contentEnEditor" class="form-control summernote-area">{{ old('content_en', $article->content_en) }}</textarea>
                   </div>
                 </div>
               </div>
@@ -200,7 +201,7 @@
             </div>
           </div>
 
-          {{-- Sticky / Prominent Action Footer --}}
+          {{-- Action Footer --}}
           <div class="card-footer bg-light py-3 px-4 d-flex flex-wrap align-items-center justify-content-between gap-2">
             <div class="d-flex align-items-center gap-2">
               <a href="{{ route('admin.articles.index') }}" class="btn btn-outline-secondary">
@@ -226,29 +227,45 @@
 @endsection
 
 @push('styles')
+  {{-- Summernote Bootstrap 5 CSS --}}
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-bs5.min.css" rel="stylesheet">
   <style>
-    /* CKEditor Custom Styling */
-    .ck-editor__editable_inline {
-      min-height: 380px !important;
-      font-size: 1rem;
-      line-height: 1.7;
-      color: #1e293b;
-      padding: 1.25rem !important;
-      border-bottom-left-radius: 8px !important;
-      border-bottom-right-radius: 8px !important;
+    /* Summernote Modern Custom Styling */
+    .note-editor.note-frame {
+      border-radius: 8px !important;
+      border: 1px solid #cbd5e1 !important;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+      background: #ffffff;
     }
-    .ck.ck-toolbar {
-      border-top-left-radius: 8px !important;
-      border-top-right-radius: 8px !important;
-      background: #f8fafc !important;
-      border-color: #cbd5e1 !important;
-    }
-    .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
-      border-color: #cbd5e1 !important;
-    }
-    .ck.ck-editor__main>.ck-editor__editable.ck-focused {
+    .note-editor.note-frame.focus,
+    .note-editor.note-frame:focus-within {
       border-color: #0d9488 !important;
       box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15) !important;
+    }
+    .note-toolbar {
+      background: #f8fafc !important;
+      border-bottom: 1px solid #e2e8f0 !important;
+      padding: 8px 12px !important;
+      border-top-left-radius: 7px !important;
+      border-top-right-radius: 7px !important;
+    }
+    .note-editable {
+      font-size: 1rem !important;
+      line-height: 1.75 !important;
+      color: #1e293b !important;
+      min-height: 380px !important;
+      padding: 1.25rem !important;
+      background: #ffffff !important;
+    }
+    .note-btn {
+      background: #ffffff !important;
+      border: 1px solid #cbd5e1 !important;
+      color: #334155 !important;
+      font-size: 0.85rem !important;
+    }
+    .note-btn:hover {
+      background: #f1f5f9 !important;
+      color: #0f172a !important;
     }
     .nav-pills .nav-link.active {
       background-color: var(--admin-accent, #0d9488) !important;
@@ -263,281 +280,212 @@
 @endpush
 
 @push('scripts')
-  {{-- Load CKEditor 5 Classic from Official CDN --}}
-  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+  {{-- jQuery & Summernote Bootstrap 5 JS --}}
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-bs5.min.js"></script>
   <script>
-    (function() {
-      var editorSingleInstance = null;
-      var editorBnInstance = null;
-      var editorEnInstance = null;
-
-      var ckConfig = {
+    $(document).ready(function() {
+      // 1. Initialize Summernote on all blog editor areas
+      var summernoteOptions = {
+        placeholder: 'ব্লগের পূর্ণাঙ্গ কন্টেন্ট লিখুন...',
+        tabsize: 2,
+        height: 380,
         toolbar: [
-          'heading', '|',
-          'bold', 'italic', 'underline', 'strikethrough', '|',
-          'bulletedList', 'numberedList', '|',
-          'blockQuote', 'insertTable', 'link', '|',
-          'undo', 'redo'
+          ['style', ['style']],
+          ['font', ['bold', 'italic', 'underline', 'clear']],
+          ['fontname', ['fontname']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['insert', ['link', 'picture', 'video', 'hr']],
+          ['view', ['fullscreen', 'codeview', 'help']]
         ],
-        heading: {
-          options: [
-            { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-            { model: 'heading2', view: 'h2', title: 'Heading 2 (H2)', class: 'ck-heading_heading2' },
-            { model: 'heading3', view: 'h3', title: 'Heading 3 (H3)', class: 'ck-heading_heading3' },
-            { model: 'heading4', view: 'h4', title: 'Heading 4 (H4)', class: 'ck-heading_heading4' }
-          ]
+        callbacks: {
+          onChange: function() {
+            // Automatically updates underlying textarea value
+          }
         }
       };
 
-      // 1. Initialize CKEditor for Single Content
-      var singleEl = document.querySelector('#singleContentEditor');
-      if (singleEl) {
-        ClassicEditor.create(singleEl, ckConfig).then(function(editor) {
-          editorSingleInstance = editor;
-        }).catch(function(err) {
-          console.error('CKEditor Single Error:', err);
-        });
-      }
+      $('#singleContentEditor').summernote(summernoteOptions);
+      $('#contentBnEditor').summernote(summernoteOptions);
+      $('#contentEnEditor').summernote(summernoteOptions);
 
-      // 2. Initialize CKEditor for Bengali & English Content
-      var bnEl = document.querySelector('#contentBnEditor');
-      if (bnEl) {
-        ClassicEditor.create(bnEl, ckConfig).then(function(editor) {
-          editorBnInstance = editor;
-        }).catch(function(err) {
-          console.error('CKEditor BN Error:', err);
-        });
-      }
+      // 2. Multi-language toggle handler
+      $('#multiLangSwitch').on('change', function() {
+        var isChecked = $(this).is(':checked');
+        var label = $(this).siblings('label');
+        if (label.length) {
+          label.text(isChecked ? 'Enabled' : 'Disabled');
+        }
 
-      var enEl = document.querySelector('#contentEnEditor');
-      if (enEl) {
-        ClassicEditor.create(enEl, ckConfig).then(function(editor) {
-          editorEnInstance = editor;
-        }).catch(function(err) {
-          console.error('CKEditor EN Error:', err);
-        });
-      }
+        if (isChecked) {
+          $('#singleLangSection').addClass('d-none');
+          $('#multiLangSection').removeClass('d-none');
 
-      // 3. Multi-language toggle handler
-      var multiLangSwitch = document.getElementById('multiLangSwitch');
-      var singleSection = document.getElementById('singleLangSection');
-      var multiSection = document.getElementById('multiLangSection');
-
-      if (multiLangSwitch) {
-        multiLangSwitch.addEventListener('change', function() {
-          var isChecked = this.checked;
-          var label = this.nextElementSibling;
-          if (label) {
-            label.textContent = isChecked ? 'Enabled' : 'Disabled';
+          var sTitle = $('#singleTitleInput').val();
+          if (!$('#titleBnInput').val() && sTitle) {
+            $('#titleBnInput').val(sTitle);
           }
 
-          if (isChecked) {
-            singleSection.classList.add('d-none');
-            multiSection.classList.remove('d-none');
-
-            // Copy single values to BN if BN is empty
-            var sTitle = document.getElementById('singleTitleInput').value;
-            var bnTitle = document.getElementById('titleBnInput');
-            if (bnTitle && !bnTitle.value && sTitle) {
-              bnTitle.value = sTitle;
-            }
-
-            var sExcerpt = document.getElementById('singleExcerptInput').value;
-            var bnExcerpt = document.getElementById('excerptBnInput');
-            if (bnExcerpt && !bnExcerpt.value && sExcerpt) {
-              bnExcerpt.value = sExcerpt;
-            }
-
-            if (editorSingleInstance && editorBnInstance && !editorBnInstance.getData()) {
-              editorBnInstance.setData(editorSingleInstance.getData());
-            }
-          } else {
-            multiSection.classList.add('d-none');
-            singleSection.classList.remove('d-none');
-
-            // Copy BN values back to Single if Single is empty
-            var bnTitleVal = document.getElementById('titleBnInput') ? document.getElementById('titleBnInput').value : '';
-            var sTitleEl = document.getElementById('singleTitleInput');
-            if (sTitleEl && !sTitleEl.value && bnTitleVal) {
-              sTitleEl.value = bnTitleVal;
-            }
-
-            if (editorBnInstance && editorSingleInstance && !editorSingleInstance.getData()) {
-              editorSingleInstance.setData(editorBnInstance.getData());
-            }
+          var sExcerpt = $('#singleExcerptInput').val();
+          if (!$('#excerptBnInput').val() && sExcerpt) {
+            $('#excerptBnInput').val(sExcerpt);
           }
-        });
+
+          var sCode = $('#singleContentEditor').summernote('code');
+          if (isEditorEmpty('#contentBnEditor') && !isEditorEmpty('#singleContentEditor')) {
+            $('#contentBnEditor').summernote('code', sCode);
+          }
+        } else {
+          $('#multiLangSection').addClass('d-none');
+          $('#singleLangSection').removeClass('d-none');
+
+          var bnTitle = $('#titleBnInput').val();
+          if (!$('#singleTitleInput').val() && bnTitle) {
+            $('#singleTitleInput').val(bnTitle);
+          }
+
+          var bnCode = $('#contentBnEditor').summernote('code');
+          if (isEditorEmpty('#singleContentEditor') && !isEditorEmpty('#contentBnEditor')) {
+            $('#singleContentEditor').summernote('code', bnCode);
+          }
+        }
+      });
+
+      // Helper to check if a summernote editor is blank
+      function isEditorEmpty(selector) {
+        var code = $(selector).summernote('code');
+        var text = $('<div>').html(code).text().trim();
+        var hasMedia = code.indexOf('<img') !== -1 || code.indexOf('<iframe') !== -1;
+        return !text && !hasMedia;
       }
 
-      // 4. Sync CKEditor data to underlying textareas
-      function syncEditors() {
-        if (editorSingleInstance) {
-          document.querySelector('#singleContentEditor').value = editorSingleInstance.getData();
-        }
-        if (editorBnInstance) {
-          document.querySelector('#contentBnEditor').value = editorBnInstance.getData();
-        }
-        if (editorEnInstance) {
-          document.querySelector('#contentEnEditor').value = editorEnInstance.getData();
-        }
-      }
-
-      // 5. Check if editor is blank
       function getActiveContent() {
-        syncEditors();
-        var isMulti = multiLangSwitch && multiLangSwitch.checked;
+        var isMulti = $('#multiLangSwitch').is(':checked');
         if (isMulti) {
-          var bnT = document.getElementById('titleBnInput') ? document.getElementById('titleBnInput').value.trim() : '';
-          var enT = document.getElementById('titleEnInput') ? document.getElementById('titleEnInput').value.trim() : '';
-          var bnC = editorBnInstance ? editorBnInstance.getData().trim() : '';
-          var enC = editorEnInstance ? editorEnInstance.getData().trim() : '';
+          var bnT = ($('#titleBnInput').val() || '').trim();
+          var enT = ($('#titleEnInput').val() || '').trim();
+          var bnC = $('#contentBnEditor').summernote('code');
+          var enC = $('#contentEnEditor').summernote('code');
+          var emptyBn = isEditorEmpty('#contentBnEditor');
+          var emptyEn = isEditorEmpty('#contentEnEditor');
           return {
             title: bnT || enT,
-            content: bnC || enC,
-            isMulti: true
+            content: (!emptyBn ? bnC : (!emptyEn ? enC : '')),
+            isMulti: true,
+            isEmpty: !bnT && !enT && emptyBn && emptyEn
           };
         } else {
-          var title = document.getElementById('singleTitleInput') ? document.getElementById('singleTitleInput').value.trim() : '';
-          var content = editorSingleInstance ? editorSingleInstance.getData().trim() : '';
+          var title = ($('#singleTitleInput').val() || '').trim();
+          var content = $('#singleContentEditor').summernote('code');
+          var empty = isEditorEmpty('#singleContentEditor');
           return {
             title: title,
-            content: content,
-            isMulti: false
+            content: !empty ? content : '',
+            isMulti: false,
+            isEmpty: !title && empty
           };
         }
       }
 
-      // 6. Autosave every 30 seconds
-      var lastSavedContentHash = '';
+      // 3. 30-Second Auto-save Logic
+      var lastSavedHash = '';
       var isAutosaving = false;
 
       function triggerAutosave() {
         if (isAutosaving) return;
 
         var active = getActiveContent();
-        var cleanContent = active.content.replace(/<[^>]*>?/gm, '').trim();
 
-        // If completely blank (no title and no text), skip autosave
-        if (!active.title && !cleanContent) {
-          var badge = document.getElementById('autosaveStatusBadge');
-          var text = document.getElementById('autosaveStatusText');
-          if (text) text.textContent = 'Auto-save paused (empty)';
+        // If blank, skip autosave
+        if (active.isEmpty) {
+          $('#autosaveStatusText').text('Auto-save paused (empty)');
           return;
         }
 
         var currentHash = active.title + '|' + active.content;
-        if (currentHash === lastSavedContentHash) {
-          // No changes since last save
-          return;
+        if (currentHash === lastSavedHash) {
+          return; // No changes
         }
 
         isAutosaving = true;
-        var badgeText = document.getElementById('autosaveStatusText');
-        if (badgeText) {
-          badgeText.innerHTML = '<span class="spinner-border spinner-border-sm text-primary me-1" role="status"></span> Saving draft...';
-        }
+        $('#autosaveStatusText').html('<span class="spinner-border spinner-border-sm text-primary me-1" role="status"></span> Saving draft...');
 
         var formData = new FormData();
-        var csrfToken = document.querySelector('input[name="_token"]').value;
-        formData.append('_token', csrfToken);
+        formData.append('_token', $('input[name="_token"]').val());
 
-        var articleId = document.getElementById('articleIdInput').value;
+        var articleId = $('#articleIdInput').val();
         if (articleId) {
           formData.append('id', articleId);
         }
 
         if (active.isMulti) {
-          formData.append('title_bn', document.getElementById('titleBnInput').value);
-          formData.append('title_en', document.getElementById('titleEnInput').value);
-          formData.append('excerpt_bn', document.getElementById('excerptBnInput').value);
-          formData.append('excerpt_en', document.getElementById('excerptEnInput').value);
-          formData.append('content_bn', editorBnInstance ? editorBnInstance.getData() : '');
-          formData.append('content_en', editorEnInstance ? editorEnInstance.getData() : '');
+          formData.append('title_bn', $('#titleBnInput').val());
+          formData.append('title_en', $('#titleEnInput').val());
+          formData.append('excerpt_bn', $('#excerptBnInput').val());
+          formData.append('excerpt_en', $('#excerptEnInput').val());
+          formData.append('content_bn', $('#contentBnEditor').summernote('code'));
+          formData.append('content_en', $('#contentEnEditor').summernote('code'));
         } else {
-          formData.append('title', document.getElementById('singleTitleInput').value);
-          formData.append('excerpt', document.getElementById('singleExcerptInput').value);
-          formData.append('content', editorSingleInstance ? editorSingleInstance.getData() : '');
+          formData.append('title', $('#singleTitleInput').val());
+          formData.append('excerpt', $('#singleExcerptInput').val());
+          formData.append('content', $('#singleContentEditor').summernote('code'));
         }
 
-        var category = document.getElementById('blogCategoryInput') ? document.getElementById('blogCategoryInput').value : 'Preventive Health';
-        var readTime = document.getElementById('blogReadTimeInput') ? document.getElementById('blogReadTimeInput').value : '5 min read';
-        formData.append('category', category);
-        formData.append('read_time', readTime);
+        formData.append('category', $('#blogCategoryInput').val() || 'Preventive Health');
+        formData.append('read_time', $('#blogReadTimeInput').val() || '5 min read');
 
-        fetch('{{ route("admin.articles.autosave") }}', {
-          method: 'POST',
-          headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'Accept': 'application/json'
-          },
-          body: formData
-        })
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          isAutosaving = false;
-          if (data.success) {
-            lastSavedContentHash = currentHash;
-            if (data.id && !document.getElementById('articleIdInput').value) {
-              document.getElementById('articleIdInput').value = data.id;
-              // Smoothly update browser URL without reload
-              if (window.history && window.history.replaceState) {
-                var editUrl = '{{ url("/admin/articles") }}/' + data.id + '/edit';
-                window.history.replaceState({}, '', editUrl);
+        $.ajax({
+          url: '{{ route("admin.articles.autosave") }}',
+          type: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          dataType: 'json',
+          success: function(data) {
+            isAutosaving = false;
+            if (data.success) {
+              lastSavedHash = currentHash;
+              if (data.id && !$('#articleIdInput').val()) {
+                $('#articleIdInput').val(data.id);
+                if (window.history && window.history.replaceState) {
+                  var editUrl = '{{ url("/admin/articles") }}/' + data.id + '/edit';
+                  window.history.replaceState({}, '', editUrl);
+                }
               }
+              $('#autosaveStatusText').html('<i class="bi bi-check-circle-fill text-success me-1"></i> Draft saved at ' + (data.saved_at || 'just now'));
+            } else {
+              $('#autosaveStatusText').text(data.message || 'Auto-save skipped');
             }
-            if (badgeText) {
-              badgeText.innerHTML = '<i class="bi bi-check-circle-fill text-success me-1"></i> Draft saved at ' + (data.saved_at || 'just now');
-            }
-          } else {
-            if (badgeText) {
-              badgeText.textContent = data.message || 'Auto-save skipped';
-            }
-          }
-        })
-        .catch(function(err) {
-          isAutosaving = false;
-          console.warn('Autosave notice:', err);
-          if (badgeText) {
-            badgeText.textContent = 'Auto-save retry in 30s';
+          },
+          error: function(xhr) {
+            isAutosaving = false;
+            console.warn('Autosave notice:', xhr);
+            $('#autosaveStatusText').text('Auto-save retry in 30s');
           }
         });
       }
 
-      // Start 30s timer
-      var autosaveTimer = setInterval(triggerAutosave, 30000);
+      // Start 30s interval
+      setInterval(triggerAutosave, 30000);
 
-      // 7. Manual Save Draft Button
-      var manualDraftBtn = document.getElementById('manualSaveDraftBtn');
-      if (manualDraftBtn) {
-        manualDraftBtn.addEventListener('click', function() {
-          syncEditors();
-          document.getElementById('submitActionInput').value = 'draft';
-          document.getElementById('blogPostForm').submit();
-        });
-      }
+      // 4. Manual Save Draft Button
+      $('#manualSaveDraftBtn').on('click', function() {
+        $('#submitActionInput').val('draft');
+        $('#blogPostForm').submit();
+      });
 
-      // 8. Publish Button (Explicit Publish Action)
-      var publishBtn = document.getElementById('publishPostBtn');
-      if (publishBtn) {
-        publishBtn.addEventListener('click', function() {
-          syncEditors();
-          var active = getActiveContent();
-          if (!active.title) {
-            alert('Please enter a blog post title before publishing.');
-            return;
-          }
-          document.getElementById('submitActionInput').value = 'publish';
-          document.getElementById('blogPostForm').submit();
-        });
-      }
-
-      // On direct form submit, sync editor data
-      var form = document.getElementById('blogPostForm');
-      if (form) {
-        form.addEventListener('submit', function() {
-          syncEditors();
-        });
-      }
-    })();
+      // 5. Publish Now Button
+      $('#publishPostBtn').on('click', function() {
+        var active = getActiveContent();
+        if (!active.title) {
+          alert('Please enter a blog post title before publishing.');
+          return;
+        }
+        $('#submitActionInput').val('publish');
+        $('#blogPostForm').submit();
+      });
+    });
   </script>
 @endpush
