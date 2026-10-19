@@ -84,7 +84,7 @@ class AdminPrescriptionController extends Controller
             'serial_id' => 'nullable|exists:serials,id',
             'chamber_id' => 'nullable|exists:chambers,id',
             'patient_name' => 'required|string|max:150',
-            'patient_phone' => 'required|string|max:20',
+            'patient_phone' => 'nullable|string|max:20',
             'patient_age' => 'nullable|integer|min:1|max:120',
             'patient_gender' => 'required|string',
             'patient_address' => 'nullable|string|max:255',
@@ -115,14 +115,21 @@ class AdminPrescriptionController extends Controller
             'medicines.required' => 'অন্তত একটি ওষুধের নাম প্রদান করতে হবে / At least one medicine is required.',
             'medicines.min' => 'অন্তত একটি ওষুধের নাম প্রদান করতে হবে / At least one medicine is required.',
             'patient_name.required' => 'রোগীর নাম প্রদান করা আবশ্যক / Patient name is required.',
-            'patient_phone.required' => 'রোগীর মোবাইল নম্বর আবশ্যক / Patient phone is required.',
         ]);
+
+        if (empty($validated['patient_phone'])) {
+            $validated['patient_phone'] = 'N/A';
+        }
 
         $prescription = Prescription::create($validated);
 
         // If linked to serial, mark serial as completed
         if ($prescription->serial_id) {
             Serial::where('id', $prescription->serial_id)->update(['status' => 'completed']);
+        }
+
+        if ($request->input('action') === 'save_and_print') {
+            return redirect()->route('admin.prescriptions.print', $prescription->id);
         }
 
         return redirect()->route('admin.prescriptions.show', $prescription->id)
@@ -167,7 +174,7 @@ class AdminPrescriptionController extends Controller
             'prescription_no' => 'required|string|unique:prescriptions,prescription_no,' . $prescription->id,
             'chamber_id' => 'nullable|exists:chambers,id',
             'patient_name' => 'required|string|max:150',
-            'patient_phone' => 'required|string|max:20',
+            'patient_phone' => 'nullable|string|max:20',
             'patient_age' => 'nullable|integer|min:1|max:120',
             'patient_gender' => 'required|string',
             'patient_address' => 'nullable|string|max:255',
@@ -198,10 +205,17 @@ class AdminPrescriptionController extends Controller
             'medicines.required' => 'অন্তত একটি ওষুধের নাম প্রদান করতে হবে / At least one medicine is required.',
             'medicines.min' => 'অন্তত একটি ওষুধের নাম প্রদান করতে হবে / At least one medicine is required.',
             'patient_name.required' => 'রোগীর নাম প্রদান করা আবশ্যক / Patient name is required.',
-            'patient_phone.required' => 'রোগীর মোবাইল নম্বর আবশ্যক / Patient phone is required.',
         ]);
 
+        if (empty($validated['patient_phone'])) {
+            $validated['patient_phone'] = 'N/A';
+        }
+
         $prescription->update($validated);
+
+        if ($request->input('action') === 'save_and_print') {
+            return redirect()->route('admin.prescriptions.print', $prescription->id);
+        }
 
         return redirect()->route('admin.prescriptions.show', $prescription->id)
             ->with('success', "Prescription {$prescription->prescription_no} updated successfully!");

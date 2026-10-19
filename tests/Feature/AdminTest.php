@@ -316,6 +316,32 @@ class AdminTest extends TestCase
         $this->assertCount(1, $refreshedRx->medicines);
         $this->assertEquals('Tab. Metformin 850mg', $refreshedRx->medicines[0]['name']);
         $this->assertCount(1, $refreshedRx->investigations);
+
+        // Test Direct Save and Print action with optional phone
+        $fastStoreResponse = $this->actingAs($this->adminUser)->post('/admin/prescriptions', [
+            'prescription_no' => 'RX-FAST-PRINT-TEST',
+            'chamber_id' => $chamber->id,
+            'patient_name' => 'Fast Patient Walkin',
+            'patient_phone' => '', // optional/blank
+            'patient_age' => 45,
+            'patient_gender' => 'female',
+            'consultation_date' => date('Y-m-d'),
+            'medicines' => [
+                [
+                    'name' => 'Tab. Napa Extra',
+                    'dose' => '১+০+১',
+                    'timing' => 'খাবারের পরে (After Meal)',
+                    'duration' => '৩ দিন',
+                    'instructions' => 'ব্যথায়',
+                ],
+            ],
+            'action' => 'save_and_print',
+        ]);
+
+        $fastRx = Prescription::where('prescription_no', 'RX-FAST-PRINT-TEST')->first();
+        $this->assertNotNull($fastRx);
+        $this->assertEquals('N/A', $fastRx->patient_phone);
+        $fastStoreResponse->assertRedirect(route('admin.prescriptions.print', $fastRx->id));
     }
 
     public function test_international_projects_crud_operations()

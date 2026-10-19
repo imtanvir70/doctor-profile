@@ -396,6 +396,15 @@
             <h3 class="fs-6 fw-bold mb-0 text-dark brand-font"><i class="bi bi-search-heart text-danger me-2"></i>Clinical Diagnosis / Impression</h3>
           </div>
           <div class="card-body p-3">
+            <div class="d-flex flex-wrap align-items-center gap-1 mb-2">
+              <span class="small text-muted me-1" style="font-size: 0.74rem;"><i class="bi bi-tag-fill text-danger me-1"></i>Quick Diagnosis:</span>
+              <button type="button" class="btn btn-xs btn-light border py-0 px-2 rounded-pill small js-chip-diag" data-diag="Type 2 Diabetes Mellitus">+ Type 2 DM</button>
+              <button type="button" class="btn btn-xs btn-light border py-0 px-2 rounded-pill small js-chip-diag" data-diag="Essential Hypertension">+ Hypertension</button>
+              <button type="button" class="btn btn-xs btn-light border py-0 px-2 rounded-pill small js-chip-diag" data-diag="GERD & Functional Dyspepsia">+ Gastric / GERD</button>
+              <button type="button" class="btn btn-xs btn-light border py-0 px-2 rounded-pill small js-chip-diag" data-diag="Acute Viral Fever with URTI">+ Viral Fever</button>
+              <button type="button" class="btn btn-xs btn-light border py-0 px-2 rounded-pill small js-chip-diag" data-diag="Primary Hypothyroidism">+ Hypothyroidism</button>
+              <button type="button" class="btn btn-xs btn-light border py-0 px-2 rounded-pill small js-chip-diag" data-diag="Dyslipidemia">+ Dyslipidemia</button>
+            </div>
             <label class="form-label small fw-semibold">Primary Diagnosis (রোগ নির্ণয় / ডায়াগনসিস)</label>
             <textarea name="diagnosis" id="diagnosisInput" class="form-control mb-3" rows="3">{{ old('diagnosis', $prescription->diagnosis) }}</textarea>
             
@@ -428,6 +437,22 @@
       </div>
 
       <div class="card-body p-3 p-md-4">
+        {{-- Fast 1-Click Popular Medicines Palette --}}
+        <div class="p-2 mb-2 rounded-3 bg-white border border-primary-subtle d-flex flex-wrap align-items-center gap-1 shadow-xs">
+          <span class="text-primary fw-bold small me-1 flex-shrink-0" style="font-size: 0.76rem;">
+            <i class="bi bi-lightning-charge-fill text-warning"></i> 1-Click Fast Drugs:
+          </span>
+          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small js-fast-add-med" data-name="Tab. Napa Extra" data-dose="১ + ০ + ১" data-timing="খাবারের পরে (After Meal)" data-duration="৫ দিন" data-inst="ভরা পেটে সেব্য">+ Napa Extra</button>
+          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small js-fast-add-med" data-name="Cap. Seclo 20mg" data-dose="১ + ০ + ১" data-timing="খাবারের ৩০ মিনিট আগে (Before Meal)" data-duration="১৪ দিন" data-inst="খালি পেটে সেব্য">+ Seclo 20</button>
+          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small js-fast-add-med" data-name="Tab. Monas 10mg" data-dose="০ + ০ + ১" data-timing="রাতে ঘুমানোর আগে (Bedtime)" data-duration="১ মাস" data-inst="রাতে সেব্য">+ Monas 10</button>
+          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small js-fast-add-med" data-name="Tab. Fexofenadine 120mg" data-dose="০ + ০ + ১" data-timing="রাতে ঘুমানোর আগে (Bedtime)" data-duration="৭ দিন" data-inst="অ্যালার্জির জন্য">+ Fexo 120</button>
+          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small js-fast-add-med" data-name="Tab. Metformin 500mg" data-dose="১ + ০ + ১" data-timing="খাবার সাথে সাথে (With Meal)" data-duration="চলবে" data-inst="নিয়মিত সেব্য">+ Metformin 500</button>
+          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small js-fast-add-med" data-name="Tab. Telmisartan 40mg" data-dose="১ + ০ + ০" data-timing="সকালে খাবারের পর (Morning)" data-duration="চলবে" data-inst="প্রেশারের ওষুধ">+ Telmisartan 40</button>
+          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small js-fast-add-med" data-name="Tab. Bicozin" data-dose="১ + ০ + ১" data-timing="খাবারের পরে (After Meal)" data-duration="১ মাস" data-inst="ভিটামিন">+ Bicozin</button>
+          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small js-fast-add-med" data-name="Cap. Azithromycin 500mg" data-dose="১ + ০ + ০" data-timing="খাবারের ১ ঘণ্টা আগে (Empty Stomach)" data-duration="৫ দিন" data-inst="অ্যান্টিবায়োটিক">+ Azithromycin 500</button>
+          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small js-fast-add-med" data-name="Tab. Ceevit 250mg" data-dose="১ + ০ + ১" data-timing="খাবারের পরে (After Meal)" data-duration="১৫ দিন" data-inst="চুষে সেব্য">+ Ceevit</button>
+        </div>
+
         {{-- Quick Dosage & Timing Chips Helper (High Contrast, Bold, Guaranteed Visible) --}}
         <div class="quick-pills-bar p-2 p-md-3 mb-3 rounded-3 d-flex flex-wrap align-items-center gap-1 gap-md-2">
           <span class="text-dark fw-bold small me-1 d-flex align-items-center gap-1">
@@ -468,10 +493,16 @@
               @foreach($meds as $idx => $m)
                 <tr class="medicine-row">
                   <td>
-                    <input type="text" name="medicines[{{ $idx }}][name]" class="form-control form-control-sm js-med-name" placeholder="e.g. Tab. Metformin 500mg" value="{{ $m['name'] ?? '' }}" required>
+                    <input type="text" name="medicines[{{ $idx }}][name]" list="commonMedicineNames" class="form-control form-control-sm js-med-name" placeholder="e.g. Tab. Metformin 500mg" value="{{ $m['name'] ?? '' }}" required>
                   </td>
                   <td>
                     <input type="text" name="medicines[{{ $idx }}][dose]" class="form-control form-control-sm js-med-dose" placeholder="১ + ০ + ১" value="{{ $m['dose'] ?? '১ + ০ + ১' }}">
+                    <div class="d-flex flex-wrap gap-1 mt-1">
+                      <button type="button" class="btn btn-xs btn-light border py-0 px-1 js-inline-dose" data-val="১ + ০ + ১" style="font-size:0.7rem;">১+০+১</button>
+                      <button type="button" class="btn btn-xs btn-light border py-0 px-1 js-inline-dose" data-val="১ + ০ + ০" style="font-size:0.7rem;">১+০+০</button>
+                      <button type="button" class="btn btn-xs btn-light border py-0 px-1 js-inline-dose" data-val="০ + ০ + ১" style="font-size:0.7rem;">০+০+১</button>
+                      <button type="button" class="btn btn-xs btn-light border py-0 px-1 js-inline-dose" data-val="১ + ১ + ১" style="font-size:0.7rem;">১+১+১</button>
+                    </div>
                   </td>
                   <td>
                     <select name="medicines[{{ $idx }}][timing]" class="form-select form-select-sm js-med-timing">
@@ -618,11 +649,30 @@
             </h3>
           </div>
           <div class="card-body p-3">
+            <div class="d-flex flex-wrap align-items-center gap-1 mb-2">
+              <span class="small text-muted me-1" style="font-size: 0.74rem;"><i class="bi bi-chat-heart text-success me-1"></i>Quick Advice:</span>
+              <button type="button" class="btn btn-xs btn-light border py-0 px-2 rounded-pill small js-chip-advice" data-text="প্রতিদিন ৪৫ মিনিট দ্রুত হাঁটবেন।">+ ৪৫ মি. হাঁটা</button>
+              <button type="button" class="btn btn-xs btn-light border py-0 px-2 rounded-pill small js-chip-advice" data-text="মিষ্টি, চিনি ও মিষ্টিজাতীয় খাবার সম্পূর্ণ পরিহার করবেন।">+ মিষ্টি বর্জন</button>
+              <button type="button" class="btn btn-xs btn-light border py-0 px-2 rounded-pill small js-chip-advice" data-text="খাবারে বাড়তি কাঁচা লবণ খাবেন না।">+ কাঁচা লবণ নিষেধ</button>
+              <button type="button" class="btn btn-xs btn-light border py-0 px-2 rounded-pill small js-chip-advice" data-text="অতিরিক্ত তেল-চর্বি ও ভাজাপোড়া খাবার পরিহার করবেন।">+ তেল-চর্বি নিষেধ</button>
+              <button type="button" class="btn btn-xs btn-light border py-0 px-2 rounded-pill small js-chip-advice" data-text="প্রতিদিন প্রচুর পরিমাণে বিশুদ্ধ পানি পান করবেন।">+ প্রচুর পানি পান</button>
+              <button type="button" class="btn btn-xs btn-light border py-0 px-2 rounded-pill small js-chip-advice" data-text="ধূমপান ও জর্দা সম্পূর্ণ পরিহার করুন।">+ ধূমপান বর্জন</button>
+              <button type="button" class="btn btn-xs btn-light border py-0 px-2 rounded-pill small js-chip-advice" data-text="প্রেসার ও ডায়াবেটিসের ওষুধ নিজে নিজে বন্ধ করবেন না।">+ ওষুধ বন্ধ নিষেধ</button>
+            </div>
             <label class="form-label small fw-semibold">Patient Lifestyle & Food Advice</label>
-            <textarea name="special_advice" id="specialAdviceInput" class="form-control mb-3" rows="4">{{ old('special_advice', $prescription->special_advice) }}</textarea>
+            <textarea name="special_advice" id="specialAdviceInput" class="form-control mb-3" rows="3">{{ old('special_advice', $prescription->special_advice) }}</textarea>
             
-            <label class="form-label small fw-semibold">Next Review / Visit Date</label>
-            <input type="date" name="next_visit_date" class="form-control" value="{{ old('next_visit_date', $prescription->next_visit_date ? date('Y-m-d', strtotime($prescription->next_visit_date)) : '') }}">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-1">
+              <label class="form-label small fw-semibold mb-0">Next Review / Visit Date</label>
+              <div class="d-flex flex-wrap gap-1">
+                <button type="button" class="btn btn-xs btn-outline-secondary py-0 px-2 rounded-pill js-chip-followup" data-days="7">৭ দিন পর</button>
+                <button type="button" class="btn btn-xs btn-outline-secondary py-0 px-2 rounded-pill js-chip-followup" data-days="10">১০ দিন পর</button>
+                <button type="button" class="btn btn-xs btn-outline-secondary py-0 px-2 rounded-pill js-chip-followup" data-days="14">১৪ দিন পর</button>
+                <button type="button" class="btn btn-xs btn-outline-secondary py-0 px-2 rounded-pill js-chip-followup" data-days="30">১ মাস পর</button>
+                <button type="button" class="btn btn-xs btn-outline-secondary py-0 px-2 rounded-pill js-chip-followup" data-days="90">৩ মাস পর</button>
+              </div>
+            </div>
+            <input type="date" name="next_visit_date" id="nextVisitDateInput" class="form-control" value="{{ old('next_visit_date', $prescription->next_visit_date ? date('Y-m-d', strtotime($prescription->next_visit_date)) : '') }}">
           </div>
         </div>
       </div>
@@ -634,14 +684,80 @@
         <a href="{{ route('admin.prescriptions.show', $prescription->id) }}" class="btn btn-outline-secondary px-3">
           Cancel
         </a>
+        <span class="badge bg-light text-muted border d-none d-md-inline-block">
+          <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to Save & Print
+        </span>
       </div>
-      <div class="d-flex align-items-center gap-3">
-        <button type="submit" class="btn btn-success btn-lg px-5 fw-bold shadow-sm d-inline-flex align-items-center gap-2">
+      <div class="d-flex align-items-center gap-2">
+        <button type="submit" class="btn btn-success btn-lg px-4 fw-bold shadow-sm d-inline-flex align-items-center gap-2" id="saveBtn">
           <i class="bi bi-check2-circle fs-5"></i>
-          <span>Save Changes to Prescription</span>
+          <span>Save Changes</span>
+        </button>
+        <button type="submit" name="action" value="save_and_print" class="btn btn-primary btn-lg px-4 fw-bold shadow-sm d-inline-flex align-items-center gap-2" id="saveAndPrintBtn">
+          <i class="bi bi-printer-fill fs-5"></i>
+          <span>Save & Print Directly</span>
         </button>
       </div>
     </div>
+
+    {{-- Common Medicine Names Autocomplete Datalist --}}
+    <datalist id="commonMedicineNames">
+      <option value="Tab. Napa 500mg">
+      <option value="Tab. Napa Extra">
+      <option value="Tab. Napa Extend 665mg">
+      <option value="Syp. Napa">
+      <option value="Tab. Ace 500mg">
+      <option value="Tab. Ace Plus">
+      <option value="Cap. Seclo 20mg">
+      <option value="Cap. Sergel 20mg">
+      <option value="Tab. Maxpro 20mg">
+      <option value="Cap. Pantonix 20mg">
+      <option value="Tab. Finix 20mg">
+      <option value="Tab. Monas 10mg">
+      <option value="Tab. Montene 10mg">
+      <option value="Tab. Fexofenadine 120mg">
+      <option value="Tab. Fexo 180mg">
+      <option value="Tab. Alatrol 10mg">
+      <option value="Tab. Bilastin 20mg">
+      <option value="Tab. Metformin 500mg">
+      <option value="Tab. Metfo 850mg">
+      <option value="Tab. Comet 500mg">
+      <option value="Tab. Empagliflozin 10mg">
+      <option value="Tab. Jardiance 10mg">
+      <option value="Tab. Linagliptin 5mg">
+      <option value="Tab. Trajenta 5mg">
+      <option value="Tab. Telmisartan 40mg">
+      <option value="Tab. Telma 40mg">
+      <option value="Tab. Bisoprolol 2.5mg">
+      <option value="Tab. Bisocor 2.5mg">
+      <option value="Tab. Amlodipine 5mg">
+      <option value="Tab. Camlosart 5/40">
+      <option value="Tab. Losartan Potassium 50mg">
+      <option value="Tab. Osartil 50mg">
+      <option value="Tab. Rosuvastatin 10mg">
+      <option value="Tab. Rovator 10mg">
+      <option value="Tab. Atorvastatin 10mg">
+      <option value="Tab. Storvas 10mg">
+      <option value="Tab. Bicozin">
+      <option value="Tab. Aristovit B">
+      <option value="Tab. Neuro-B">
+      <option value="Tab. Calbo-D">
+      <option value="Tab. Coralcal-D">
+      <option value="Cap. D-Rise 20000 IU">
+      <option value="Cap. Azithromycin 500mg">
+      <option value="Cap. Zithrin 500mg">
+      <option value="Cap. Cefixime 200mg">
+      <option value="Cap. Cef-3 200mg">
+      <option value="Tab. Ciprocin 500mg">
+      <option value="Tab. Moxaclav 625mg">
+      <option value="Tab. Domperidone 10mg">
+      <option value="Tab. Motigut 10mg">
+      <option value="Tab. Levothyroxine 50mcg">
+      <option value="Tab. Thyrox 50mcg">
+      <option value="Tab. Ketorolac 10mg">
+      <option value="Tab. Naproxen 500mg">
+      <option value="Tab. Ceevit 250mg">
+    </datalist>
 
     {{-- Comprehensive Clinical Datalists for Autocomplete --}}
     <datalist id="commonDiagnosticTests">
@@ -773,24 +889,30 @@
       });
     }
 
-    function addMedicineRow(name, dose, timing, duration, instructions) {
+    function addMedicineRow(name, dose, timing, duration, instructions, shouldPulse) {
       var tr = document.createElement('tr');
       tr.className = 'medicine-row';
       tr.innerHTML = `
         <td>
-          <input type="text" name="medicines[${medIdx}][name]" class="form-control form-control-sm js-med-name" placeholder="Medicine Name & Strength" value="${name || ''}">
+          <input type="text" name="medicines[${medIdx}][name]" list="commonMedicineNames" class="form-control form-control-sm js-med-name ${shouldPulse ? 'field-updated-pulse' : ''}" placeholder="Medicine Name & Strength" value="${name || ''}">
         </td>
         <td>
           <input type="text" name="medicines[${medIdx}][dose]" class="form-control form-control-sm js-med-dose" placeholder="১ + ০ + ১" value="${dose || '১ + ০ + ১'}">
+          <div class="d-flex flex-wrap gap-1 mt-1">
+            <button type="button" class="btn btn-xs btn-light border py-0 px-1 js-inline-dose" data-val="১ + ০ + ১" style="font-size:0.7rem;">১+০+১</button>
+            <button type="button" class="btn btn-xs btn-light border py-0 px-1 js-inline-dose" data-val="১ + ০ + ০" style="font-size:0.7rem;">১+০+০</button>
+            <button type="button" class="btn btn-xs btn-light border py-0 px-1 js-inline-dose" data-val="০ + ০ + ১" style="font-size:0.7rem;">০+০+১</button>
+            <button type="button" class="btn btn-xs btn-light border py-0 px-1 js-inline-dose" data-val="১ + ১ + ১" style="font-size:0.7rem;">১+১+১</button>
+          </div>
         </td>
         <td>
           <select name="medicines[${medIdx}][timing]" class="form-select form-select-sm js-med-timing">
-            <option value="খাবারের পরে (After Meal)">খাবারের পরে (After Meal)</option>
-            <option value="খাবারের আগে (Before Meal)">খাবারের আগে (Before Meal)</option>
-            <option value="সকালে খালি পেটে (Empty Stomach)">সকালে খালি পেটে (Empty Stomach)</option>
-            <option value="খাবার সাথে সাথে (With Meal)">খাবার সাথে সাথে (With Meal)</option>
-            <option value="রাতে ঘুমানোর আগে (Bedtime)">রাতে ঘুমানোর আগে (Bedtime)</option>
-            <option value="ব্যথার সময় প্রয়োজনে (When Needed/SOS)">ব্যথার সময় প্রয়োজনে (SOS)</option>
+            <option value="খাবারের পরে (After Meal)" ${timing === 'খাবারের পরে (After Meal)' ? 'selected' : ''}>খাবারের পরে (After Meal)</option>
+            <option value="খাবারের আগে (Before Meal)" ${timing === 'খাবারের আগে (Before Meal)' ? 'selected' : ''}>খাবারের আগে (Before Meal)</option>
+            <option value="সকালে খালি পেটে (Empty Stomach)" ${timing === 'সকালে খালি পেটে (Empty Stomach)' ? 'selected' : ''}>সকালে খালি পেটে (Empty Stomach)</option>
+            <option value="খাবার সাথে সাথে (With Meal)" ${timing === 'খাবার সাথে সাথে (With Meal)' ? 'selected' : ''}>খাবার সাথে সাথে (With Meal)</option>
+            <option value="রাতে ঘুমানোর আগে (Bedtime)" ${timing === 'রাতে ঘুমানোর আগে (Bedtime)' ? 'selected' : ''}>রাতে ঘুমানোর আগে (Bedtime)</option>
+            <option value="ব্যথার সময় প্রয়োজনে (When Needed/SOS)" ${timing === 'ব্যথার সময় প্রয়োজনে (When Needed/SOS)' ? 'selected' : ''}>ব্যথার সময় প্রয়োজনে (SOS)</option>
           </select>
         </td>
         <td>
@@ -807,6 +929,10 @@
       `;
       rowsContainer.appendChild(tr);
       medIdx++;
+      if (shouldPulse) {
+        var addedInput = tr.querySelector('.js-med-name');
+        setTimeout(function() { if (addedInput) addedInput.classList.remove('field-updated-pulse'); }, 1000);
+      }
       checkDuplicateMedicines();
     }
 
@@ -929,6 +1055,140 @@
         }
       });
     }
+
+    // Fast Drug Palette (1-Click Drug Row)
+    document.querySelectorAll('.js-fast-add-med').forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        var name = this.getAttribute('data-name');
+        var dose = this.getAttribute('data-dose') || '১ + ০ + ১';
+        var timing = this.getAttribute('data-timing') || 'খাবারের পরে (After Meal)';
+        var duration = this.getAttribute('data-duration') || '১ মাস';
+        var inst = this.getAttribute('data-inst') || 'নিয়মিত সেব্য';
+
+        var rows = rowsContainer.querySelectorAll('.medicine-row');
+        var targetRow = null;
+        for (var i = 0; i < rows.length; i++) {
+          var nInput = rows[i].querySelector('.js-med-name');
+          if (nInput && !nInput.value.trim()) {
+            targetRow = rows[i];
+            break;
+          }
+        }
+
+        if (targetRow) {
+          var nInput = targetRow.querySelector('.js-med-name');
+          var dInput = targetRow.querySelector('.js-med-dose');
+          var tInput = targetRow.querySelector('.js-med-timing');
+          var durInput = targetRow.querySelector('.js-med-duration');
+          var iInput = targetRow.querySelector('.js-med-instruction');
+          if (nInput) {
+            nInput.value = name;
+            nInput.classList.add('field-updated-pulse');
+            setTimeout(function() { nInput.classList.remove('field-updated-pulse'); }, 800);
+          }
+          if (dInput) dInput.value = dose;
+          if (tInput) tInput.value = timing;
+          if (durInput) durInput.value = duration;
+          if (iInput) iInput.value = inst;
+        } else {
+          addMedicineRow(name, dose, timing, duration, inst, true);
+        }
+        checkDuplicateMedicines();
+      });
+    });
+
+    // Inline Dosage Buttons (Row Level)
+    rowsContainer.addEventListener('click', function(e) {
+      var btn = e.target.closest('.js-inline-dose');
+      if (btn) {
+        var row = btn.closest('.medicine-row');
+        if (row) {
+          var doseInput = row.querySelector('.js-med-dose');
+          if (doseInput) {
+            doseInput.value = btn.getAttribute('data-val');
+            doseInput.classList.add('field-updated-pulse');
+            setTimeout(function() { doseInput.classList.remove('field-updated-pulse'); }, 800);
+          }
+        }
+      }
+    });
+
+    // Quick Diagnosis Chips
+    document.querySelectorAll('.js-chip-diag').forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        var diagVal = this.getAttribute('data-diag');
+        var diagInput = document.getElementById('diagnosisInput');
+        if (diagInput) {
+          var current = diagInput.value.trim();
+          if (!current) {
+            diagInput.value = diagVal;
+          } else if (!current.includes(diagVal)) {
+            diagInput.value = current + ', ' + diagVal;
+          }
+          diagInput.classList.add('field-updated-pulse');
+          setTimeout(function() { diagInput.classList.remove('field-updated-pulse'); }, 800);
+        }
+      });
+    });
+
+    // Quick Advice Chips
+    document.querySelectorAll('.js-chip-advice').forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        var adviceVal = this.getAttribute('data-text');
+        var adviceInput = document.getElementById('specialAdviceInput');
+        if (adviceInput) {
+          var current = adviceInput.value.trim();
+          if (!current) {
+            adviceInput.value = adviceVal;
+          } else if (!current.includes(adviceVal)) {
+            adviceInput.value = current + ' ' + adviceVal;
+          }
+          adviceInput.classList.add('field-updated-pulse');
+          setTimeout(function() { adviceInput.classList.remove('field-updated-pulse'); }, 800);
+        }
+      });
+    });
+
+    // Quick Followup Date Chips
+    document.querySelectorAll('.js-chip-followup').forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        var days = parseInt(this.getAttribute('data-days'), 10);
+        var targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + days);
+        var yyyy = targetDate.getFullYear();
+        var mm = String(targetDate.getMonth() + 1).padStart(2, '0');
+        var dd = String(targetDate.getDate()).padStart(2, '0');
+        var dateStr = yyyy + '-' + mm + '-' + dd;
+        var dateInput = document.getElementById('nextVisitDateInput');
+        if (dateInput) {
+          dateInput.value = dateStr;
+          dateInput.classList.add('field-updated-pulse');
+          setTimeout(function() { dateInput.classList.remove('field-updated-pulse'); }, 800);
+        }
+      });
+    });
+
+    // Doctor Keyboard Shortcuts (Ultra Fast)
+    document.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault();
+        var printBtn = document.getElementById('saveAndPrintBtn');
+        if (printBtn) {
+          printBtn.click();
+        } else {
+          var form = document.getElementById('prescriptionForm');
+          if (form) form.submit();
+        }
+      }
+      if (e.altKey && (e.key === 'm' || e.key === 'M')) {
+        e.preventDefault();
+        addMedicineRow('', '১ + ০ + ১', 'খাবারের পরে (After Meal)', '১ মাস', 'নিয়মিত সেব্য', true);
+      }
+      if (e.altKey && (e.key === 't' || e.key === 'T')) {
+        e.preventDefault();
+        addInvestigationRow('', '', true);
+      }
+    });
 
     checkDuplicateMedicines();
   });
