@@ -37,9 +37,11 @@
             @endif
           </div>
           <div class="text-end">
-            <h3 class="fs-5 fw-bold text-dark mb-1">{{ $profile->name_bn ?? 'ডাঃ মোঃ আবু হানিফ রাকিব' }}</h3>
-            <div class="small text-muted">{{ $profile->designation_bn ?? 'কনসালট্যান্ট মেডিসিন বিশেষজ্ঞ' }}</div>
-            <div class="small text-muted">{{ $prescription->chamber->name_en ?? 'Popular Diagnostic Centre, Dhanmondi' }}</div>
+            <h3 class="fs-5 fw-bold text-dark mb-1">{{ $profile->name_bn ?? $profile->name_en ?? '' }}</h3>
+            <div class="small text-muted">{{ $profile->designation_bn ?? $profile->designation_en ?? '' }}</div>
+            @if($chamber)
+              <div class="small text-muted">{{ $chamber->name_en ?? $chamber->name_bn }}</div>
+            @endif
           </div>
         </div>
 

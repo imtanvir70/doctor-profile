@@ -261,6 +261,41 @@ class AdminTest extends TestCase
         $printResponse->assertSee('Tab. Metformin 500mg');
         $printResponse->assertSee('১+০+১');
         $printResponse->assertSee('Doctor Pad Mode');
+        $printResponse->assertSee($chamber->name_en);
+        $printResponse->assertSee($chamber->address_en);
+
+        // Test dynamic switching to another chamber
+        $chamber2 = Chamber::where('id', 2)->first();
+        if ($chamber2) {
+            $prescription->update(['chamber_id' => $chamber2->id]);
+            $printResponse2 = $this->actingAs($this->adminUser)->get("/admin/prescriptions/{$prescription->id}/print");
+            $printResponse2->assertStatus(200);
+            $printResponse2->assertSee($chamber2->name_en);
+            $printResponse2->assertSee($chamber2->address_en);
+            // Restore chamber 1
+            $prescription->update(['chamber_id' => $chamber->id]);
+        }
+
+        // Test dynamic custom footer text & hotline from drprofile
+        $profile = DrProfile::first();
+        $oldFooterText = $profile->prescription_footer_text;
+        $oldHotline = $profile->hotline_phone;
+
+        $profile->update([
+            'prescription_footer_text' => 'Customized Clinical EMR Protocol',
+            'hotline_phone' => '+8801999888777',
+        ]);
+
+        $printResponse3 = $this->actingAs($this->adminUser)->get("/admin/prescriptions/{$prescription->id}/print");
+        $printResponse3->assertStatus(200);
+        $printResponse3->assertSee('Customized Clinical EMR Protocol');
+        $printResponse3->assertSee('+8801999888777');
+
+        // Restore profile
+        $profile->update([
+            'prescription_footer_text' => $oldFooterText,
+            'hotline_phone' => $oldHotline,
+        ]);
 
         // Test Edit Page
         $editResponse = $this->actingAs($this->adminUser)->get("/admin/prescriptions/{$prescription->id}/edit");

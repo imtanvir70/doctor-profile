@@ -179,9 +179,9 @@
       {{-- Doctor Letterhead --}}
       <div class="doctor-header d-flex justify-content-between align-items-start">
         <div style="width: 55%;">
-          <div class="doctor-name-en">{{ $profile->name_en ?? 'Dr. Abu Hanif Rakib' }}</div>
-          <div class="small fw-semibold text-secondary">{{ $profile->degrees_en ?? 'MBBS (DMC), BCS (Health), FCPS (Medicine)' }}</div>
-          <div class="small fw-bold text-dark">{{ $profile->designation_en ?? 'Associate Professor & Consultant, Department of Medicine' }}</div>
+          <div class="doctor-name-en">{{ $profile->name_en ?? $profile->name_bn ?? '' }}</div>
+          <div class="small fw-semibold text-secondary">{{ $profile->degrees_en ?? $profile->degrees_bn ?? '' }}</div>
+          <div class="small fw-bold text-dark">{{ $profile->designation_en ?? $profile->designation_bn ?? '' }}</div>
           @if (!empty($profile->bmdc_reg))
           <div class="mt-1">
             <span class="bmdc-badge-pill">BMDC Reg No: {{ $profile->bmdc_reg }}</span>
@@ -189,10 +189,15 @@
           @endif
         </div>
         <div class="text-end" style="width: 45%;">
-          <div class="doctor-name-bn">{{ $profile->name_bn ?? 'ডাঃ মোঃ আবু হানিফ রাকিব' }}</div>
-          <div class="small fw-semibold text-secondary">{{ $profile->degrees_bn ?? 'এমবিবিএস (ডিএমসি), বিসিএস (স্বাস্থ্য), এফসিপিএস (মেডিসিন)' }}</div>
-          <div class="small fw-bold text-dark">{{ $profile->designation_bn ?? 'সহযোগী অধ্যাপক ও কনসালট্যান্ট মেডিসিন বিশেষজ্ঞ' }}</div>
-          <div class="small text-muted mt-1"><i class="bi bi-telephone-fill me-1 text-primary"></i>{{ $prescription->chamber->phone1 ?? $profile->hotline_phone ?? '01711-000001' }}</div>
+          <div class="doctor-name-bn">{{ $profile->name_bn ?? $profile->name_en ?? '' }}</div>
+          <div class="small fw-semibold text-secondary">{{ $profile->degrees_bn ?? $profile->degrees_en ?? '' }}</div>
+          <div class="small fw-bold text-dark">{{ $profile->designation_bn ?? $profile->designation_en ?? '' }}</div>
+          @php
+            $headerPhone = $chamber->phone1 ?? $profile->hotline_phone ?? $chamber->phone2 ?? '';
+          @endphp
+          @if(!empty($headerPhone))
+          <div class="small text-muted mt-1"><i class="bi bi-telephone-fill me-1 text-primary"></i>{{ $headerPhone }}</div>
+          @endif
         </div>
       </div>
 
@@ -289,16 +294,24 @@
     <div>
       <div class="signature-block">
         <div class="signature-line"></div>
-        <div class="small fw-bold text-dark">{{ $profile->name_en ?? 'Dr. Abu Hanif Rakib' }}</div>
-        <div class="text-muted" style="font-size: 0.72rem;">Consultant Medicine Specialist</div>
+        <div class="small fw-bold text-dark">{{ $profile->name_en ?? $profile->name_bn ?? '' }}</div>
+        <div class="text-muted" style="font-size: 0.72rem;">{{ $profile->designation_en ?? $profile->designation_bn ?? '' }}</div>
       </div>
 
-      <div class="prescription-footer d-flex justify-content-between align-items-center">
-        <div>
-          <strong>Chamber:</strong> {{ $prescription->chamber->name_en ?? 'Popular Diagnostic Centre, Dhanmondi' }} • {{ $prescription->chamber->address_en ?? 'Dhanmondi, Dhaka' }}
+      <div class="prescription-footer d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <div class="footer-chamber">
+          @if($chamber)
+            <strong>Chamber:</strong> {{ $chamber->name_en ?? $chamber->name_bn }}@if(!empty($chamber->address_en) || !empty($chamber->address_bn)) • {{ $chamber->address_en ?? $chamber->address_bn }}@endif
+          @elseif(!empty($profile->address_en) || !empty($profile->address_bn))
+            <strong>Chamber:</strong> {{ $profile->address_en ?? $profile->address_bn }}
+          @endif
         </div>
-        <div>
-          Official Digital EMR • Hotline: {{ $profile->hotline_phone ?? '+880 1700-000000' }}
+        <div class="footer-emr text-end">
+          @php
+            $tagline = !empty($profile->prescription_footer_text) ? $profile->prescription_footer_text : 'Official Digital EMR';
+            $hotline = $profile->hotline_phone ?? $chamber?->phone1 ?? $chamber?->phone2 ?? '';
+          @endphp
+          <span>{{ $tagline }}</span>@if(!empty($hotline)) • <strong>Hotline:</strong> {{ $hotline }}@endif
         </div>
       </div>
     </div>

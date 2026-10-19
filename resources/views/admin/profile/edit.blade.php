@@ -514,6 +514,12 @@
               <label for="footer_copyright_bn" class="form-label small fw-semibold">Custom Copyright (বাংলা)</label>
               <input type="text" class="form-control" id="footer_copyright_bn" name="footer_copyright_bn" value="{{ old('footer_copyright_bn', $profile->footer_copyright_bn) }}" placeholder="যেমন: সর্বস্বত্ব সংরক্ষিত।">
             </div>
+
+            <div class="mb-3 pt-2 border-top">
+              <label for="prescription_footer_text" class="form-label small fw-semibold">Prescription Pad Footer Tagline / Notice</label>
+              <input type="text" class="form-control" id="prescription_footer_text" name="prescription_footer_text" value="{{ old('prescription_footer_text', $profile->prescription_footer_text) }}" placeholder="e.g. Official Digital EMR">
+              <div class="form-text small" style="font-size: 0.72rem;">ডিফল্ট: <code>Official Digital EMR</code>। এখানে যা লিখবেন তা প্রেসক্রিপশন প্রিন্ট প্যাডের ফুটারে হটলাইনের পাশে শো করবে।</div>
+            </div>
           </div>
         </div>
 

@@ -121,6 +121,13 @@ class AdminPrescriptionController extends Controller
             $validated['patient_phone'] = 'N/A';
         }
 
+        if (empty($validated['chamber_id'])) {
+            $defaultChamber = Chamber::where('is_active', true)->orderBy('display_order')->first();
+            if ($defaultChamber) {
+                $validated['chamber_id'] = $defaultChamber->id;
+            }
+        }
+
         $prescription = Prescription::create($validated);
 
         // If linked to serial, mark serial as completed
@@ -138,9 +145,13 @@ class AdminPrescriptionController extends Controller
 
     public function show($id)
     {
-        $prescription = Prescription::with(['chamber', 'serial'])->findOrFail($id);
+        $prescription = Prescription::with(['chamber', 'serial.chamber'])->findOrFail($id);
         $profile = DrProfile::first();
-        return view('admin.prescriptions.show', compact('prescription', 'profile'));
+        $chamber = $prescription->chamber 
+            ?? $prescription->serial?->chamber 
+            ?? Chamber::where('is_active', true)->orderBy('display_order')->first();
+
+        return view('admin.prescriptions.show', compact('prescription', 'profile', 'chamber'));
     }
 
     public function edit($id)
@@ -211,6 +222,13 @@ class AdminPrescriptionController extends Controller
             $validated['patient_phone'] = 'N/A';
         }
 
+        if (empty($validated['chamber_id'])) {
+            $defaultChamber = Chamber::where('is_active', true)->orderBy('display_order')->first();
+            if ($defaultChamber) {
+                $validated['chamber_id'] = $defaultChamber->id;
+            }
+        }
+
         $prescription->update($validated);
 
         if ($request->input('action') === 'save_and_print') {
@@ -223,9 +241,13 @@ class AdminPrescriptionController extends Controller
 
     public function print($id)
     {
-        $prescription = Prescription::with(['chamber', 'serial'])->findOrFail($id);
+        $prescription = Prescription::with(['chamber', 'serial.chamber'])->findOrFail($id);
         $profile = DrProfile::first();
-        return view('admin.prescriptions.print', compact('prescription', 'profile'));
+        $chamber = $prescription->chamber 
+            ?? $prescription->serial?->chamber 
+            ?? Chamber::where('is_active', true)->orderBy('display_order')->first();
+
+        return view('admin.prescriptions.print', compact('prescription', 'profile', 'chamber'));
     }
 
     public function destroy($id)

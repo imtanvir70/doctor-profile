@@ -45,6 +45,7 @@ class AdminProfileController extends Controller
             'academic_desc1_bn' => 'nullable|string',
             'hotline_phone' => 'required|string|max:50',
             'hotline_whatsapp' => 'required|string|max:50',
+            'prescription_footer_text' => 'nullable|string|max:255',
             'email' => 'required|email|max:100',
             'consultation_fee' => 'required|string|max:50',
             'emergency_notice_en' => 'nullable|string',

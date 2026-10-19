@@ -319,7 +319,7 @@
             <select name="chamber_id" id="chamberIdInput" class="form-select">
               <option value="">-- Select Chamber --</option>
               @foreach($chambers as $ch)
-                <option value="{{ $ch->id }}" {{ old('chamber_id', $serial->chamber_id ?? '') == $ch->id ? 'selected' : '' }}>{{ $ch->name_en }}</option>
+                <option value="{{ $ch->id }}" {{ old('chamber_id', $serial->chamber_id ?? ($loop->first ? $ch->id : '')) == $ch->id ? 'selected' : '' }}>{{ $ch->name_en }} ({{ $ch->badge_en ?? 'Chamber' }})</option>
               @endforeach
             </select>
           </div>
