@@ -13,7 +13,7 @@
           <span class="badge bg-secondary-subtle text-dark">{{ count($videos) }} Videos</span>
         </div>
         <div class="table-responsive">
-          <table class="table table-hover align-middle mb-0">
+          <table class="table table-hover align-middle mb-0 table-to-card">
             <thead class="table-light small text-muted text-uppercase">
               <tr>
                 <th>Video</th>
@@ -26,22 +26,22 @@
             <tbody class="small">
               @forelse($videos as $vid)
                 <tr>
-                  <td>
+                  <td data-label="Video">
                     <div class="position-relative" style="width: 70px; height: 46px; border-radius: 6px; overflow: hidden; border: 1px solid #e2e8f0;">
                       <img src="{{ $vid->thumbnail ?? 'https://img.youtube.com/vi/' . $vid->youtube_id . '/hqdefault.jpg' }}" alt="Video" class="w-100 h-100 object-fit-cover">
                       <span class="position-absolute top-50 start-50 translate-middle text-white"><i class="bi bi-play-circle-fill fs-5 text-danger"></i></span>
                     </div>
                   </td>
-                  <td style="max-width: 250px;">
+                  <td data-label="Title / Category" style="max-width: 250px;">
                     <div class="fw-bold text-dark text-truncate">{{ $vid->title_en }}</div>
                     <div class="text-muted text-truncate" style="font-size: 0.78rem;">{{ $vid->title_bn }}</div>
                     <span class="badge bg-light text-danger border mt-1" style="font-size: 0.72rem;">{{ $vid->category }}</span>
                   </td>
-                  <td>{{ $vid->duration ?? '8:00' }}</td>
-                  <td>{{ $vid->display_order }}</td>
-                  <td class="text-end text-nowrap">
+                  <td data-label="Duration">{{ $vid->duration ?? '8:00' }}</td>
+                  <td data-label="Order">{{ $vid->display_order }}</td>
+                  <td data-label="Actions" class="text-end text-nowrap">
                     <button type="button" class="btn btn-sm btn-outline-primary py-1 px-2 me-1" data-bs-toggle="modal" data-bs-target="#editVideoModal{{ $vid->id }}" title="Edit Video">
-                      <i class="bi bi-pencil-square"></i>
+                      <i class="bi bi-pencil-square"></i> Edit
                     </button>
                     <form action="{{ route('admin.videos.destroy', $vid->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this video?');">
                       @csrf

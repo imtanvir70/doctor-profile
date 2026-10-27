@@ -17,7 +17,7 @@
               রোগীদের সরাসরি সাবমিট করা রিভিউ ও মতামতের তালিকা। অনুমোদন দিলে রিভিউটি মূল ওয়েবসাইটে প্রদর্শিত হবে।
             </p>
           </div>
-          <div class="d-flex align-items-center gap-2">
+          <div class="d-flex flex-wrap align-items-center gap-2">
             <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 rounded-pill fw-semibold">
               <i class="bi bi-collection-fill me-1"></i> Total: {{ $reviews->count() }}
             </span>

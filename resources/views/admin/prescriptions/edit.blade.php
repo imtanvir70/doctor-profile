@@ -438,43 +438,43 @@
 
       <div class="card-body p-3 p-md-4">
         {{-- Fast 1-Click Popular Medicines Palette --}}
-        <div class="p-2 mb-2 rounded-3 bg-white border border-primary-subtle d-flex flex-wrap align-items-center gap-1 shadow-xs">
+        <div class="p-2 mb-2 rounded-3 bg-white border border-primary-subtle d-flex flex-nowrap flex-md-wrap align-items-center gap-1 shadow-xs overflow-x-auto">
           <span class="text-primary fw-bold small me-1 flex-shrink-0" style="font-size: 0.76rem;">
             <i class="bi bi-lightning-charge-fill text-warning"></i> 1-Click Fast Drugs:
           </span>
-          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small js-fast-add-med" data-name="Tab. Napa Extra" data-dose="১ + ০ + ১" data-timing="খাবারের পরে (After Meal)" data-duration="৫ দিন" data-inst="ভরা পেটে সেব্য">+ Napa Extra</button>
-          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small js-fast-add-med" data-name="Cap. Seclo 20mg" data-dose="১ + ০ + ১" data-timing="খাবারের ৩০ মিনিট আগে (Before Meal)" data-duration="১৪ দিন" data-inst="খালি পেটে সেব্য">+ Seclo 20</button>
-          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small js-fast-add-med" data-name="Tab. Monas 10mg" data-dose="০ + ০ + ১" data-timing="রাতে ঘুমানোর আগে (Bedtime)" data-duration="১ মাস" data-inst="রাতে সেব্য">+ Monas 10</button>
-          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small js-fast-add-med" data-name="Tab. Fexofenadine 120mg" data-dose="০ + ০ + ১" data-timing="রাতে ঘুমানোর আগে (Bedtime)" data-duration="৭ দিন" data-inst="অ্যালার্জির জন্য">+ Fexo 120</button>
-          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small js-fast-add-med" data-name="Tab. Metformin 500mg" data-dose="১ + ০ + ১" data-timing="খাবার সাথে সাথে (With Meal)" data-duration="চলবে" data-inst="নিয়মিত সেব্য">+ Metformin 500</button>
-          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small js-fast-add-med" data-name="Tab. Telmisartan 40mg" data-dose="১ + ০ + ০" data-timing="সকালে খাবারের পর (Morning)" data-duration="চলবে" data-inst="প্রেশারের ওষুধ">+ Telmisartan 40</button>
-          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small js-fast-add-med" data-name="Tab. Bicozin" data-dose="১ + ০ + ১" data-timing="খাবারের পরে (After Meal)" data-duration="১ মাস" data-inst="ভিটামিন">+ Bicozin</button>
-          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small js-fast-add-med" data-name="Cap. Azithromycin 500mg" data-dose="১ + ০ + ০" data-timing="খাবারের ১ ঘণ্টা আগে (Empty Stomach)" data-duration="৫ দিন" data-inst="অ্যান্টিবায়োটিক">+ Azithromycin 500</button>
-          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small js-fast-add-med" data-name="Tab. Ceevit 250mg" data-dose="১ + ০ + ১" data-timing="খাবারের পরে (After Meal)" data-duration="১৫ দিন" data-inst="চুষে সেব্য">+ Ceevit</button>
+          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small flex-shrink-0 js-fast-add-med" data-name="Tab. Napa Extra" data-dose="১ + ০ + ১" data-timing="খাবারের পরে (After Meal)" data-duration="৫ দিন" data-inst="ভরা পেটে সেব্য">+ Napa Extra</button>
+          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small flex-shrink-0 js-fast-add-med" data-name="Cap. Seclo 20mg" data-dose="১ + ০ + ১" data-timing="খাবারের ৩০ মিনিট আগে (Before Meal)" data-duration="১৪ দিন" data-inst="খালি পেটে সেব্য">+ Seclo 20</button>
+          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small flex-shrink-0 js-fast-add-med" data-name="Tab. Monas 10mg" data-dose="০ + ০ + ১" data-timing="রাতে ঘুমানোর আগে (Bedtime)" data-duration="১ মাস" data-inst="রাতে সেব্য">+ Monas 10</button>
+          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small flex-shrink-0 js-fast-add-med" data-name="Tab. Fexofenadine 120mg" data-dose="০ + ০ + ১" data-timing="রাতে ঘুমানোর আগে (Bedtime)" data-duration="৭ দিন" data-inst="অ্যালার্জির জন্য">+ Fexo 120</button>
+          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small flex-shrink-0 js-fast-add-med" data-name="Tab. Metformin 500mg" data-dose="১ + ০ + ১" data-timing="খাবার সাথে সাথে (With Meal)" data-duration="চলবে" data-inst="নিয়মিত সেব্য">+ Metformin 500</button>
+          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small flex-shrink-0 js-fast-add-med" data-name="Tab. Telmisartan 40mg" data-dose="১ + ০ + ০" data-timing="সকালে খাবারের পর (Morning)" data-duration="চলবে" data-inst="প্রেশারের ওষুধ">+ Telmisartan 40</button>
+          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small flex-shrink-0 js-fast-add-med" data-name="Tab. Bicozin" data-dose="১ + ০ + ১" data-timing="খাবারের পরে (After Meal)" data-duration="১ মাস" data-inst="ভিটামিন">+ Bicozin</button>
+          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small flex-shrink-0 js-fast-add-med" data-name="Cap. Azithromycin 500mg" data-dose="১ + ০ + ০" data-timing="খাবারের ১ ঘণ্টা আগে (Empty Stomach)" data-duration="৫ দিন" data-inst="অ্যান্টিবায়োটিক">+ Azithromycin 500</button>
+          <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill small flex-shrink-0 js-fast-add-med" data-name="Tab. Ceevit 250mg" data-dose="১ + ০ + ১" data-timing="খাবারের পরে (After Meal)" data-duration="১৫ দিন" data-inst="চুষে সেব্য">+ Ceevit</button>
         </div>
 
         {{-- Quick Dosage & Timing Chips Helper (High Contrast, Bold, Guaranteed Visible) --}}
-        <div class="quick-pills-bar p-2 p-md-3 mb-3 rounded-3 d-flex flex-wrap align-items-center gap-1 gap-md-2">
-          <span class="text-dark fw-bold small me-1 d-flex align-items-center gap-1">
+        <div class="quick-pills-bar p-2 p-md-3 mb-3 rounded-3 d-flex flex-nowrap flex-md-wrap align-items-center gap-1 gap-md-2 overflow-x-auto">
+          <span class="text-dark fw-bold small me-1 d-flex align-items-center gap-1 flex-shrink-0">
             <i class="bi bi-capsule-pill text-primary"></i> Quick Dose Pills:
           </span>
-          <button type="button" class="dose-chip js-chip-dose" data-val="১ + ০ + ১">১+০+১</button>
-          <button type="button" class="dose-chip js-chip-dose" data-val="১ + ০ + ০">১+০+০</button>
-          <button type="button" class="dose-chip js-chip-dose" data-val="০ + ০ + ১">০+০+১</button>
-          <button type="button" class="dose-chip js-chip-dose" data-val="১ + ১ + ১">১+১+১</button>
-          <button type="button" class="dose-chip js-chip-dose" data-val="০ + ১ + ০">০+১+০</button>
-          <button type="button" class="dose-chip js-chip-dose" data-val="১/২ + ০ + ১/২">১/২+০+১/২</button>
-          <button type="button" class="dose-chip js-chip-dose" data-val="১ চামচ করে ৩ বার">১ চামচ ৩ বার</button>
-          <button type="button" class="dose-chip dose-chip-sos js-chip-dose" data-val="প্রয়োজনে (SOS)">🚨 প্রয়োজনে (SOS)</button>
+          <button type="button" class="dose-chip flex-shrink-0 js-chip-dose" data-val="১ + ০ + ১">১+০+১</button>
+          <button type="button" class="dose-chip flex-shrink-0 js-chip-dose" data-val="১ + ০ + ০">১+০+০</button>
+          <button type="button" class="dose-chip flex-shrink-0 js-chip-dose" data-val="০ + ০ + ১">০+০+১</button>
+          <button type="button" class="dose-chip flex-shrink-0 js-chip-dose" data-val="১ + ১ + ১">১+১+১</button>
+          <button type="button" class="dose-chip flex-shrink-0 js-chip-dose" data-val="০ + ১ + ০">০+১+০</button>
+          <button type="button" class="dose-chip flex-shrink-0 js-chip-dose" data-val="১/২ + ০ + ১/২">১/২+০+১/২</button>
+          <button type="button" class="dose-chip flex-shrink-0 js-chip-dose" data-val="১ চামচ করে ৩ বার">১ চামচ ৩ বার</button>
+          <button type="button" class="dose-chip dose-chip-sos flex-shrink-0 js-chip-dose" data-val="প্রয়োজনে (SOS)">🚨 প্রয়োজনে (SOS)</button>
           
           <div class="vr mx-1 d-none d-sm-inline-block text-secondary"></div>
-          <button type="button" class="timing-chip js-chip-timing" data-val="খাবারের পরে (After Meal)">খাবারের পরে</button>
-          <button type="button" class="timing-chip js-chip-timing" data-val="খাবারের আগে (Before Meal)">খাবারের আগে</button>
-          <button type="button" class="timing-chip js-chip-timing" data-val="সকালে খালি পেটে (Empty Stomach)">খালি পেটে</button>
+          <button type="button" class="timing-chip flex-shrink-0 js-chip-timing" data-val="খাবারের পরে (After Meal)">খাবারের পরে</button>
+          <button type="button" class="timing-chip flex-shrink-0 js-chip-timing" data-val="খাবারের আগে (Before Meal)">খাবারের আগে</button>
+          <button type="button" class="timing-chip flex-shrink-0 js-chip-timing" data-val="সকালে খালি পেটে (Empty Stomach)">খালি পেটে</button>
         </div>
 
         <div class="table-responsive">
-          <table class="table table-bordered align-middle mb-0" id="medicinesTable">
+          <table class="table table-bordered align-middle mb-0 mobile-card-table" id="medicinesTable">
             <thead class="table-light small text-muted text-uppercase">
               <tr>
                 <th style="width: 32%;">Medicine Name & Strength <span class="text-danger">*</span></th>
@@ -492,10 +492,10 @@
               @endphp
               @foreach($meds as $idx => $m)
                 <tr class="medicine-row">
-                  <td>
+                  <td data-label="Medicine Name & Strength">
                     <input type="text" name="medicines[{{ $idx }}][name]" list="commonMedicineNames" class="form-control form-control-sm js-med-name" placeholder="e.g. Tab. Metformin 500mg" value="{{ $m['name'] ?? '' }}" required>
                   </td>
-                  <td>
+                  <td data-label="Dosage (ডোজ)">
                     <input type="text" name="medicines[{{ $idx }}][dose]" class="form-control form-control-sm js-med-dose" placeholder="১ + ০ + ১" value="{{ $m['dose'] ?? '১ + ০ + ১' }}">
                     <div class="d-flex flex-wrap gap-1 mt-1">
                       <button type="button" class="btn btn-xs btn-light border py-0 px-1 js-inline-dose" data-val="১ + ০ + ১" style="font-size:0.7rem;">১+০+১</button>
@@ -504,7 +504,7 @@
                       <button type="button" class="btn btn-xs btn-light border py-0 px-1 js-inline-dose" data-val="১ + ১ + ১" style="font-size:0.7rem;">১+১+১</button>
                     </div>
                   </td>
-                  <td>
+                  <td data-label="Timing (সময়)">
                     <select name="medicines[{{ $idx }}][timing]" class="form-select form-select-sm js-med-timing">
                       <option value="খাবারের পরে (After Meal)" {{ ($m['timing'] ?? '') == 'খাবারের পরে (After Meal)' ? 'selected' : '' }}>খাবারের পরে (After Meal)</option>
                       <option value="খাবারের আগে (Before Meal)" {{ ($m['timing'] ?? '') == 'খাবারের আগে (Before Meal)' ? 'selected' : '' }}>খাবারের আগে (Before Meal)</option>
@@ -514,15 +514,15 @@
                       <option value="ব্যথার সময় প্রয়োজনে (When Needed/SOS)" {{ ($m['timing'] ?? '') == 'ব্যথার সময় প্রয়োজনে (When Needed/SOS)' ? 'selected' : '' }}>ব্যথার সময় প্রয়োজনে (SOS)</option>
                     </select>
                   </td>
-                  <td>
+                  <td data-label="Duration (মেয়াদ)">
                     <input type="text" name="medicines[{{ $idx }}][duration]" class="form-control form-control-sm js-med-duration" placeholder="১ মাস / চলবে" value="{{ $m['duration'] ?? '১ মাস' }}">
                   </td>
-                  <td>
+                  <td data-label="Instruction (নির্দেশনা)">
                     <input type="text" name="medicines[{{ $idx }}][instructions]" class="form-control form-control-sm js-med-instruction" placeholder="নিয়মিত সেব্য" value="{{ $m['instructions'] ?? 'নিয়মিত সেব্য' }}">
                   </td>
-                  <td class="text-center">
-                    <button type="button" class="btn btn-sm btn-outline-danger p-1 remove-row-btn" title="Remove Medicine">
-                      <i class="bi bi-trash"></i>
+                  <td class="text-center" data-label="">
+                    <button type="button" class="btn btn-sm btn-outline-danger p-1 px-2 remove-row-btn" title="Remove Medicine">
+                      <i class="bi bi-trash me-1"></i><span class="d-md-none">Remove</span>
                     </button>
                   </td>
                 </tr>
@@ -679,21 +679,21 @@
     </div>
 
     {{-- Sticky Submit Action Bar --}}
-    <div class="card border-0 shadow rounded-4 mb-5 p-3 bg-white d-flex flex-column flex-sm-row align-items-center justify-content-between gap-3">
-      <div class="d-flex align-items-center gap-2">
-        <a href="{{ route('admin.prescriptions.show', $prescription->id) }}" class="btn btn-outline-secondary px-3">
-          Cancel
+    <div class="card border-0 shadow rounded-4 mb-5 p-3 bg-white d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center justify-content-between gap-3">
+      <div class="d-flex align-items-center justify-content-between gap-2">
+        <a href="{{ route('admin.prescriptions.show', $prescription->id) }}" class="btn btn-outline-secondary px-3 py-2">
+          <i class="bi bi-x-lg me-1"></i> Cancel
         </a>
         <span class="badge bg-light text-muted border d-none d-md-inline-block">
           <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to Save & Print
         </span>
       </div>
-      <div class="d-flex align-items-center gap-2">
-        <button type="submit" class="btn btn-success btn-lg px-4 fw-bold shadow-sm d-inline-flex align-items-center gap-2" id="saveBtn">
+      <div class="d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center gap-2">
+        <button type="submit" class="btn btn-success btn-lg px-3 px-md-4 fw-bold shadow-sm d-inline-flex align-items-center justify-content-center gap-2" id="saveBtn">
           <i class="bi bi-check2-circle fs-5"></i>
           <span>Save Changes</span>
         </button>
-        <button type="submit" name="action" value="save_and_print" class="btn btn-primary btn-lg px-4 fw-bold shadow-sm d-inline-flex align-items-center gap-2" id="saveAndPrintBtn">
+        <button type="submit" name="action" value="save_and_print" class="btn btn-primary btn-lg px-3 px-md-4 fw-bold shadow-sm d-inline-flex align-items-center justify-content-center gap-2" id="saveAndPrintBtn">
           <i class="bi bi-printer-fill fs-5"></i>
           <span>Save & Print Directly</span>
         </button>
@@ -893,10 +893,10 @@
       var tr = document.createElement('tr');
       tr.className = 'medicine-row';
       tr.innerHTML = `
-        <td>
+        <td data-label="Medicine Name & Strength">
           <input type="text" name="medicines[${medIdx}][name]" list="commonMedicineNames" class="form-control form-control-sm js-med-name ${shouldPulse ? 'field-updated-pulse' : ''}" placeholder="Medicine Name & Strength" value="${name || ''}">
         </td>
-        <td>
+        <td data-label="Dosage (ডোজ)">
           <input type="text" name="medicines[${medIdx}][dose]" class="form-control form-control-sm js-med-dose" placeholder="১ + ০ + ১" value="${dose || '১ + ০ + ১'}">
           <div class="d-flex flex-wrap gap-1 mt-1">
             <button type="button" class="btn btn-xs btn-light border py-0 px-1 js-inline-dose" data-val="১ + ০ + ১" style="font-size:0.7rem;">১+০+১</button>
@@ -905,7 +905,7 @@
             <button type="button" class="btn btn-xs btn-light border py-0 px-1 js-inline-dose" data-val="১ + ১ + ১" style="font-size:0.7rem;">১+১+১</button>
           </div>
         </td>
-        <td>
+        <td data-label="Timing (সময়)">
           <select name="medicines[${medIdx}][timing]" class="form-select form-select-sm js-med-timing">
             <option value="খাবারের পরে (After Meal)" ${timing === 'খাবারের পরে (After Meal)' ? 'selected' : ''}>খাবারের পরে (After Meal)</option>
             <option value="খাবারের আগে (Before Meal)" ${timing === 'খাবারের আগে (Before Meal)' ? 'selected' : ''}>খাবারের আগে (Before Meal)</option>
@@ -915,15 +915,15 @@
             <option value="ব্যথার সময় প্রয়োজনে (When Needed/SOS)" ${timing === 'ব্যথার সময় প্রয়োজনে (When Needed/SOS)' ? 'selected' : ''}>ব্যথার সময় প্রয়োজনে (SOS)</option>
           </select>
         </td>
-        <td>
+        <td data-label="Duration (মেয়াদ)">
           <input type="text" name="medicines[${medIdx}][duration]" class="form-control form-control-sm js-med-duration" placeholder="১ মাস / চলবে" value="${duration || '১ মাস'}">
         </td>
-        <td>
+        <td data-label="Instruction (নির্দেশনা)">
           <input type="text" name="medicines[${medIdx}][instructions]" class="form-control form-control-sm js-med-instruction" placeholder="নিয়মিত সেব্য" value="${instructions || 'নিয়মিত সেব্য'}">
         </td>
-        <td class="text-center">
-          <button type="button" class="btn btn-sm btn-outline-danger p-1 remove-row-btn" title="Remove Medicine">
-            <i class="bi bi-trash"></i>
+        <td class="text-center" data-label="">
+          <button type="button" class="btn btn-sm btn-outline-danger p-1 px-2 remove-row-btn" title="Remove Medicine">
+            <i class="bi bi-trash me-1"></i><span class="d-md-none">Remove</span>
           </button>
         </td>
       `;

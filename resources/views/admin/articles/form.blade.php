@@ -202,19 +202,19 @@
           </div>
 
           {{-- Action Footer --}}
-          <div class="card-footer bg-light py-3 px-4 d-flex flex-wrap align-items-center justify-content-between gap-2">
-            <div class="d-flex align-items-center gap-2">
+          <div class="card-footer bg-light py-3 px-3 px-md-4 d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center justify-content-between gap-2">
+            <div class="d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center gap-2">
               <a href="{{ route('admin.articles.index') }}" class="btn btn-outline-secondary">
                 Cancel
               </a>
-              <button type="button" id="manualSaveDraftBtn" class="btn btn-outline-primary d-inline-flex align-items-center gap-2">
+              <button type="button" id="manualSaveDraftBtn" class="btn btn-outline-primary d-inline-flex align-items-center justify-content-center gap-2">
                 <i class="bi bi-file-earmark-check"></i>
                 <span>Save Draft (ড্রাফট রাখুন)</span>
               </button>
             </div>
 
             <div class="d-flex align-items-center gap-2">
-              <button type="button" id="publishPostBtn" class="btn btn-success px-4 fw-bold shadow-sm d-inline-flex align-items-center gap-2">
+              <button type="button" id="publishPostBtn" class="btn btn-success px-4 fw-bold shadow-sm d-inline-flex align-items-center justify-content-center gap-2 w-100 w-sm-auto">
                 <i class="bi bi-send-check-fill"></i>
                 <span>Publish Now (লাইভ প্রকাশ করুন)</span>
               </button>

@@ -4,11 +4,11 @@
 @section('page_heading', 'International Projects & Global Collaborations')
 
 @section('content')
-  <div class="d-flex align-items-center justify-content-between mb-4">
+  <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3 mb-4">
     <div>
       <p class="text-muted small mb-0">Manage doctor's international clinical trials, global research partnerships, and multi-country health initiatives.</p>
     </div>
-    <a href="{{ route('admin.projects.create') }}" class="btn btn-sm btn-success d-flex align-items-center gap-2 shadow-sm px-3 py-2">
+    <a href="{{ route('admin.projects.create') }}" class="btn btn-sm btn-success d-flex align-items-center justify-content-center gap-2 shadow-sm px-3 py-2 w-100 w-sm-auto text-nowrap">
       <i class="bi bi-plus-circle-fill"></i>
       <span>Add New Project</span>
     </a>
@@ -24,7 +24,7 @@
 
   <div class="admin-table-card">
     <div class="table-responsive">
-      <table class="table table-hover align-middle mb-0">
+      <table class="table table-hover align-middle mb-0 table-to-card">
         <thead class="bg-light">
           <tr>
             <th style="width: 50px;">Order</th>
@@ -38,8 +38,8 @@
         <tbody>
           @forelse($projects as $proj)
             <tr>
-              <td class="fw-bold text-muted text-center">#{{ $proj->display_order }}</td>
-              <td>
+              <td data-label="Order" class="fw-bold text-muted text-center">#{{ $proj->display_order }}</td>
+              <td data-label="Project Title & Collaboration">
                 <div class="d-flex align-items-start gap-2">
                   <div class="stat-icon-box bg-primary-subtle text-primary mt-1" style="width: 38px; height: 38px; font-size: 1rem; flex-shrink: 0;">
                     <i class="bi {{ $proj->icon ?? 'bi-globe-americas' }}"></i>
@@ -56,20 +56,20 @@
                   </div>
                 </div>
               </td>
-              <td>
+              <td data-label="Role & Duration">
                 <div class="fw-semibold text-dark small">{{ $proj->role_en }}</div>
                 <div class="text-muted" style="font-size: 0.75rem;">{{ $proj->role_bn }}</div>
                 @if($proj->duration)
                   <span class="badge bg-light text-dark border mt-1"><i class="bi bi-calendar-event me-1 text-primary"></i>{{ $proj->duration }}</span>
                 @endif
               </td>
-              <td>
+              <td data-label="Category & Badge">
                 <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle mb-1 d-inline-block">{{ $proj->category }}</span>
                 @if($proj->badge_text)
                   <div><span class="badge bg-success-subtle text-success-emphasis border border-success-subtle">{{ $proj->badge_text }}</span></div>
                 @endif
               </td>
-              <td>
+              <td data-label="Status">
                 @if($proj->is_active)
                   <span class="badge bg-success-subtle text-success border border-success-subtle"><i class="bi bi-check-circle me-1"></i>Active</span>
                 @else
@@ -79,10 +79,10 @@
                   <div class="mt-1"><span class="badge bg-warning-subtle text-warning-emphasis"><i class="bi bi-star-fill me-1"></i>Featured</span></div>
                 @endif
               </td>
-              <td class="text-end">
+              <td data-label="Actions" class="text-end">
                 <div class="d-flex align-items-center justify-content-end gap-1">
                   <a href="{{ route('admin.projects.edit', $proj->id) }}" class="btn btn-sm btn-outline-primary py-1 px-2" title="Edit Project">
-                    <i class="bi bi-pencil-square"></i>
+                    <i class="bi bi-pencil-square"></i> Edit
                   </a>
                   <form action="{{ route('admin.projects.destroy', $proj->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this international project?');" class="d-inline">
                     @csrf

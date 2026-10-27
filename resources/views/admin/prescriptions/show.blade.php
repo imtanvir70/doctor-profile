@@ -4,31 +4,31 @@
 @section('page_heading', 'Prescription ' . $prescription->prescription_no)
 
 @section('content')
-  <div class="d-flex align-items-center justify-content-between mb-4">
-    <div class="d-flex align-items-center gap-2">
-      <span class="badge bg-primary fs-6">{{ $prescription->prescription_no }}</span>
-      <span class="badge bg-light text-dark border">{{ date('d M, Y', strtotime($prescription->consultation_date)) }}</span>
+  <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-2 mb-3">
+    <div class="d-flex flex-wrap align-items-center gap-2">
+      <span class="badge bg-primary px-2.5 py-1.5 fs-6">{{ $prescription->prescription_no }}</span>
+      <span class="badge bg-light text-dark border px-2 py-1 small">{{ date('d M, Y', strtotime($prescription->consultation_date)) }}</span>
     </div>
 
-    <div class="d-flex gap-2">
-      <a href="{{ route('admin.prescriptions.edit', $prescription->id) }}" class="btn btn-outline-warning text-dark fw-bold">
-        <i class="bi bi-pencil-square me-1"></i> Edit Prescription
+    <div class="d-flex flex-wrap gap-2 w-100 w-sm-auto justify-content-start justify-content-sm-end">
+      <a href="{{ route('admin.prescriptions.edit', $prescription->id) }}" class="btn btn-sm btn-outline-warning text-dark fw-semibold flex-fill flex-sm-grow-0 d-inline-flex align-items-center justify-content-center gap-1">
+        <i class="bi bi-pencil-square"></i><span>Edit</span>
       </a>
-      <a href="{{ route('admin.prescriptions.print', $prescription->id) }}" target="_blank" class="btn btn-success fw-bold">
-        <i class="bi bi-printer-fill me-1"></i> Print Official Prescription (A4)
+      <a href="{{ route('admin.prescriptions.print', $prescription->id) }}" target="_blank" class="btn btn-sm btn-success fw-semibold flex-fill flex-sm-grow-0 d-inline-flex align-items-center justify-content-center gap-1">
+        <i class="bi bi-printer-fill"></i><span>Print (A4)</span>
       </a>
-      <a href="{{ route('admin.prescriptions.index') }}" class="btn btn-outline-secondary">
-        <i class="bi bi-arrow-left me-1"></i> Back to Prescriptions
+      <a href="{{ route('admin.prescriptions.index') }}" class="btn btn-sm btn-outline-secondary flex-fill flex-sm-grow-0 d-inline-flex align-items-center justify-content-center gap-1">
+        <i class="bi bi-arrow-left"></i><span>Back</span>
       </a>
     </div>
   </div>
 
-  <div class="row g-4">
+  <div class="row g-3">
     <div class="col-lg-8">
       {{-- Prescription Sheet Preview --}}
-      <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white">
+      <div class="card border-0 shadow-sm rounded-4 p-3 p-md-4 bg-white mb-3">
         {{-- Header Preview --}}
-        <div class="d-flex align-items-center justify-content-between border-bottom pb-4 mb-4">
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 border-bottom pb-4 mb-4">
           <div>
             <h2 class="fs-4 fw-bold text-primary mb-1 brand-font">{{ $profile->name_en ?? 'Dr. Abu Hanif Rakib' }}</h2>
             <div class="small fw-semibold text-secondary">{{ $profile->designation_en ?? 'Consultant Medicine Specialist' }}</div>
@@ -36,7 +36,7 @@
             <div class="small text-success fw-semibold">BMDC Reg No: {{ $profile->bmdc_reg }}</div>
             @endif
           </div>
-          <div class="text-end">
+          <div class="text-sm-end">
             <h3 class="fs-5 fw-bold text-dark mb-1">{{ $profile->name_bn ?? $profile->name_en ?? '' }}</h3>
             <div class="small text-muted">{{ $profile->designation_bn ?? $profile->designation_en ?? '' }}</div>
             @if($chamber)

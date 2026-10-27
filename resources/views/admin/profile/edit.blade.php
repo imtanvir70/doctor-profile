@@ -6,6 +6,21 @@
 @section('content')
   <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
     @csrf
+
+    {{-- Mobile Quick Save Bar (So user doesn't have to scroll all the way to bottom) --}}
+    <div class="card border-0 shadow-sm rounded-4 mb-3 p-3 bg-white d-lg-none">
+      <div class="d-flex align-items-center justify-content-between gap-2">
+        <div>
+          <div class="fw-bold fs-6 text-dark">Doctor Profile</div>
+          <div class="text-muted" style="font-size: 0.75rem;">Saves all drprofile changes</div>
+        </div>
+        <button type="submit" class="btn btn-success fw-bold px-3 py-2 shadow-sm d-inline-flex align-items-center gap-1.5">
+          <i class="bi bi-check2-circle fs-5"></i>
+          <span>Save Changes</span>
+        </button>
+      </div>
+    </div>
+
     <div class="row g-4">
       <div class="col-lg-8">
         {{-- Theme & Color Palette Customizer --}}
@@ -22,43 +37,43 @@
             {{-- One-Click Theme Presets --}}
             <div class="mb-4">
               <label class="form-label small fw-bold text-dark mb-2">One-Click Theme Presets (জনপ্রিয় কালার কম্বিনেশন):</label>
-              <div class="d-flex flex-wrap gap-2">
-                <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2 rounded-pill px-3 py-2 js-apply-theme"
+              <div class="d-flex gap-2 overflow-x-auto pb-1 flex-nowrap flex-md-wrap presets-scroll-container">
+                <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2 rounded-pill px-3 py-2 flex-shrink-0 js-apply-theme"
                   data-primary="#0F3B66" data-primary-hover="#0a2744" data-accent="#059669" data-accent-hover="#047857" data-soft="#E0F2FE">
                   <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:#0F3B66;"></span>
                   <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:#059669;"></span>
                   <span class="small fw-semibold">Classic Royal Navy & Emerald</span>
                 </button>
 
-                <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2 rounded-pill px-3 py-2 js-apply-theme"
+                <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2 rounded-pill px-3 py-2 flex-shrink-0 js-apply-theme"
                   data-primary="#0369a1" data-primary-hover="#075985" data-accent="#06b6d4" data-accent-hover="#0891b2" data-soft="#e0f2fe">
                   <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:#0369a1;"></span>
                   <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:#06b6d4;"></span>
                   <span class="small fw-semibold">Sapphire Blue & Cyan</span>
                 </button>
 
-                <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2 rounded-pill px-3 py-2 js-apply-theme"
+                <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2 rounded-pill px-3 py-2 flex-shrink-0 js-apply-theme"
                   data-primary="#1e3a8a" data-primary-hover="#172554" data-accent="#3b82f6" data-accent-hover="#1d4ed8" data-soft="#eff6ff">
                   <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:#1e3a8a;"></span>
                   <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:#3b82f6;"></span>
                   <span class="small fw-semibold">Corporate Medical Blue</span>
                 </button>
 
-                <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2 rounded-pill px-3 py-2 js-apply-theme"
+                <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2 rounded-pill px-3 py-2 flex-shrink-0 js-apply-theme"
                   data-primary="#14532d" data-primary-hover="#052e16" data-accent="#10b981" data-accent-hover="#059669" data-soft="#dcfce7">
                   <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:#14532d;"></span>
                   <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:#10b981;"></span>
                   <span class="small fw-semibold">Forest & Mint Green</span>
                 </button>
 
-                <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2 rounded-pill px-3 py-2 js-apply-theme"
+                <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2 rounded-pill px-3 py-2 flex-shrink-0 js-apply-theme"
                   data-primary="#4c1d95" data-primary-hover="#2e1065" data-accent="#e11d48" data-accent-hover="#be123c" data-soft="#fae8ff">
                   <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:#4c1d95;"></span>
                   <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:#e11d48;"></span>
                   <span class="small fw-semibold">Imperial Indigo & Rose</span>
                 </button>
 
-                <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2 rounded-pill px-3 py-2 js-apply-theme"
+                <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2 rounded-pill px-3 py-2 flex-shrink-0 js-apply-theme"
                   data-primary="#0f172a" data-primary-hover="#020617" data-accent="#2563eb" data-accent-hover="#1d4ed8" data-soft="#f1f5f9">
                   <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:#0f172a;"></span>
                   <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:#2563eb;"></span>

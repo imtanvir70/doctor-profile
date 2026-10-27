@@ -62,6 +62,18 @@
       background: linear-gradient(135deg, #047857 0%, #065f46 100%);
       transform: translateY(-1px);
     }
+    @media (max-width: 575.98px) {
+      body {
+        padding: 1rem;
+      }
+      .login-card {
+        padding: 1.75rem 1.25rem;
+        border-radius: 16px;
+      }
+      .form-control {
+        font-size: 16px !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -94,7 +106,7 @@
         <label for="email" class="form-label small fw-semibold text-secondary">Doctor Email</label>
         <div class="input-group">
           <span class="input-group-text bg-light text-muted border-end-0"><i class="bi bi-envelope-fill"></i></span>
-          <input type="email" class="form-control border-start-0 ps-0" id="email" name="email" value="{{ old('email', 'admin@drabuhanifrakib.com') }}" placeholder="admin@drabuhanifrakib.com" required autofocus>
+          <input type="email" class="form-control border-start-0 ps-0" id="email" name="email" value="{{ old('email') }}" placeholder="Enter doctor email" required autofocus>
         </div>
       </div>
 
@@ -102,7 +114,7 @@
         <label for="password" class="form-label small fw-semibold text-secondary">Password</label>
         <div class="input-group">
           <span class="input-group-text bg-light text-muted border-end-0"><i class="bi bi-lock-fill"></i></span>
-          <input type="password" class="form-control border-start-0 ps-0" id="password" name="password" placeholder="••••••••" required>
+          <input type="password" class="form-control border-start-0 ps-0" id="password" name="password" placeholder="Enter password" required>
         </div>
       </div>
 
@@ -111,7 +123,6 @@
           <input class="form-check-input" type="checkbox" id="remember" name="remember" checked>
           <label class="form-check-label small text-muted" for="remember">Keep me logged in</label>
         </div>
-        <span class="small text-muted">Demo: admin123</span>
       </div>
 
       <button type="submit" class="btn btn-login w-100 mb-3">

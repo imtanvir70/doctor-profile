@@ -29,8 +29,8 @@
   @endif
 
   <div class="admin-table-card">
-    <div class="p-3 px-4 border-bottom bg-light d-flex align-items-center justify-content-between">
-      <div class="d-flex align-items-center gap-2">
+    <div class="p-3 px-4 border-bottom bg-light d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2">
+      <div class="d-flex flex-wrap align-items-center gap-2">
         <span class="badge bg-white text-dark border px-3 py-2 rounded-pill fw-semibold">
           Total Posts: {{ $articles->count() }}
         </span>
@@ -47,7 +47,7 @@
     </div>
 
     <div class="table-responsive">
-      <table class="table table-hover align-middle mb-0">
+      <table class="table table-hover align-middle mb-0 table-to-card">
         <thead class="table-light small text-muted text-uppercase">
           <tr>
             <th style="width: 70px;">Thumbnail</th>
@@ -62,10 +62,10 @@
         <tbody class="small">
           @forelse($articles as $art)
             <tr>
-              <td>
+              <td data-label="Thumbnail">
                 <img src="{{ $art->featured_image ?? 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=800&q=80' }}" alt="Blog" style="width: 52px; height: 40px; object-fit: cover; border-radius: 8px; border: 1px solid #e2e8f0;">
               </td>
-              <td style="max-width: 340px;">
+              <td data-label="Blog Post Title" style="max-width: 340px;">
                 <div class="fw-bold text-dark text-truncate" title="{{ $art->title_en ?: $art->title_bn }}">
                   {{ $art->title_en ?: ($art->title_bn ?: 'Untitled Draft') }}
                 </div>
@@ -73,17 +73,17 @@
                   <div class="text-muted text-truncate" style="font-size: 0.78rem;">{{ $art->title_bn }}</div>
                 @endif
               </td>
-              <td>
+              <td data-label="Category">
                 <span class="badge bg-light text-primary border">{{ $art->category ?? 'General' }}</span>
               </td>
-              <td>
+              <td data-label="Featured">
                 @if($art->is_featured)
                   <span class="badge bg-warning-subtle text-warning-emphasis fw-bold"><i class="bi bi-star-fill me-1"></i>Featured Lead</span>
                 @else
                   <span class="text-muted" style="font-size: 0.8rem;">Standard</span>
                 @endif
               </td>
-              <td>
+              <td data-label="Status">
                 @if($art->is_published)
                   <span class="badge bg-success-subtle text-success px-2 py-1 rounded-pill fw-semibold">
                     <i class="bi bi-check-circle-fill me-1"></i> Published
@@ -94,13 +94,13 @@
                   </span>
                 @endif
               </td>
-              <td class="text-muted" style="font-size: 0.78rem;">
+              <td data-label="Last Updated" class="text-muted" style="font-size: 0.78rem;">
                 {{ $art->updated_at ? $art->updated_at->format('d M, Y h:i A') : date('d M, Y', strtotime($art->created_at)) }}
               </td>
-              <td class="text-end">
+              <td data-label="Actions" class="text-end">
                 <div class="d-inline-flex gap-1">
                   <a href="{{ route('admin.articles.edit', $art->id) }}" class="btn btn-sm btn-outline-primary py-1 px-2" title="Edit Blog Post">
-                    <i class="bi bi-pencil-square"></i>
+                    <i class="bi bi-pencil-square"></i> Edit
                   </a>
                   <form action="{{ route('admin.articles.destroy', $art->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this blog post?');">
                     @csrf

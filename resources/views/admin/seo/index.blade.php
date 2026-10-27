@@ -22,7 +22,7 @@
 
   <div class="admin-table-card">
     <div class="table-responsive">
-      <table class="table table-hover align-middle mb-0">
+      <table class="table table-hover align-middle mb-0 table-to-card">
         <thead class="table-light small text-muted text-uppercase">
           <tr>
             <th>Page Key / Route</th>
@@ -36,29 +36,29 @@
         <tbody class="small">
           @foreach($settings as $s)
             <tr>
-              <td>
+              <td data-label="Page Key">
                 <span class="badge bg-primary-subtle text-primary fw-bold text-uppercase">{{ $s->page_key }}</span>
                 <div class="text-muted" style="font-size: 0.75rem;">/{{ $s->page_key === 'home' || $s->page_key === 'global' ? '' : $s->page_key }}</div>
               </td>
-              <td>
+              <td data-label="Meta Title">
                 <div class="fw-semibold text-dark">{{ $s->meta_title_en }}</div>
                 <div class="text-muted" style="font-size: 0.8rem;">{{ $s->meta_title_bn }}</div>
               </td>
-              <td style="max-width: 320px;">
+              <td data-label="Description Preview" style="max-width: 320px;">
                 <div class="text-truncate text-muted" title="{{ $s->meta_description_en }}">{{ $s->meta_description_en }}</div>
               </td>
-              <td>
+              <td data-label="Robots / Schema">
                 <span class="badge bg-light text-dark border">{{ $s->robots }}</span>
                 <div class="text-muted" style="font-size: 0.75rem;">Type: {{ $s->schema_type }}</div>
               </td>
-              <td>
+              <td data-label="OG Banner">
                 @if(!empty($s->og_image))
                   <img src="{{ $s->og_image }}" alt="OG Banner" style="width: 48px; height: 32px; object-fit: cover; border-radius: 6px; border: 1px solid #e2e8f0;">
                 @else
                   <span class="text-muted small">None</span>
                 @endif
               </td>
-              <td class="text-end">
+              <td data-label="Action" class="text-end">
                 <a href="{{ route('admin.seo.edit', $s->id) }}" class="btn btn-sm btn-outline-primary px-3">
                   <i class="bi bi-pencil-square me-1"></i> Edit SEO
                 </a>
