@@ -134,6 +134,14 @@
           <i class="bi bi-arrow-left me-1"></i> Back to Public Website
         </a>
       </div>
+
+      <div class="text-center pt-3 mt-3 border-top">
+        <a href="https://solveitbd.com/" target="_blank" rel="noopener noreferrer" class="text-decoration-none d-inline-flex align-items-center gap-1.5 small text-muted" style="font-size: 0.76rem;" title="Solve IT - Web & Software Solutions">
+          <span>Secured & Maintained by</span>
+          <span class="badge bg-success-subtle text-success border border-success-subtle fw-bold">Solve IT</span>
+          <i class="bi bi-box-arrow-up-right text-muted" style="font-size: 0.65rem;"></i>
+        </a>
+      </div>
     </form>
   </div>
 

@@ -653,7 +653,17 @@
       </a>
     </div>
 
-    <div class="p-3 border-top border-secondary border-opacity-25">
+    <div class="px-3 pt-2 pb-2 border-top border-secondary border-opacity-25">
+      <div class="p-2.5 rounded-3 text-center mb-2" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);">
+        <div class="d-flex align-items-center justify-content-center gap-1.5 mb-1">
+          <span style="display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #10b981; box-shadow: 0 0 6px #10b981;"></span>
+          <span class="text-white fw-bold" style="font-size: 0.78rem;">Engineered by Solve IT</span>
+        </div>
+        <a href="https://solveitbd.com/" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-light w-100 py-1 px-2 d-inline-flex align-items-center justify-content-center gap-1 text-nowrap" style="font-size: 0.72rem; border-color: rgba(255,255,255,0.25);">
+          <span>Tech Support & Maintenance</span>
+          <i class="bi bi-arrow-up-right" style="font-size: 0.65rem;"></i>
+        </a>
+      </div>
       <form action="{{ route('admin.logout') }}" method="POST">
         @csrf
         <button type="submit" class="btn btn-sm btn-outline-danger w-100 d-flex align-items-center justify-content-center gap-2">

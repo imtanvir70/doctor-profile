@@ -64,6 +64,120 @@
             background-color: var(--accent) !important;
             box-shadow: 0 0 10px var(--accent) !important;
         }
+
+        /* Minimalist Tech Partner Section (Frontend Only) */
+        .footer-tech-partner-strip {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: all 0.25s ease;
+        }
+        .footer-tech-partner-strip:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.16);
+        }
+        .tech-partner-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            color: #10b981;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+        }
+        .tech-partner-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.02rem;
+            color: #ffffff;
+            letter-spacing: -0.01em;
+        }
+        .tech-partner-badge {
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            padding: 0.12rem 0.5rem;
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            letter-spacing: 0.02em;
+        }
+        .partner-pulse-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 6px #10b981;
+        }
+        .tech-partner-desc {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            line-height: 1.4;
+            margin-top: 0.15rem;
+        }
+        .tech-partner-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            color: #e2e8f0 !important;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.76rem;
+            padding: 0.28rem 0.75rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .tech-partner-btn:hover {
+            background: rgba(16, 185, 129, 0.16);
+            border-color: rgba(16, 185, 129, 0.5);
+            color: #ffffff !important;
+            transform: translateY(-1px);
+        }
+
+        /* Solve IT Simple Text Credit Link */
+        .footer-developer-credit {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.82rem;
+        }
+        .footer-credit-text-link {
+            color: rgba(255, 255, 255, 0.65);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .footer-credit-text-link:hover {
+            color: #38bdf8;
+        }
+        .footer-credit-text-link span {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+        .footer-credit-text-link:hover span {
+            color: #38bdf8;
+            text-decoration: underline;
+        }
+        @media (min-width: 992px) {
+            .footer-bottom-bar {
+                padding-right: 90px;
+            }
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/swiper.min.js') }}"></script>
@@ -335,6 +449,37 @@
                 </div>
             </div>
 
+            {{-- Minimalist Digital Partner Strip --}}
+            <div class="footer-tech-partner-strip my-4 p-3 rounded-3">
+                <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="tech-partner-icon">
+                            <i class="bi bi-code-square"></i>
+                        </div>
+                        <div>
+                            <div class="d-flex align-items-center gap-2 flex-wrap">
+                                <span class="tech-partner-name">Solve IT</span>
+                                <span class="tech-partner-badge">
+                                    <span class="partner-pulse-dot"></span>
+                                    <span>IT & Web Solutions</span>
+                                </span>
+                            </div>
+                            <div class="tech-partner-desc">
+                                {{ ($locale ?? app()->getLocale()) === 'bn' 
+                                    ? 'ক্লিনিক্যাল সফটওয়্যার, ডক্টর পোর্টাল ও কাস্টম ওয়েব অ্যাপ্লিকেশন ডেভেলপমেন্ট' 
+                                    : 'Custom Web & Software Development, Clinical Portals & IT Solutions' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="https://solveitbd.com/" target="_blank" rel="noopener noreferrer" class="tech-partner-btn">
+                            <span>solveitbd.com</span>
+                            <i class="bi bi-arrow-up-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
             <div class="footer-bottom-bar">
                 <div class="footer-copyright">
                     © {{ date('Y') }} <strong>{{ ($locale ?? app()->getLocale()) === 'bn' ? $profile->name_bn ?? '' : $profile->name_en ?? '' }}</strong> | 
@@ -343,10 +488,8 @@
                       : ($profile->footer_copyright_en ?: 'All Rights Reserved.') }}
                 </div>
                 <div class="footer-developer-credit">
-                    <span>Developed by</span>
-                    <a href="https://solveitbd.com/" target="_blank" rel="noopener noreferrer" class="solveit-brand-link" title="Solve IT - Web & Software Solutions">
-                        <span class="solveit-badge">Solve IT</span>
-                        <i class="bi bi-arrow-up-right"></i>
+                    <a href="https://solveitbd.com/" target="_blank" rel="noopener noreferrer" class="footer-credit-text-link">
+                        Developed by <span>Solve IT</span>
                     </a>
                 </div>
             </div>
